@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rolling Clinic</title>
     <link rel="stylesheet" href="css/styleLogedIn.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -18,61 +21,93 @@
       <div class="row-cols-1 text-center" id="sideBar">
         <div><h2 class="bg-primary py-2">logo</h2></div>
         <div class="lineaDivisora"></div>
-        <div id="contenedorBotonesSideBar" class="containerfluid p-0 ">
-
+        <div id="contenedorBotonesSideBar" class="containerfluid p-0"></div>
+        <div
+          class="containerfluid h-100 contenedorMiCuenta d-flex justify-content-center p-0 mt-2"
+        >
+          <div>
+            <div class="lineaDivisora"></div>
+            <div class="">
+              <button class="btn btn-primary fs-3 fw-bold">MI CUENTA</button>
+            </div>
+            <div class="lineaDivisora"></div>
+          </div>
         </div>
-        <div class="containerfluid h-100 contenedorMiCuenta d-flex justify-content-center p-0 mt-2">
-                <div>
-                    <div class="lineaDivisora"></div>
-                    <div class="" ><button class="btn btn-primary fs-3 fw-bold">MI CUENTA</button></div>
-                    <div class="lineaDivisora"></div>
-                </div>
-            
-                
-        </div>
-
       </div>
       <div class="" id="pantallaPrincipal">
         <h1 class="text-center colorAzul py-3">ROLLING CLINIC</h1>
-        <div class="flex-row d-flex my-5 justify-content-center" id="contenedorBotonesParaTabla">
-            <button class="btn btn-danger mx-2 text-dark fw-bold" onclick="desplegarBotonesSideBar(0)" type="button"> PACIENTE</button>
-            <button class="btn btn-danger mx-2 text-dark fw-bold" onclick="desplegarBotonesSideBar(1)" type="button"> MEDICO</button>
-            <button class="btn btn-danger mx-2 text-dark fw-bold" onclick="desplegarBotonesSideBar(2)" type="button"> ADMINISTRADOR</button>
+        <div
+          class="flex-row d-flex my-5 justify-content-center"
+          id="contenedorBotonesParaTabla"
+        >
+          <button
+            class="btn btn-danger mx-2 text-dark fw-bold"
+            onclick="desplegarBotonesSideBar(0)"
+            type="button"
+          >
+            PACIENTE
+          </button>
+          <button
+            class="btn btn-danger mx-2 text-dark fw-bold"
+            onclick="desplegarBotonesSideBar(1)"
+            type="button"
+          >
+            MEDICO
+          </button>
+          <button
+            class="btn btn-danger mx-2 text-dark fw-bold"
+            onclick="desplegarBotonesSideBar(2)"
+            type="button"
+          >
+            ADMINISTRADOR
+          </button>
         </div>
-        <div class="container-fluid px-5 my-4">
+        <div class="container-fluid  px-1 px-md-5 my-1 my-md-4">
           <table class="table table-dark table-hover" id="contendorTablas">
-            <thead>
+            <thead id="contendorTablasHead">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
                 <th scope="col">Handle</th>
+                <th scope="col">Acciones</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="contendorTablasBody">
               <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
+                <td>
+                  <button class="btn btn-sm btn-success" onclick="aprobarProfesional('${index}')" type="button">aprobar</button
+                  ><button class="btn btn-sm btn-danger" onclick="aprobarPaciente('${index}')" type="button">Borrar</button>
+                </td>
               </tr>
               <tr>
                 <th scope="row">2</th>
                 <td>Jacob</td>
                 <td>Thornton</td>
                 <td>@fat</td>
+                <td>
+                  <button class="btn btn-success" type="button">aprobar</button
+                  ><button class="btn btn-danger" type="button">Borrar</button>
+                </td>
               </tr>
               <tr>
                 <th scope="row">3</th>
                 <td colspan="2">Larry the Bird</td>
                 <td>@twitter</td>
+                <td>
+                  <button class="btn btn-success" type="button">aprobar</button
+                  ><button class="btn btn-danger" type="button">Borrar</button>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-
     <script src="./js/appLogeado.js"></script>
   </body>
 </html>

@@ -11,6 +11,7 @@ function actualizarContenidoArrayLS(arreglo, listaLS) {
   //funcion para cargar un arreglo en LocalStorage
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
 }
+
 function limpiarYenfocarPrimerImput(idElemento, valorImput) {
   //funcion para limpiar el formulario y seleccionar el primer imput
   document.getElementById(idElemento).reset();
@@ -20,3 +21,4 @@ function limpiarYenfocarPrimerImput(idElemento, valorImput) {
   primerCampo.focus();
 }
 
+obtenerContenidoArrayLS("")
