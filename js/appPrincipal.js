@@ -20,15 +20,48 @@ function limpiarYenfocarPrimerImput(idElemento, valorImput) {
 }
 
 let pacientes = [];
-function manejarFormPaciente(event) {
+const manejarFormPaciente = (event) => {
   event.preventDefault();
   const nombrePaciente = document.getElementById("nombrePaciente").value;
+  if (nombrePaciente.length < 3) {
+    alert("El nombre debe contener al menos tres caracteres");
+    return false;
+  }
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(nombrePaciente)) {
+    alert("El nombre solo puede contener letras");
+    return false;
+  }
+
   const apellidoPaciente = document.getElementById("apellidoPaciente").value;
+  if (apellidoPaciente.length < 3) {
+    alert("El apellido debe contener al menos tres caracteres");
+    return false;
+  }
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(apellidoPaciente)) {
+    alert("El apellido solo puede contener letras");
+    return false;
+  }
   const dniPaciente = document.getElementById("dniPaciente").value;
+  if (dniPaciente.length < 7) {
+    alert("El DNI debe contener al menos siete digitos");
+    return false;
+  }
   const edadPaciente = document.getElementById("edadPaciente").value;
+  if (edadPaciente.length > 3) {
+    alert("La edad no puede contener más de tres digitos");
+    return false;
+  }
   const emailPaciente = document.getElementById("emailPaciente").value;
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(emailPaciente)) {
+    alert("El email no es valido");
+    return false;
+  }
+
   const contrasenaPaciente = document.getElementById("contrasenaPaciente").value;
-  const repetirContrasenaPaciente = document.getElementById("repetirContrasenaPaciente").value;
+  if (contrasenaPaciente.length < 6) {
+    alert("La contraseña debe contener al menos seis digitos");
+    return false;
+  }
 
   const paciente = {
     nombrePaciente,
@@ -37,26 +70,60 @@ function manejarFormPaciente(event) {
     edadPaciente,
     emailPaciente,
     contrasenaPaciente,
-    repetirContrasenaPaciente,
   };
 
   pacientes.push(paciente);
 
   localStorage.setItem("listaPacientes", JSON.stringify(pacientes));
-}
+
+  var cierreModalPaciente = document.getElementById("modalPaciente");
+  setTimeout(() => bootstrap.Modal.getInstance(cierreModalPaciente).hide(), 0);
+
+  var reseteoModalPaciente = document.getElementById("modalPaciente");
+  reseteoModalPaciente.addEventListener("hidden.bs.modal", function (event) {
+    formPaciente.reset();
+  });
+};
 
 let medicos = [];
-function manejarFormMedico(event) {
+const manejarFormMedico = (event) => {
   event.preventDefault();
   const nombreMedico = document.getElementById("nombreMedico").value;
+  if (nombreMedico.length < 3) {
+    alert("El nombre debe contener al menos tres caracteres");
+    return false;
+  }
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(nombreMedico)) {
+    alert("El nombre solo puede contener letras");
+    return false;
+  }
   const apellidoMedico = document.getElementById("apellidoMedico").value;
+  if (apellidoMedico.length < 3) {
+    alert("El apellido debe contener al menos tres caracteres");
+    return false;
+  }
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(apellidoMedico)) {
+    alert("El apellido solo puede contener letras");
+    return false;
+  }
   const dniMedico = document.getElementById("dniMedico").value;
+  if (dniMedico.length < 7) {
+    alert("El DNI debe contener al menos siete digitos");
+    return false;
+  }
   const matricula = document.getElementById("matricula").value;
   const especialidad = document.getElementById("especialidad").value;
   const centroMedico = document.getElementById("centroMedico").value;
   const emailMedico = document.getElementById("emailMedico").value;
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(emailMedico)) {
+    alert("El email no es valido");
+    return false;
+  }
   const contrasenaMedico = document.getElementById("contrasenaMedico").value;
-  const repetirContrasenaMedico = document.getElementById("repetirContrasenaMedico").value;
+  if (contrasenaMedico.length < 6) {
+    alert("La contraseña debe contener al menos seis digitos");
+    return false;
+  }
 
   const medico = {
     nombreMedico,
@@ -68,10 +135,17 @@ function manejarFormMedico(event) {
     centroMedico,
     emailMedico,
     contrasenaMedico,
-    repetirContrasenaMedico,
   };
 
   medicos.push(medico);
 
   localStorage.setItem("listaMedicos", JSON.stringify(medicos));
-}
+
+  var cierreModalMedico = document.getElementById("modalMedico");
+  setTimeout(() => bootstrap.Modal.getInstance(cierreModalMedico).hide(), 0);
+
+  var reseteoModalMedico = document.getElementById("modalMedico");
+  reseteoModalMedico.addEventListener("hidden.bs.modal", function (event) {
+    formMedico.reset();
+  });
+};
