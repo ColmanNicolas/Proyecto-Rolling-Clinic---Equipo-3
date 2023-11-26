@@ -19,9 +19,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="row g-3 needs-validation" novalidate>
+            <form class="row g-3 needs-validation" onsubmit="manejarFormPaciente()" novalidate>
               <div class="col-md-6">
-                <label for="nambrePaciente" class="form-label">Nombre</label>
+                <label for="nombrePaciente" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombrePaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
@@ -57,8 +57,8 @@
               </div>
               <div class="col-12">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
-                  <label class="form-check-label" for="invalidCheck"> Acepto términos y condiciones </label>
+                  <input class="form-check-input" type="checkbox" value="" id="terminosPaciente" required />
+                  <label class="form-check-label" for="terminosPaciente"> Acepto términos y condiciones </label>
                   <div class="invalid-feedback">Debes aceptar los términos y condiciones para continuar</div>
                 </div>
               </div>
@@ -82,7 +82,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="row g-3 needs-validation" novalidate>
+            <form class="row g-3 needs-validation" onsubmit="manejarFormMedico(event)" novalidate>
               <div class="col-md-6">
                 <label for="nombreMedico" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombreMedico" value="" required />
@@ -142,7 +142,7 @@
               </div>
               <div class="col-md-6">
                 <label for="contrasenaMedico" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasenaPaciencontrasenaMedicote" value="" required />
+                <input type="password" class="form-control" id="contrasenaMedico" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
@@ -151,9 +151,10 @@
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-12">
+                condition
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
-                  <label class="form-check-label" for="invalidCheck"> Acepto términos y condiciones </label>
+                  <input class="form-check-input" type="checkbox" value="" id="terminosMedico" required />
+                  <label class="form-check-label" for="terminosMedico"> Acepto términos y condiciones </label>
                   <div class="invalid-feedback">Debes aceptar los términos y condiciones para continuar</div>
                 </div>
               </div>
