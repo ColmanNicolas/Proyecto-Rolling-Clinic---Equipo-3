@@ -75,3 +75,35 @@ function manejarFormMedico(event) {
 
   localStorage.setItem("listaMedicos", JSON.stringify(medicos));
 }
+
+function loguear()
+{
+
+  let user=document.getElementById("Usuario").value;
+  let pass=document.getElementById("Contraseña").value;
+
+
+  if(user=="Leo" && pass=="1234")
+  {
+
+
+    window.location="logedIn.html";
+
+     
+  }   
+
+  else
+  
+{
+
+  alert("Datos Incorrectos");
+
+
+}
+
+
+
+
+
+}
+
