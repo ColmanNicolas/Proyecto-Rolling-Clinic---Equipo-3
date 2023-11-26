@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rolling Clinic</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styleIndex.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-  </head>
-  <body>
-    <!-- Botón paciente -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaciente">Paciente</button>
+    <title>Clinic Rolling</title>
+</head>
+<body style="background-color: #64CCC5;">
+    <nav class="navbar" style="background-color: #053B50;">
+        <div class="container-fluid">
+            <h3 class="text-light position-relative">Rolling Clinic</h2>
+          <form class="d-flex" >
+            <input class="form-control me-2" type="email" placeholder="Usuario" id="Usuario">
+            <input class="form-control me-2" type="password" placeholder="Contraseña" id="Contraseña">
+            <input type="button" value="Entrar" onclick="loguear()" class="btn btn-outline-info">
+          </form>
+        </div>
+    </nav> 
+    <div class="container text-center me-2 mt-5" >
+        <div class="row">
+            <div class="col-8 ">
+                <div class="card me-5">
+                  <h2>"Liderando el camino en excelencia médica"</h2> 
+                </div>
+            </div>
+          <div class="col-4">
+            <div class="card">
+                <h1>Registrarse</h1>
+                <div class="row">
+                  <div class="col-6">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaciente">Paciente</button>
+                  </div>
     <!-- Modal -->
     <div class="modal fade" id="modalPaciente" tabindex="-1" aria-labelledby="modalPaciente" aria-hidden="true">
       <div class="modal-dialog">
@@ -19,46 +41,60 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="row g-3 needs-validation" onsubmit="manejarFormPaciente()" novalidate>
+            <form class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
-                <label for="nombrePaciente" class="form-label">Nombre</label>
+                <div class="col-2">
+                <label for="nambrePaciente" class="form-label">Nombre</label>
+                </div>
                 <input type="text" class="form-control" id="nombrePaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="apellidoPaciente" class="form-label">Apellido</label>
+              </div>
                 <input type="text" class="form-control" id="apellidoPaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="dniPaciente" class="form-label">DNI</label>
+              </div>
                 <input type="number" class="form-control" id="dniPaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="edadPaciente" class="form-label">Edad</label>
+              </div>
                 <input type="number" class="form-control" id="edadPaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-12">
-                <label for="emailPaciente" class="form-label">Correo electrónico</label>
+                <div class="col-4">
+                <label for="emailPaciente" class="form-label">Correo Electrónico</label>
+              </div>
                 <input type="email" class="form-control" id="emailPaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="contrasenaPaciente" class="form-label">Contraseña</label>
+              </div>
                 <input type="password" class="form-control" id="contrasenaPaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-8">
                 <label for="repetirContrasenaPaciente" class="form-label">Repetir contraseña</label>
+              </div>
                 <input type="password" class="form-control" id="repetirContrasenaPaciente" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
-              <div class="col-12">
+              <div class="col-7">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="terminosPaciente" required />
-                  <label class="form-check-label" for="terminosPaciente"> Acepto términos y condiciones </label>
+                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
+                  <label class="form-check-label" for="invalidCheck"> Acepto términos y condiciones </label>
                   <div class="invalid-feedback">Debes aceptar los términos y condiciones para continuar</div>
                 </div>
               </div>
@@ -67,12 +103,13 @@
               </div>
             </form>
           </div>
+          </div>
         </div>
       </div>
-    </div>
-
     <!-- Botón médico -->
+    <div class="col-6">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMedico">Médico</button>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="modalMedico" tabindex="-1" aria-labelledby="modalMedico" aria-hidden="true">
       <div class="modal-dialog">
@@ -82,29 +119,39 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="row g-3 needs-validation" onsubmit="manejarFormMedico(event)" novalidate>
+            <form class="row g-3 needs-validation" novalidate>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="nombreMedico" class="form-label">Nombre</label>
+              </div>
                 <input type="text" class="form-control" id="nombreMedico" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="apellidoMedico" class="form-label">Apellido</label>
+              </div>
                 <input type="text" class="form-control" id="apellidoMedico" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="dniMedico" class="form-label">DNI</label>
+              </div>
                 <input type="number" class="form-control" id="dniMedico" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-8">
                 <label for="matricula" class="form-label">Matrícula profesional</label>
+              </div>
                 <input type="number" class="form-control" id="matricula" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="especialidad" class="form-label">Especialidad</label>
+              </div>
                 <select class="form-select" id="especialidad" required>
                   <option selected disabled value=""></option>
                   <option>Angiología</option>
@@ -126,7 +173,9 @@
                 <div class="invalid-feedback">Por favor selecciona una especialidad.</div>
               </div>
               <div class="col-md-6">
+                <div class="col-6">
                 <label for="centroMedico" class="form-label">Centro médico</label>
+              </div>
                 <select class="form-select" id="centroMedico" required>
                   <option selected disabled value=""></option>
                   <option>Tucumán</option>
@@ -136,25 +185,30 @@
                 <div class="invalid-feedback">Por favor selecciona un centro médico.</div>
               </div>
               <div class="col-md-12">
-                <label for="emailMedico" class="form-label">Correo electrónico</label>
+                <div class="col-4">
+                <label for="emailMedico" class="form-label">Correo Electrónico</label>
+              </div>
                 <input type="email" class="form-control" id="emailMedico" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-2">
                 <label for="contrasenaMedico" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasenaMedico" value="" required />
+              </div>
+                <input type="password" class="form-control" id="contrasenaPaciencontrasenaMedicote" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
               <div class="col-md-6">
+                <div class="col-8">
                 <label for="repetirContrasenaMedico" class="form-label">Repetir contraseña</label>
+              </div>
                 <input type="password" class="form-control" id="repetirContrasenaMedico" value="" required />
                 <div class="valid-feedback">Correcto</div>
               </div>
-              <div class="col-12">
-                condition
+              <div class="col-7">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="terminosMedico" required />
-                  <label class="form-check-label" for="terminosMedico"> Acepto términos y condiciones </label>
+                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required />
+                  <label class="form-check-label" for="invalidCheck"> Acepto términos y condiciones </label>
                   <div class="invalid-feedback">Debes aceptar los términos y condiciones para continuar</div>
                 </div>
               </div>
@@ -166,7 +220,6 @@
         </div>
       </div>
     </div>
-
     <!-- Script validación -->
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -196,4 +249,6 @@
     <script src="./js/appPrincipal.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
+</html>
+</body>
 </html>
