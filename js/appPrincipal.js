@@ -11,6 +11,7 @@ function actualizarContenidoArrayLS(arreglo, listaLS) {
   //funcion para cargar un arreglo en LocalStorage
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
 }
+
 function limpiarYenfocarPrimerImput(idElemento, valorImput) {
   //funcion para limpiar el formulario y seleccionar el primer imput
   document.getElementById(idElemento).reset();
@@ -21,13 +22,13 @@ function limpiarYenfocarPrimerImput(idElemento, valorImput) {
 let pacientes = [];
 function manejarFormPaciente(event) {
   event.preventDefault();
-  let nombrePaciente = document.getElementById("nombrePaciente").value;
-  let apellidoPaciente = document.getElementById("apellidoPaciente").value;
-  let dniPaciente = document.getElementById("dniPaciente").value;
-  let edadPaciente = document.getElementById("edadPaciente").value;
-  let emailPaciente = document.getElementById("emailPaciente").value;
-  let contrasenaPaciente = document.getElementById("contrasenaPaciente").value;
-  let repetirContrasenaPaciente = document.getElementById("repetirContrasenaPaciente").value;
+  const nombrePaciente = document.getElementById("nombrePaciente").value;
+  const apellidoPaciente = document.getElementById("apellidoPaciente").value;
+  const dniPaciente = document.getElementById("dniPaciente").value;
+  const edadPaciente = document.getElementById("edadPaciente").value;
+  const emailPaciente = document.getElementById("emailPaciente").value;
+  const contrasenaPaciente = document.getElementById("contrasenaPaciente").value;
+  const repetirContrasenaPaciente = document.getElementById("repetirContrasenaPaciente").value;
 
   const paciente = {
     nombrePaciente,
@@ -46,19 +47,16 @@ function manejarFormPaciente(event) {
 
 let medicos = [];
 function manejarFormMedico(event) {
-  console.log(event);
-
   event.preventDefault();
-
-  let nombreMedico = document.getElementById("nombreMedico").value;
-  let apellidoMedico = document.getElementById("apellidoMedico").value;
-  let dniMedico = document.getElementById("dniMedico").value;
-  let matricula = document.getElementById("matricula").value;
-  let especialidad = document.getElementById("especialidad").value;
-  let centroMedico = document.getElementById("centroMedico").value;
-  let emailMedico = document.getElementById("emailMedico").value;
-  let contrasenaMedico = document.getElementById("contrasenaMedico").value;
-  let repetirContrasenaMedico = document.getElementById("repetirContrasenaMedico").value;
+  const nombreMedico = document.getElementById("nombreMedico").value;
+  const apellidoMedico = document.getElementById("apellidoMedico").value;
+  const dniMedico = document.getElementById("dniMedico").value;
+  const matricula = document.getElementById("matricula").value;
+  const especialidad = document.getElementById("especialidad").value;
+  const centroMedico = document.getElementById("centroMedico").value;
+  const emailMedico = document.getElementById("emailMedico").value;
+  const contrasenaMedico = document.getElementById("contrasenaMedico").value;
+  const repetirContrasenaMedico = document.getElementById("repetirContrasenaMedico").value;
 
   const medico = {
     nombreMedico,
