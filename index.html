@@ -3,13 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rolling Clinic</title>
-    <link rel="stylesheet" href="css/styleIndex.css" />
+    <link rel="stylesheet" href="css/index.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <title>Clinic Rolling</title>
   </head>
-  <body>
-    <!-- Botón paciente -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaciente">Paciente</button>
+  <body style="background-color: #64ccc5">
+    <nav class="navbar" style="background-color: #053b50">
+      <div class="container-fluid">
+        <h3 class="text-light position-relative">Rolling Clinic</h3>
+        <form class="d-flex">
+          <input class="form-control me-2" type="email" placeholder="Usuario" id="Usuario" />
+          <input class="form-control me-2" type="password" placeholder="Contraseña" id="Contraseña" />
+          <input type="button" value="Entrar" onclick="loguear()" class="btn btn-outline-info" />
+        </form>
+      </div>
+    </nav>
+    <main class="my-3">
+      <div class="container text-center">
+        <section class="row">
+          <article class="col-12 col-md-6 order-md-1 mt-2">
+            <div class="row">
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaciente">Paciente</button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMedico">Médico</button>
+              </div>
+            </div>
+          </article>
+          <article class="col-12 col-md-6 mt-2">
+            <div class="card">
+              <h2>"Liderando el camino en excelencia médica"</h2>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+    <!--  <div class="container text-center ms-2 mt-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card me-5">
+            <h2>"Liderando el camino en excelencia médica"</h2>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <h1>Registrarse</h1>
+            <div class="row">
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaciente">Paciente</button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMedico">Médico</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <!-- Modal -->
     <div class="modal fade" id="modalPaciente" tabindex="-1" aria-labelledby="modalPaciente" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
@@ -37,7 +88,7 @@
                 <input type="number" class="form-control" id="edadPaciente" value="" required />
               </div>
               <div class="col-md-12">
-                <label for="emailPaciente" class="form-label">Correo electrónico</label>
+                <label for="emailPaciente" class="form-label">Correo Electrónico</label>
                 <input type="email" class="form-control" id="emailPaciente" value="" required />
               </div>
               <div class="col-md-6">
@@ -52,9 +103,8 @@
         </div>
       </div>
     </div>
-
     <!-- Botón médico -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMedico">Médico</button>
+
     <!-- Modal -->
     <div class="modal fade" id="modalMedico" tabindex="-1" aria-labelledby="modalMedico" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
@@ -112,7 +162,7 @@
                 </select>
               </div>
               <div class="col-md-12">
-                <label for="emailMedico" class="form-label">Correo electrónico</label>
+                <label for="emailMedico" class="form-label">Correo Electrónico</label>
                 <input type="email" class="form-control" id="emailMedico" value="" required />
               </div>
               <div class="col-md-6">
@@ -127,7 +177,6 @@
         </div>
       </div>
     </div>
-
     <script src="./js/appPrincipal.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>
