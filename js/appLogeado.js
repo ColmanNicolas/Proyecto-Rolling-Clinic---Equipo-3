@@ -107,33 +107,37 @@ const mostrarCartillaProfesionales = () => {
   <tr>
     <th scope="col">#</th>
     <th scope="col">Nombre Completo</th>
-    <th scope="col">Área Médica</th>
     <th scope="col">Centro Medico</th>
-    <th scope="col">Acciones</th>
+    <th scope="col">Área Médica</th>
+    <th class="text-center" scope="col">Acciones</th>
   </tr>
   `;
   listaProfesionalesRegistrados.forEach((element, index) => {
+    let botonHTML = ''; 
+  
+    if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
+      botonHTML = `
+      <button class="btn btn-sm btn-warning" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
+        <button class="btn btn-sm btn-success" onclick="pedirConsulta('${index}')" type="button">Pedir Consulta</button>
+      `;
+    } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
+      botonHTML = `
+        <button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar </button>
+      `;
+    }
+  
     contenedorTablasBody.innerHTML += `
-  <tr>
-  <th scope="row">${index + 1}</th>
-  <td>${element.apellidoMedico + ", " + element.nombreMedico}</td>
-  <td>${element.especialidad}</td>
-  <td>${element.centroMedico}</td>
-  <td>  
-  `;
-    /* ESTE ES UN BOSQUEJO DE LA IDEA, TODAVIA NO ESTA CONFIGURADA PARA FUNCIONAR  
-  if (usuario) {
-    contenedorTablasHead.innerHTML += `
-  <button class="btn btn-sm btn-success" onclick="pedirConsulta('${index}')" type="button">Consulta</button>  
-`;
-  } else if (admin) {
-    contenedorTablasHead.innerHTML += `
-  <button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar</button>  
-  `;
-  }
- HASTA AQUI */
-    contenedorTablasHead.innerHTML += `</td>`
+      <tr>
+        <th scope="row">${index + 1}</th>
+        <td>${element.apellidoMedico + ", " + element.nombreMedico}</td>
+        <td>${element.centroMedico}</td>
+        <td>${element.especialidad}</td>
+        <td class="text-center">${botonHTML}</td>
+      </tr>
+    `;
   });
+
+  
 };
 
 const mostrarDocumentacion = () => {

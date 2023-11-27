@@ -163,13 +163,13 @@ function loguear() {
 
   if (user == "Leo" && pass == "1234") {
     localStorage.setItem( "codigoInicioSesion",0);
-    window.location = "logedIn.html";
+    window.location = "logeado.html";
   } else if (user == "Medico" && pass == "123456") {
     localStorage.setItem("codigoInicioSesion",1);
-    window.location = "logedIn.html";
+    window.location = "logeado.html";
   } else if (user == "admin" && pass == "admin") {
     localStorage.setItem("codigoInicioSesion",2);
-    window.location = "logedIn.html";
+    window.location = "logeado.html";
   } else {
     alert("Datos Incorrectos");
   }
