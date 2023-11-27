@@ -1,16 +1,38 @@
 #sideBar{
     color: whitesmoke;
-    width: 330px;
+    width: 330px ;
+    background-color: rgba(255, 8, 8, 0.452);
+    height: 100vh;
+    position: fixed;
+
+
+}
+#contenedorSideBar{
+    width: 350px ;
     background-color: rgb(43, 41, 41);
     height: 100vh;
+
 }
+#contenedorSideBar li {
+    transition: background-color 0.5s ease; /* Agrega una transición de 0.5 segundos con función de temporización ease */
+}
+#contenedorSideBar li:hover{
+        background-color: rgb(75, 75, 75);
+        transition-duration: 0.7s;
+}
+
+
+
 #pantallaPrincipal{
     width: 100%;
-    background-color: rgb(190, 226, 226);
+    background-color: rgb(194, 235, 235);
 }
 
 @media(max-width:900px){
     #sideBar{
+        width: 70px;
+    }
+    #contenedorSideBar{
         width: 70px;
     }
 
@@ -28,5 +50,6 @@
 }
 .botonesSideBar{
     width: 250px !important;
-    
+    text-decoration: none;
+    padding-left: 20px ;
 }

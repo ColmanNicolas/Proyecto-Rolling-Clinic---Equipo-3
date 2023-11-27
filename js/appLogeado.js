@@ -7,26 +7,25 @@ function desplegarBotonesSideBar(codigo) {
     switch (codigo) {
       case 0:
         SideBarBotones.innerHTML += `
-        <button class="bg-secondary text-start my-1 bg-secondary btn botonesSideBar text-white fw-semibold " onclick="mostrarCartillaProfesionales()" type="button">CARTILLA DE PROFESIONALES</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarDocumentacion()" type="button">DOCUMENTACION</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarSolicitarTurno()" type="button">SOLICITAR TURNO</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarHistorialTurnos()" type="button">HISTORIAL DE TURNOS</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold "  type="button">NUESTROS CENTROS</button>
-      `;
+        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonCartillaProfesionales">CARTILLA DE PROFESIONALES</a></li>
+        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonDocumentacion">DOCUMENTACION</a></li>
+        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonTurnosPaciente" >HISTORIAL DE TURNOS</a></li>
+        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonNuestrosCentros">NUESTROS CENTROS</a></li>    
+        `;
         break;
       case 1:
         SideBarBotones.innerHTML += `
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarRegistroPacientes()" type="button">REGISTRO DE PACIENTES</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarTurnosAsignados()" type="button">TURNOS ASIGNADOS</button>
-      `;
-      break;
+            <li class="nav-item text-start py-2"><a class="text-start text-white botonesSideBar fw-semibold" href="#" id="botonHistorialPacientes" >REGISTRO DE PACIENTES</a></li>
+            <li class="nav-item text-start py-2"><a class="text-start text-white botonesSideBar fw-semibold" href="#" id="botonTurnosMedico">TURNOS ASIGNADOS</a></li>
+          `;
+        break;
       case 2:
         SideBarBotones.innerHTML += `
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarRegistroProfesionales()" type="button">REGISTRO DE PROFESIONALES</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarProfesionalesEspera()" type="button">PROFESIONALES EN ESPERA</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarRegistroPacientesAdmin()" type="button">REGISTRO DE PACIENTES</button>
-        <button class="bg-secondary text-start my-1 btn botonesSideBar text-white fw-semibold " onclick="mostrarPacientesEspera()" type="button">PACIENTES EN ESPERA</button>
-      `;
+            <li class="nav-item text-start py-2"><a class="text-start text-white  botonesSideBar fw-semibold" href="#" id="botonProfesionalesRegistrados">REGISTRO DE PROFESIONALES</a></li>
+            <li class="nav-item  text-start py-2"><a class="text-start text-white  botonesSideBar fw-semibold" href="#" id="botonProfesionalesEnEspera">PROFESIONALES EN ESPERA</a></li>
+            <li class="nav-item text-start py-2"><a class="text-start text-white botonesSideBar fw-semibold" href="#" id="botonPacientesRegistrados">REGISTRO DE PACIENTES</a></li>
+            <li class="nav-item text-start py-2"><a class="text-start text-white  botonesSideBar fw-semibold" href="#" id="botonPacientesEnEspera">PACIENTES EN ESPERA</a></li>
+          `;
         break;
       default:
         console.log("codigo de boton sidebar erroneo");
@@ -36,25 +35,26 @@ function desplegarBotonesSideBar(codigo) {
     switch (codigo) {
       case 0:
         SideBarBotones.innerHTML += `
-        <button class="bg-secondary text-start my-1 bg-secondary btn  text-white fw-semibold " onclick="mostrarCartillaProfesionales()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarDocumentacion()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarSolicitarTurno()" type="button"><b><i class="bi bi-caret-right-square"></i></b> </button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarHistorialTurnos()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-      `;
+          <li class="nav-item my-1"><a class="text-start bg-secondary text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        `;
         break;
       case 1:
         SideBarBotones.innerHTML += `
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarRegistroPacientes()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarTurnosAsignados()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-      `;
+          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        `;
         break;
       case 2:
         SideBarBotones.innerHTML += `
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarRegistroProfesionalesAdmin()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarProfesionalesEspera()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarRegistroPacientesAdmin()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>
-        <button class="bg-secondary text-start my-1 btn  text-white fw-semibold " onclick="mostrarPacientesEspera()" type="button"><b><i class="bi bi-caret-right-square"></i></b></button>       `;
+          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item  my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        `;
         break;
       default:
         console.log("codigo de boton sidebar erroneo");
@@ -62,8 +62,32 @@ function desplegarBotonesSideBar(codigo) {
     }
   }
 }
+//capturo todos los botones del sideBar
+const botonCartillaProfesionales = document.getElementById("botonCartillaProfesionales");
+const botonDocumentacion = document.getElementById("botonDocumentacion");
+const botonTurnosPaciente = document.getElementById("botonTurnosPaciente");
+const botonNuestrosCentros = document.getElementById("botonNuestrosCentros");
+const botonHistorialPacientes = document.getElementById("botonHistorialPacientes");
+const botonTurnosMedico = document.getElementById("botonTurnosMedico");
+const botonProfesionalesRegistrados = document.getElementById("botonProfesionalesRegistrados");
+const botonProfesionalesEnEspera = document.getElementById("botonProfesionalesEnEspera");
+const botonPacientesEnEspera = document.getElementById("botonPacientesEnEspera");
+const botonPacientesRegistrados = document.getElementById("botonPacientesRegistrados");
 
-//Funciones para paciente
+// Event listener para todos los botones del sidebar
+botonCartillaProfesionales.addEventListener('click', mostrarCartillaProfesionales);
+botonDocumentacion.addEventListener('click', mostrarDocumentacion);
+botonTurnosPaciente.addEventListener('click', mostrarHistorialTurnos);
+botonNuestrosCentros.addEventListener('click', mostrarNuestrosCentros);
+botonHistorialPacientes.addEventListener('click', mostrarHistorialPacientes);
+botonTurnosMedico.addEventListener('click', mostrarTurnosAsignados);
+botonProfesionalesRegistrados.addEventListener('click', mostrarCartillaProfesionales);
+botonProfesionalesEnEspera.addEventListener('click', mostrarProfesionalesEspera);
+botonPacientesEnEspera.addEventListener('click', mostrarPacientesEspera);
+botonPacientesRegistrados.addEventListener('click', mostrarRegistroPacientesAdmin);
+
+
+//Funciones para botones del sidebar
 function mostrarCartillaProfesionales() {
   console.log("para paciente");
 }
@@ -76,8 +100,11 @@ function mostrarSolicitarTurno() {
 function mostrarHistorialTurnos() {
 
 }
+function mostrarNuestrosCentros(){
+
+}
 //Funciones para medicos
-function mostrarRegistroPacientes() {
+function mostrarHistorialPacientes() {
   console.log("para medico");
 
 }
@@ -89,8 +116,8 @@ function mostrarRegistroProfesionalesAdmin() {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesRegistrados = obtenerContenidoArrayLS("profesionalesRegistrados");
-  contenedorTablasHead.innerHTML='';
-  contenedorTablasHead.innerHTML +=`
+  contenedorTablasHead.innerHTML = '';
+  contenedorTablasHead.innerHTML += `
   <tr>
     <th scope="col">#</th>
     <th scope="col">Nombre Completo</th>
@@ -99,10 +126,10 @@ function mostrarRegistroProfesionalesAdmin() {
     <th scope="col">Acciones</th>
   </tr>
   `;
-  listaProfesionalesRegistrados.forEach((element,index) => {
-  contenedorTablasBody.innerHTML+=`
+  listaProfesionalesRegistrados.forEach((element, index) => {
+    contenedorTablasBody.innerHTML += `
   <tr>
-  <th scope="row">${index+1}</th>
+  <th scope="row">${index + 1}</th>
   <td>${element[index].apellido + ", " + element[index].nombres}</td>
   <td>${element[index].areaMedica}</td>
   <td>${element[index].matricula}</td>
@@ -110,16 +137,16 @@ function mostrarRegistroProfesionalesAdmin() {
     <button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar</button></td>
   </tr>
   `;
-  
-});
+
+  });
 }
 
 function mostrarProfesionalesEspera() {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesNoAutorizados = obtenerContenidoArrayLS("profesionalesNoAutorizados");
-  contenedorTablasHead.innerHTML='';
-  contenedorTablasHead.innerHTML +=`
+  contenedorTablasHead.innerHTML = '';
+  contenedorTablasHead.innerHTML += `
   <tr>
     <th scope="col">#</th>
     <th scope="col">Nombre Completo</th>
@@ -128,10 +155,10 @@ function mostrarProfesionalesEspera() {
     <th scope="col">Acciones</th>
   </tr>
   `;
-listaProfesionalesNoAutorizados.forEach((element,index) => {
-  contenedorTablasBody.innerHTML+=`
+  listaProfesionalesNoAutorizados.forEach((element, index) => {
+    contenedorTablasBody.innerHTML += `
   <tr>
-  <th scope="row">${index+1}</th>
+  <th scope="row">${index + 1}</th>
   <td>${element[index].apellido + ", " + element[index].nombres}</td>
   <td>${element[index].areaMedica}</td>
   <td>${element[index].matricula}</td>
@@ -140,8 +167,8 @@ listaProfesionalesNoAutorizados.forEach((element,index) => {
     ><button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar</button></td>
   </tr>
   `;
-  
-});
+
+  });
 }
 function mostrarRegistroPacientesAdmin() {
 
