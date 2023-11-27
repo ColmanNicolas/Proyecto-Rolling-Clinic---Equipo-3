@@ -1,4 +1,4 @@
-function obtenerContenidoArrayLS(listaLS) {
+const obtenerContenidoArrayLS = (listaLS) => {
   //funcion para obtener un arreglo del Local Storage
   let devuelvoArray = [];
   const arrayLocalStorage = localStorage.getItem(listaLS);
@@ -7,12 +7,20 @@ function obtenerContenidoArrayLS(listaLS) {
   }
   return devuelvoArray;
 }
-function actualizarContenidoArrayLS(arreglo, listaLS) {
-  //funcion para cargar un arreglo en LocalStorage
+const obtenerUnElementoLS = (listaLS) => {
+  let elemento = null;
+  const elementoLocalStorage = localStorage.getItem(listaLS);
+  if (elementoLocalStorage) {
+    elemento = JSON.parse(elementoLocalStorage);
+  }
+  return elemento;
+}
+
+const actualizarContenidoArrayLS = (arreglo, listaLS) => {
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
 }
 
-function limpiarYenfocarPrimerImput(idElemento, valorImput) {
+const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
   //funcion para limpiar el formulario y seleccionar el primer imput
   document.getElementById(idElemento).reset();
   const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
@@ -130,7 +138,6 @@ const manejarFormMedico = (event) => {
     apellidoMedico,
     dniMedico,
     matricula,
-    matricula,
     especialidad,
     centroMedico,
     emailMedico,
@@ -155,6 +162,13 @@ function loguear() {
   let pass = document.getElementById("Contraseña").value;
 
   if (user == "Leo" && pass == "1234") {
+    localStorage.setItem( "codigoInicioSesion",0);
+    window.location = "logedIn.html";
+  } else if (user == "Medico" && pass == "123456") {
+    localStorage.setItem("codigoInicioSesion",1);
+    window.location = "logedIn.html";
+  } else if (user == "admin" && pass == "admin") {
+    localStorage.setItem("codigoInicioSesion",2);
     window.location = "logedIn.html";
   } else {
     alert("Datos Incorrectos");
