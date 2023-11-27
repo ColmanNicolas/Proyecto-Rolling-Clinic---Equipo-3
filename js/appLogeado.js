@@ -35,25 +35,24 @@ const desplegarBotonesSideBar = (codigo) => {
     switch (codigo) {
       case 0:
         SideBarBotones.innerHTML += `
-          <li class="nav-item my-1"><a class="text-start bg-secondary text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonCartillaProfesionales"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonDocumentacion"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="# id="botonTurnosPaciente"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonNuestrosCentros"><b><i class="bi bi-caret-right-square"></i></b></a></li>
         `;
         break;
       case 1:
         SideBarBotones.innerHTML += `
-        <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-        <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonHistorialPacientes"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"  id="botonTurnosMedico"><b><i class="bi bi-caret-right-square"></i></b></a></li>
         `;
         break;
         case 2:
           SideBarBotones.innerHTML += `
-          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item  my-1"><a class="text-start text-white fw-semibold" href="#"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#" id="botonProfesionalesRegistrados"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#"  id="botonProfesionalesEnEspera"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#" id="botonPacientesRegistrados" ><b><i class="bi bi-caret-right-square"></i></b></a></li>
+          <li class="nav-item  my-1"><a class="text-start text-white fw-semibold" href="#" id="botonPacientesEnEspera"><b><i class="bi bi-caret-right-square"></i></b></a></li>
         `;
         break;
       default:
