@@ -1,4 +1,3 @@
-
 const desplegarBotonesSideBar = (codigo) => {
   const SideBarBotones = document.getElementById("contenedorBotonesSideBar");
   let anchoVentana = window.innerWidth;
@@ -47,8 +46,8 @@ const desplegarBotonesSideBar = (codigo) => {
         <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"  id="botonTurnosMedico"><b><i class="bi bi-caret-right-square"></i></b></a></li>
         `;
         break;
-        case 2:
-          SideBarBotones.innerHTML += `
+      case 2:
+        SideBarBotones.innerHTML += `
           <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#" id="botonProfesionalesRegistrados"><b><i class="bi bi-caret-right-square"></i></b></a></li>
           <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#"  id="botonProfesionalesEnEspera"><b><i class="bi bi-caret-right-square"></i></b></a></li>
           <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#" id="botonPacientesRegistrados" ><b><i class="bi bi-caret-right-square"></i></b></a></li>
@@ -60,48 +59,48 @@ const desplegarBotonesSideBar = (codigo) => {
         break;
     }
   }
-}
-const capturarBotonesSideBar = (codigo) =>{
+};
+const capturarBotonesSideBar = (codigo) => {
   switch (codigo) {
     case 0:
       const botonCartillaProfesionales = document.getElementById("botonCartillaProfesionales");
       const botonDocumentacion = document.getElementById("botonDocumentacion");
       const botonTurnosPaciente = document.getElementById("botonTurnosPaciente");
       const botonNuestrosCentros = document.getElementById("botonNuestrosCentros");
-      botonCartillaProfesionales.addEventListener('click', mostrarCartillaProfesionales);
-      botonDocumentacion.addEventListener('click', mostrarDocumentacion);
-      botonTurnosPaciente.addEventListener('click', mostrarHistorialTurnos);
-      botonNuestrosCentros.addEventListener('click', mostrarNuestrosCentros);
+      botonCartillaProfesionales.addEventListener("click", mostrarCartillaProfesionales);
+      botonDocumentacion.addEventListener("click", mostrarDocumentacion);
+      botonTurnosPaciente.addEventListener("click", mostrarHistorialTurnos);
+      botonNuestrosCentros.addEventListener("click", mostrarNuestrosCentros);
       break;
-  case 1:
-    const botonHistorialPacientes = document.getElementById("botonHistorialPacientes");
-    const botonTurnosMedico = document.getElementById("botonTurnosMedico");
-    botonHistorialPacientes.addEventListener('click', mostrarHistorialPacientes);
-    botonTurnosMedico.addEventListener('click', mostrarTurnosAsignados);
-    break;
-  case 2:
-    const botonProfesionalesRegistrados = document.getElementById("botonProfesionalesRegistrados");
-    const botonProfesionalesEnEspera = document.getElementById("botonProfesionalesEnEspera");
-    const botonPacientesEnEspera = document.getElementById("botonPacientesEnEspera");
-    const botonPacientesRegistrados = document.getElementById("botonPacientesRegistrados");
-    botonProfesionalesRegistrados.addEventListener('click', mostrarCartillaProfesionales);
-    botonProfesionalesEnEspera.addEventListener('click', mostrarProfesionalesEspera);
-    botonPacientesEnEspera.addEventListener('click', mostrarPacientesEspera);
-    botonPacientesRegistrados.addEventListener('click', mostrarRegistroPacientesAdmin);
-    break;
+    case 1:
+      const botonHistorialPacientes = document.getElementById("botonHistorialPacientes");
+      const botonTurnosMedico = document.getElementById("botonTurnosMedico");
+      botonHistorialPacientes.addEventListener("click", mostrarHistorialPacientes);
+      botonTurnosMedico.addEventListener("click", mostrarTurnosAsignados);
+      break;
+    case 2:
+      const botonProfesionalesRegistrados = document.getElementById("botonProfesionalesRegistrados");
+      const botonProfesionalesEnEspera = document.getElementById("botonProfesionalesEnEspera");
+      const botonPacientesEnEspera = document.getElementById("botonPacientesEnEspera");
+      const botonPacientesRegistrados = document.getElementById("botonPacientesRegistrados");
+      botonProfesionalesRegistrados.addEventListener("click", mostrarCartillaProfesionales);
+      botonProfesionalesEnEspera.addEventListener("click", mostrarProfesionalesEspera);
+      botonPacientesEnEspera.addEventListener("click", mostrarPacientesEspera);
+      botonPacientesRegistrados.addEventListener("click", mostrarRegistroPacientesAdmin);
+      break;
     default:
       alert("inicio de sesion invalido");
-    break;  
-}
-}
+      break;
+  }
+};
 
 //Funciones para botones del sidebar
 const mostrarCartillaProfesionales = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesRegistrados = obtenerContenidoArrayLS("listaMedicos");
-  contenedorTablasHead.innerHTML = '';
-  contenedorTablasBody.innerHTML = '';
+  contenedorTablasHead.innerHTML = "";
+  contenedorTablasBody.innerHTML = "";
   contenedorTablasHead.innerHTML += `
   <tr>
     <th scope="col">#</th>
@@ -112,8 +111,8 @@ const mostrarCartillaProfesionales = () => {
   </tr>
   `;
   listaProfesionalesRegistrados.forEach((element, index) => {
-    let botonHTML = ''; 
-  
+    let botonHTML = "";
+
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
       <button class="btn btn-sm btn-warning" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
@@ -124,7 +123,7 @@ const mostrarCartillaProfesionales = () => {
         <button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar </button>
       `;
     }
-  
+
     contenedorTablasBody.innerHTML += `
       <tr>
         <th scope="row">${index + 1}</th>
@@ -135,41 +134,27 @@ const mostrarCartillaProfesionales = () => {
       </tr>
     `;
   });
-
-  
 };
 
-const mostrarDocumentacion = () => {
+const mostrarDocumentacion = () => {};
 
-};
+const mostrarSolicitarTurno = () => {};
 
-const mostrarSolicitarTurno = () => {
+const mostrarHistorialTurnos = () => {};
 
-};
-
-const mostrarHistorialTurnos = () => {
-
-};
-
-const mostrarNuestrosCentros = () => {
-
-};
+const mostrarNuestrosCentros = () => {};
 
 //Funciones para medicos
-const mostrarHistorialPacientes = () => {
-};
+const mostrarHistorialPacientes = () => {};
 
-const mostrarTurnosAsignados = () => {
-
-};
+const mostrarTurnosAsignados = () => {};
 //Funciones para Administrador
-
 
 const mostrarProfesionalesEspera = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesNoAutorizados = obtenerContenidoArrayLS("profesionalesNoAutorizados");
-  contenedorTablasHead.innerHTML = '';
+  contenedorTablasHead.innerHTML = "";
   contenedorTablasHead.innerHTML += `
   <tr>
     <th scope="col">#</th>
@@ -191,28 +176,23 @@ const mostrarProfesionalesEspera = () => {
     ><button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar</button></td>
   </tr>
   `;
-
   });
-}
+};
 const mostrarRegistroPacientesAdmin = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaPacientes = obtenerContenidoArrayLS("listaPacientes");
-  contenedorTablasHead.innerHTML = '';
-  contenedorTablasBody.innerHTML = '';
-
-}
+  contenedorTablasHead.innerHTML = "";
+  contenedorTablasBody.innerHTML = "";
+};
 const mostrarPacientesEspera = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaPacientesNoAutorizados = obtenerContenidoArrayLS("listaPacientesNoAutorizados");
-  contenedorTablasHead.innerHTML = '';
-  contenedorTablasBody.innerHTML = '';
-
-}
+  contenedorTablasHead.innerHTML = "";
+  contenedorTablasBody.innerHTML = "";
+};
 //--------------------------------------------
 const codigo = obtenerUnElementoLS("codigoInicioSesion");
 desplegarBotonesSideBar(codigo);
 capturarBotonesSideBar(codigo);
-
-

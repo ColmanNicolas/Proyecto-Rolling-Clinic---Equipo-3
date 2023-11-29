@@ -6,7 +6,7 @@ const obtenerContenidoArrayLS = (listaLS) => {
     devuelvoArray = JSON.parse(arrayLocalStorage);
   }
   return devuelvoArray;
-}
+};
 const obtenerUnElementoLS = (listaLS) => {
   let elemento = null;
   const elementoLocalStorage = localStorage.getItem(listaLS);
@@ -14,18 +14,18 @@ const obtenerUnElementoLS = (listaLS) => {
     elemento = JSON.parse(elementoLocalStorage);
   }
   return elemento;
-}
+};
 
 const actualizarContenidoArrayLS = (arreglo, listaLS) => {
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
-}
+};
 
 const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
   //funcion para limpiar el formulario y seleccionar el primer imput
   document.getElementById(idElemento).reset();
   const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
   primerCampo.focus();
-}
+};
 
 let pacientes = [];
 const manejarFormPaciente = (event) => {
@@ -84,10 +84,10 @@ const manejarFormPaciente = (event) => {
 
   localStorage.setItem("listaPacientes", JSON.stringify(pacientes));
 
-  var cierreModalPaciente = document.getElementById("modalPaciente");
+  const cierreModalPaciente = document.getElementById("modalPaciente");
   setTimeout(() => bootstrap.Modal.getInstance(cierreModalPaciente).hide(), 0);
 
-  var reseteoModalPaciente = document.getElementById("modalPaciente");
+  const reseteoModalPaciente = document.getElementById("modalPaciente");
   reseteoModalPaciente.addEventListener("hidden.bs.modal", function (event) {
     formPaciente.reset();
   });
@@ -120,6 +120,7 @@ const manejarFormMedico = (event) => {
     return false;
   }
   const matricula = document.getElementById("matricula").value;
+  const turnos = [];
   const especialidad = document.getElementById("especialidad").value;
   const centroMedico = document.getElementById("centroMedico").value;
   const emailMedico = document.getElementById("emailMedico").value;
@@ -142,16 +143,17 @@ const manejarFormMedico = (event) => {
     centroMedico,
     emailMedico,
     contrasenaMedico,
+    turnos,
   };
 
   medicos.push(medico);
 
   localStorage.setItem("listaMedicos", JSON.stringify(medicos));
 
-  var cierreModalMedico = document.getElementById("modalMedico");
+  const cierreModalMedico = document.getElementById("modalMedico");
   setTimeout(() => bootstrap.Modal.getInstance(cierreModalMedico).hide(), 0);
 
-  var reseteoModalMedico = document.getElementById("modalMedico");
+  const reseteoModalMedico = document.getElementById("modalMedico");
   reseteoModalMedico.addEventListener("hidden.bs.modal", function (event) {
     formMedico.reset();
   });
@@ -162,13 +164,13 @@ function loguear() {
   let pass = document.getElementById("Contraseña").value;
 
   if (user == "Leo" && pass == "1234") {
-    localStorage.setItem( "codigoInicioSesion",0);
+    localStorage.setItem("codigoInicioSesion", 0);
     window.location = "logeado.html";
   } else if (user == "Medico" && pass == "123456") {
-    localStorage.setItem("codigoInicioSesion",1);
+    localStorage.setItem("codigoInicioSesion", 1);
     window.location = "logeado.html";
   } else if (user == "admin" && pass == "admin") {
-    localStorage.setItem("codigoInicioSesion",2);
+    localStorage.setItem("codigoInicioSesion", 2);
     window.location = "logeado.html";
   } else {
     alert("Datos Incorrectos");
