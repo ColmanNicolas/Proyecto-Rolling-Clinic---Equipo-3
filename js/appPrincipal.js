@@ -54,7 +54,7 @@ const manejarFormPaciente = (event) => {
     alert("El apellido debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(apellidoPaciente)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(apellidoPaciente)) {
     alert("El apellido solo puede contener letras");
     return false;
   }
@@ -91,7 +91,7 @@ const manejarFormPaciente = (event) => {
 
   pacientes.push(paciente);
 
-  localStorage.setItem("listaPacientes", JSON.stringify(pacientes));
+  localStorage.setItem(listaDeEsperaPacientes0, JSON.stringify(pacientes));
 
   var cierreModalPaciente = document.getElementById("modalPaciente");
   setTimeout(() => bootstrap.Modal.getInstance(cierreModalPaciente).hide(), 0);
@@ -110,7 +110,7 @@ const manejarFormMedico = (event) => {
     alert("El nombre debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(nombreMedico)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombreMedico)) {
     alert("El nombre solo puede contener letras");
     return false;
   }
@@ -155,7 +155,7 @@ const manejarFormMedico = (event) => {
 
   medicos.push(medico);
 
-  localStorage.setItem("listaMedicos", JSON.stringify(medicos));
+  localStorage.setItem(listaDeEsperaMedicos0, JSON.stringify(medicos));
 
   var cierreModalMedico = document.getElementById("modalMedico");
   setTimeout(() => bootstrap.Modal.getInstance(cierreModalMedico).hide(), 0);
@@ -183,3 +183,6 @@ function loguear() {
     alert("Datos Incorrectos");
   }
 }
+const listaDeEsperaMedicos0= "listaDeEsperaMedicos";
+
+const listaDeEsperaPacientes0 ="listaDeEsperaPacientes";
