@@ -100,8 +100,10 @@ const mostrarCartillaProfesionales = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesRegistrados = obtenerContenidoArrayLS("listaMedicos");
+
   contenedorTablasHead.innerHTML = '';
   contenedorTablasBody.innerHTML = '';
+
   contenedorTablasHead.innerHTML += `
   <tr>
     <th scope="col">#</th>
@@ -116,12 +118,12 @@ const mostrarCartillaProfesionales = () => {
   
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
-      <button class="btn btn-sm btn-warning" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
-        <button class="btn btn-sm btn-success" onclick="pedirConsulta('${index}')" type="button">Pedir Consulta</button>
+      <button class="btn btn-sm btn-warning fw-bold" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
+        <button class="btn btn-sm btn-success fw-bold" onclick="pedirConsulta('${index}')" type="button">Pedir Consulta</button>
       `;
     } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
-        <button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar </button>
+        <button class="btn btn-sm btn-danger fw-bold" onclick="borrarProfesional('${index}')" type="button">Borrar </button>
       `;
     }
   
@@ -169,23 +171,25 @@ const mostrarProfesionalesEspera = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesNoAutorizados = obtenerContenidoArrayLS("profesionalesNoAutorizados");
+  contenedorTablasBody.innerHTML = '';
   contenedorTablasHead.innerHTML = '';
   contenedorTablasHead.innerHTML += `
   <tr>
     <th scope="col">#</th>
     <th scope="col">Nombre Completo</th>
+    <th scope="col">Centro Medico</th>
     <th scope="col">Área Médica</th>
-    <th scope="col">CentroMedico</th>
     <th scope="col">Acciones</th>
   </tr>
   `;
   listaProfesionalesNoAutorizados.forEach((element, index) => {
+   
     contenedorTablasBody.innerHTML += `
   <tr>
   <th scope="row">${index + 1}</th>
-  <td>${element[index].apellidoMedico + ", " + element[index].nombreMedico}</td>
-  <td>${element[index].especialidad}</td>
-  <td>${element[index].centroMedico}</td>
+  <td>${element.apellidoMedico + ", " + element.nombreMedico}</td>
+  <td>${element.especialidad}</td>
+  <td>${element.centroMedico}</td>
   <td>  
     <button class="btn btn-sm btn-success" onclick="aprobarProfesional('${index}')" type="button">aprobar</button
     ><button class="btn btn-sm btn-danger" onclick="borrarProfesional('${index}')" type="button">Borrar</button></td>
@@ -198,16 +202,64 @@ const mostrarRegistroPacientesAdmin = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaPacientes = obtenerContenidoArrayLS("listaPacientes");
-  contenedorTablasHead.innerHTML = '';
+  console.log(listaPacientes[0].apellidoPaciente);
   contenedorTablasBody.innerHTML = '';
+  contenedorTablasHead.innerHTML = '';
+  
+  contenedorTablasHead.innerHTML += `
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nombre Completo</th>
+    <th scope="col">DNI</th>
+    <th scope="col">Correo Electronico</th>
+    <th scope="col">Acciones</th>
+  </tr>
+  `;
+  listaPacientes.forEach((element, index) => {
+    contenedorTablasBody.innerHTML += `
+  <tr>
+  <th scope="row">${index + 1}</th>
+  <td>${element.apellidoPaciente + ", " + element.nombrePaciente}</td>
+  <td>${element.dniPaciente}</td>
+  <td>${element.emailPaciente}</td>
+  <td>  
+  <button class="btn btn-sm btn-danger" onclick="borrarPaciente('${index}')" type="button">Borrar</button></td>
+  </tr>
+  `;
+
+  });
 
 }
 const mostrarPacientesEspera = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaPacientesNoAutorizados = obtenerContenidoArrayLS("listaPacientesNoAutorizados");
-  contenedorTablasHead.innerHTML = '';
   contenedorTablasBody.innerHTML = '';
+  contenedorTablasHead.innerHTML = '';
+
+  contenedorTablasHead.innerHTML += `
+  <tr>
+  <th scope="col">#</th>
+  <th scope="col">Nombre Completo</th>
+  <th scope="col">DNI</th>
+  <th scope="col">Correo Electronico</th>
+  <th scope="col">Acciones</th>
+</tr>
+`;
+listaPacientesNoAutorizados.forEach((element, index) => {
+ 
+  contenedorTablasBody.innerHTML += `
+<tr>
+<th scope="row">${index + 1}</th>
+<td>${element.apellidoPaciente + ", " + element.nombrePaciente}</td>
+<td>${element.dniPaciente}</td>
+<td>${element.emailPaciente}</td>
+<td>  
+<button class="btn btn-sm btn-danger" onclick="borrarPaciente('${index}')" type="button">Borrar</button></td>
+</tr>
+`;
+
+  });
 
 }
 //--------------------------------------------

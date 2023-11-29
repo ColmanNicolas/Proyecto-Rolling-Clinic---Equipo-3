@@ -1,5 +1,5 @@
-const obtenerContenidoArrayLS = (listaLS) => {
-  //funcion para obtener un arreglo del Local Storage
+//------------  FUNCIONES UTILITARIAS ---------------
+const obtenerContenidoArrayLS = (listaLS) => { //funcion para arreglos
   let devuelvoArray = [];
   const arrayLocalStorage = localStorage.getItem(listaLS);
   if (arrayLocalStorage) {
@@ -7,7 +7,7 @@ const obtenerContenidoArrayLS = (listaLS) => {
   }
   return devuelvoArray;
 }
-const obtenerUnElementoLS = (listaLS) => {
+const obtenerUnElementoLS = (listaLS) => {    //funcion para unico elemento
   let elemento = null;
   const elementoLocalStorage = localStorage.getItem(listaLS);
   if (elementoLocalStorage) {
@@ -15,9 +15,18 @@ const obtenerUnElementoLS = (listaLS) => {
   }
   return elemento;
 }
-
 const actualizarContenidoArrayLS = (arreglo, listaLS) => {
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
+}
+function encodeString(text) {
+  return btoa(text);
+}
+function decodeString(encodedText) {
+  return atob(encodedText);
+}
+function toggleOffcanvas() {
+  var offcanvasElement = document.getElementById("offcanvasScrolling");
+  offcanvasElement.classList.toggle("show");
 }
 
 const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
@@ -26,7 +35,7 @@ const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
   const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
   primerCampo.focus();
 }
-
+//---------------------------------------
 let pacientes = [];
 const manejarFormPaciente = (event) => {
   event.preventDefault();
