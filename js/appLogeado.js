@@ -1,4 +1,3 @@
-
 const desplegarBotonesSideBar = (codigo) => {
   const SideBarBotones = document.getElementById("contenedorBotonesSideBar");
   let anchoVentana = window.innerWidth;
@@ -60,40 +59,47 @@ const desplegarBotonesSideBar = (codigo) => {
         break;
     }
   }
-}
+};
 const capturarBotonesSideBar = (codigo) => {
   switch (codigo) {
-    case 0:
+    case 0: // Botones paciente
       const botonCartillaProfesionales = document.getElementById("botonCartillaProfesionales");
       const botonDocumentacion = document.getElementById("botonDocumentacion");
       const botonTurnosPaciente = document.getElementById("botonTurnosPaciente");
       const botonNuestrosCentros = document.getElementById("botonNuestrosCentros");
-      botonCartillaProfesionales.addEventListener('click', mostrarCartillaProfesionales);
-      botonDocumentacion.addEventListener('click', mostrarDocumentacion);
-      botonTurnosPaciente.addEventListener('click', mostrarHistorialTurnos);
-      botonNuestrosCentros.addEventListener('click', mostrarNuestrosCentros);
+
+      botonCartillaProfesionales.addEventListener("click", mostrarCartillaProfesionales);
+      botonDocumentacion.addEventListener("click", mostrarDocumentacion);
+      botonTurnosPaciente.addEventListener("click", mostrarHistorialTurnos);
+      botonNuestrosCentros.addEventListener("click", mostrarNuestrosCentros);
       break;
-    case 1:
+
+    case 1: // Botones medico
       const botonHistorialPacientes = document.getElementById("botonHistorialPacientes");
       const botonTurnosMedico = document.getElementById("botonTurnosMedico");
-      botonHistorialPacientes.addEventListener('click', mostrarHistorialPacientes);
-      botonTurnosMedico.addEventListener('click', mostrarTurnosAsignados);
+
+      botonHistorialPacientes.addEventListener("click", mostrarHistorialPacientes);
+      botonTurnosMedico.addEventListener("click", mostrarTurnosAsignados);
       break;
-    case 2:
+
+    case 2: // Botones admin
       const botonProfesionalesRegistrados = document.getElementById("botonProfesionalesRegistrados");
       const botonProfesionalesEnEspera = document.getElementById("botonProfesionalesEnEspera");
       const botonPacientesEnEspera = document.getElementById("botonPacientesEnEspera");
       const botonPacientesRegistrados = document.getElementById("botonPacientesRegistrados");
-      botonProfesionalesRegistrados.addEventListener('click', mostrarCartillaProfesionales);
-      botonProfesionalesEnEspera.addEventListener('click', mostrarProfesionalesEspera);
-      botonPacientesEnEspera.addEventListener('click', mostrarPacientesEspera);
-      botonPacientesRegistrados.addEventListener('click', mostrarRegistroPacientesAdmin);
+
+      botonProfesionalesRegistrados.addEventListener("click", () => mostrarUsuariosAdministrador(listaMedicos));
+      botonProfesionalesEnEspera.addEventListener("click", () => mostrarUsuariosAdministrador(listaDeEsperaMedicos));
+      botonPacientesEnEspera.addEventListener("click", () => mostrarUsuariosAdministrador(listaDeEsperaPacientes));
+      botonPacientesRegistrados.addEventListener("click", () => mostrarUsuariosAdministrador(listaPacientes));
       break;
+
     default:
-      alert("inicio de sesion invalido");
+      alert("Inicio de sesión inválido");
       break;
   }
-}
+};
+
 
 //Funciones para botones del sidebar
 const mostrarCartillaProfesionales = () => {
@@ -101,8 +107,8 @@ const mostrarCartillaProfesionales = () => {
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesRegistrados = obtenerContenidoArrayLS("listaMedicos");
 
-  contenedorTablasHead.innerHTML = '';
-  contenedorTablasBody.innerHTML = '';
+  contenedorTablasHead.innerHTML = "";
+  contenedorTablasBody.innerHTML = "";
 
   contenedorTablasHead.innerHTML += `
   <tr>
@@ -114,7 +120,7 @@ const mostrarCartillaProfesionales = () => {
   </tr>
   `;
   listaProfesionalesRegistrados.forEach((element, index) => {
-    let botonHTML = '';
+    let botonHTML = "";
 
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
@@ -137,38 +143,100 @@ const mostrarCartillaProfesionales = () => {
       </tr>
     `;
   });
-
-
 };
 
-const mostrarDocumentacion = () => {
+const mostrarDocumentacion = () => { };
 
-};
+const mostrarSolicitarTurno = () => { };
 
-const mostrarSolicitarTurno = () => {
+const mostrarHistorialTurnos = () => { };
 
-};
-
-const mostrarHistorialTurnos = () => {
-
-};
-
-const mostrarNuestrosCentros = () => {
-
-};
+const mostrarNuestrosCentros = () => { };
 
 //Funciones para medicos
-const mostrarHistorialPacientes = () => {
-};
+const mostrarHistorialPacientes = () => { };
 
-const mostrarTurnosAsignados = () => {
-
-};
+const mostrarTurnosAsignados = () => { };
 // ------------------------------------------------Funciones para Administrador--------------------------------------------
 
-const mostrarUsuario = () =>{
-
+const mostrarUsuariosAdministrador = (lista) => {
+  const contenedorTablasHead = document.getElementById("contendorTablasHead");
+  contenedorTablasHead.innerHTML = "";
+console.log(lista);
+  if (lista === "listaDeEsperaMedicos" || lista === "listaMedicos") {
+    contenedorTablasHead.innerHTML += `
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nombre Completo</th>
+    <th scope="col">Centro Medico</th>
+    <th scope="col">Área Médica</th>
+    <th class="text-center" scope="col">Acciones</th>
+  </tr>
+  `;
+  actualizarTabla(lista,"medico");
+  } else if ( lista === "listaDeEsperaPacientes" || lista === "listaPacientes"){
+    contenedorTablasHead.innerHTML += `
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre Completo</th>
+      <th scope="col">DNI</th>
+      <th scope="col">Correo Electronico</th>
+      <th class="text-center" scope="col">Acciones</th>
+    </tr>
+    `;
+    actualizarTabla(lista,"paciente");
+  }else{
+    alert("La lista en sistema no existe");
+  } 
 };
+const actualizarTabla = (lista,usuario) =>{
+  const contenedorTablasBody = document.getElementById("contendorTablasBody");
+  const listaDeUsuarios = obtenerContenidoArrayLS(lista);
+  contenedorTablasBody.innerHTML = "";
+  if(usuario === "medico"){
+    listaDeUsuarios.forEach((element, index) => {
+      const botonHTML =  definirAcciones(lista,index);
+      contenedorTablasBody.innerHTML += `
+        <tr>
+          <th scope="row">${index + 1}</th>
+          <td>${element.apellidoMedico + ", " + element.nombreMedico}</td>
+          <td>${element.especialidad}</td>
+          <td>${element.centroMedico}</td>
+          <td class="text-center">${botonHTML}</td>   
+        </tr>
+        `;
+    });
+  } else if(usuario === "paciente"){
+    listaDeUsuarios.forEach((element, index) => {
+      const botonHTML =  definirAcciones(lista,index);
+      contenedorTablasBody.innerHTML += `
+        <tr>
+          <th scope="row">${index + 1}</th>
+          <td>${element.apellidoPaciente + ", " + element.nombrePaciente}</td>
+          <td>${element.dniPaciente}</td>
+          <td>${element.emailPaciente}</td>
+          <td class="text-center">${botonHTML}</td>
+        </tr>
+        `;
+    });
+  }else {
+    alert("No se pudo realizar la operacion ");
+  };
+}
+const definirAcciones = (lista,index) =>{
+  if (lista === listaDeEsperaMedicos || lista === listaDeEsperaPacientes) {
+    botonHTML = `
+    <button class="btn btn-sm btn-success" onclick="aprobarUsuario('${index}','${lista}')" type="button">aprobar</button>
+    <button class="btn btn-sm btn-danger" onclick="borrarUsuario('${index}','${lista}')" type="button">Borrar</button>
+    `;
+  } else if (lista === listaMedicos || lista === listaPacientes) {
+    botonHTML = `
+    <button class="btn btn-sm btn-danger" onclick="borrarUsuario('${index}','${lista}')" type="button">Borrar</button>
+    `;
+  }
+  return botonHTML;
+}
+/*
 const mostrarProfesionalesEspera = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
@@ -263,46 +331,44 @@ listaDeEsperaPacientes.forEach((element, index) => {
   });
 
 }
-
+*/
 const borrarUsuario = (index, lista) => {
   const listaDeElementos = obtenerContenidoArrayLS(lista);
   listaDeElementos.splice(index, 1);
   actualizarContenidoArrayLS(listaDeElementos, lista);
-  
-}
+  mostrarUsuariosAdministrador(lista);
+};
 
 const agregarUsuario = (usuario, lista) => {
   const listaDeElementos = obtenerContenidoArrayLS(lista);
   listaDeElementos.push(usuario);
   actualizarContenidoArrayLS(listaDeElementos, lista);
-}
+};
 
 const aprobarUsuario = (index, lista) => {
   const listaUsuarios = obtenerContenidoArrayLS(lista);
-  const usuario= listaUsuarios[index];
+  const usuario = listaUsuarios[index];
   borrarUsuario(index, lista);
   switch (lista) {
     case "listaDeEsperaMedicos":
       agregarUsuario(usuario, listaMedicos);
-      mostrarProfesionalesEspera();
+    
       break;
     case "listaDeEsperaPacientes":
       agregarUsuario(usuario, listaPacientes);
-      mostrarPacientesEspera();
+    
       break;
     default:
       alert("No se realizo la accion correctamente");
       break;
   }
-}
+};
 //-------------------------------------------- esto se ejecuta al cargar la pagina
 const listaMedicos = "listaMedicos";
 const listaDeEsperaMedicos = "listaDeEsperaMedicos";
-const listaPacientes = "listaPacientes"
+const listaPacientes = "listaPacientes";
 const listaDeEsperaPacientes = "listaDeEsperaPacientes";
 
 const codigoInicioSesion = obtenerUnElementoLS("codigoInicioSesion");
 desplegarBotonesSideBar(codigoInicioSesion);
 capturarBotonesSideBar(codigoInicioSesion);
-
-

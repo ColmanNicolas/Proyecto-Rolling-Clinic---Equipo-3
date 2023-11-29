@@ -44,7 +44,7 @@ const manejarFormPaciente = (event) => {
     alert("El nombre debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(nombrePaciente)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombrePaciente)) {
     alert("El nombre solo puede contener letras");
     return false;
   }
@@ -119,7 +119,7 @@ const manejarFormMedico = (event) => {
     alert("El apellido debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(apellidoMedico)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(apellidoMedico)) {
     alert("El apellido solo puede contener letras");
     return false;
   }
