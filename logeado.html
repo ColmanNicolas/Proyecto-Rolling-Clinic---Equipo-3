@@ -5,50 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rolling Clinic</title>
     <link rel="stylesheet" href="css/styleLogedIn.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   </head>
+
   <body>
-    <div class="container-fluid bg-black flex-row d-flex p-0">
-      <div class=" text-center" id="contenedorSideBar">
-          <div><h2 class="bg-primary py-2">logo</h2></div>
-          <div class="lineaDivisora "></div>
-
-          <!-- declaro todos estos <li> (botones) al principio por que sino da error al cargar la pagina, CORREGIR -->
-
-          <ul id="contenedorBotonesSideBar" class="nav containerfluid flex-column  mb-auto p-0"></ul>
-          <div class="dropdown">
-            <div>
-              <div class="lineaDivisora"></div>
-              <div class="">
-                <button class="btn btn-primary fs-3 fw-bold">MI CUENTA</button>
+    <div class="" id="pantallaPrincipal">
+      <h1 class="text-center colorAzul py-3">ROLLING CLINIC</h1>
+      <div class="container-fluid bg-black flex-row d-flex p-0 mb-3">
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" data-bs-autohide="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+          <div class="offcanvas-header bg-dark">
+            <h2 class="offcanvas-title bg-primary py-2" id="offcanvasScrollingLabel">logo</h2>
+            <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="toggleOffcanvas()"></button>
+          </div>
+          <div class="offcanvas-body bg-dark">
+            <div class="lineaDivisora"></div>
+            <ul id="contenedorBotonesSideBar" class="nav containerfluid flex-column mb-auto p-0"></ul>
+            <div class="dropdown">
+              <div>
+                <div class="lineaDivisora"></div>
+                <div class="">
+                  <button class="btn btn-primary fs-3 fw-bold">MI CUENTA</button>
+                </div>
+                <div class="lineaDivisora"></div>
               </div>
-              <div class="lineaDivisora"></div>
             </div>
           </div>
-      </div>
-      <div class="" id="pantallaPrincipal">
-        <h1 class="text-center colorAzul py-3">ROLLING CLINIC</h1>
-        <div class="flex-row d-flex my-5 justify-content-center" id="contenedorBotonesParaTabla">        
         </div>
-        <div class="container-fluid px-1 px-md-5 my-1 my-md-4">
-          <table class="table table-dark table-hover" id="contendorTablas">
-            <thead id="contendorTablasHead">
-            </thead>
-            <tbody id="contendorTablasBody">
-            </tbody>
-          </table>
+      </div>
+
+      <div class="" id="contenedorBotonesParaTabla">
+        <div class="">
+          <button class="btn btn-dark fw-bold p-2" onclick="toggleOffcanvas()">MENU</button>
+        </div>
+      </div>
+      <h6 class="text-center bg-primary text-white fw-bold py-3 my-4">REGISTROS Y/O TITULOS RELATIVOS</h6>
+      <div class="" id="tamañoContenedorTablas">
+        <table class="table table-dark table-hover w-100" id="contendorTablas">
+          <thead id="contendorTablasHead"></thead>
+          <tbody id="contendorTablasBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal solicitud de turno -->
+    <div class="modal fade" id="modalSolTurno" tabindex="-1" aria-labelledby="modalSolTurno" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalSolTurno">Solicitud de turnos</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3" onsubmit="agregarSolTurno(event)" id="formSolturno">
+              <div class="form-floating col-md-12">
+                <textarea class="form-control" placeholder="Leave a comment here" id="detalleConsulta" required></textarea>
+                <label for="detalleConsulta">Detallar el motivo de la consulta</label>
+              </div>
+              <div class="col-md-6">
+                <label for="diaConsulta" class="form-label">Seleccionar día</label>
+                <select class="form-select" id="diaConsulta" required>
+                  <option selected disabled value=""></option>
+                  <option>Lunes</option>
+                  <option>Martes</option>
+                  <option>Miercoles</option>
+                  <option>Juves</option>
+                  <option>Viernes</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="horaConsulta" class="form-label">Seleccionar hora</label>
+                <select class="form-select" id="horaConsulta" required>
+                  <option selected disabled value=""></option>
+                  <option>08:00</option>
+                  <option>09:00</option>
+                  <option>10:00</option>
+                  <option>11:00</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary" type="submit" id="enviarSolTurno">Enviar</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="./js/appPrincipal.js"></script>
     <script src="./js/appLogeado.js"></script>
   </body>

@@ -1,5 +1,6 @@
+//------------  FUNCIONES UTILITARIAS ---------------
 const obtenerContenidoArrayLS = (listaLS) => {
-  //funcion para obtener un arreglo del Local Storage
+  //funcion para arreglos
   let devuelvoArray = [];
   const arrayLocalStorage = localStorage.getItem(listaLS);
   if (arrayLocalStorage) {
@@ -8,6 +9,7 @@ const obtenerContenidoArrayLS = (listaLS) => {
   return devuelvoArray;
 };
 const obtenerUnElementoLS = (listaLS) => {
+  //funcion para unico elemento
   let elemento = null;
   const elementoLocalStorage = localStorage.getItem(listaLS);
   if (elementoLocalStorage) {
@@ -15,10 +17,19 @@ const obtenerUnElementoLS = (listaLS) => {
   }
   return elemento;
 };
-
 const actualizarContenidoArrayLS = (arreglo, listaLS) => {
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
 };
+function encodeString(text) {
+  return btoa(text);
+}
+function decodeString(encodedText) {
+  return atob(encodedText);
+}
+function toggleOffcanvas() {
+  var offcanvasElement = document.getElementById("offcanvasScrolling");
+  offcanvasElement.classList.toggle("show");
+}
 
 const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
   //funcion para limpiar el formulario y seleccionar el primer imput
@@ -26,7 +37,7 @@ const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
   const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
   primerCampo.focus();
 };
-
+//---------------------------------------
 let pacientes = [];
 const manejarFormPaciente = (event) => {
   event.preventDefault();
@@ -35,7 +46,7 @@ const manejarFormPaciente = (event) => {
     alert("El nombre debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(nombrePaciente)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombrePaciente)) {
     alert("El nombre solo puede contener letras");
     return false;
   }
@@ -45,7 +56,7 @@ const manejarFormPaciente = (event) => {
     alert("El apellido debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(apellidoPaciente)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(apellidoPaciente)) {
     alert("El apellido solo puede contener letras");
     return false;
   }
@@ -82,7 +93,7 @@ const manejarFormPaciente = (event) => {
 
   pacientes.push(paciente);
 
-  localStorage.setItem("listaPacientes", JSON.stringify(pacientes));
+  localStorage.setItem(listaDeEsperaPacientes0, JSON.stringify(pacientes));
 
   const cierreModalPaciente = document.getElementById("modalPaciente");
   setTimeout(() => bootstrap.Modal.getInstance(cierreModalPaciente).hide(), 0);
@@ -101,7 +112,7 @@ const manejarFormMedico = (event) => {
     alert("El nombre debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(nombreMedico)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombreMedico)) {
     alert("El nombre solo puede contener letras");
     return false;
   }
@@ -110,7 +121,7 @@ const manejarFormMedico = (event) => {
     alert("El apellido debe contener al menos tres caracteres");
     return false;
   }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(apellidoMedico)) {
+  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(apellidoMedico)) {
     alert("El apellido solo puede contener letras");
     return false;
   }
@@ -148,7 +159,7 @@ const manejarFormMedico = (event) => {
 
   medicos.push(medico);
 
-  localStorage.setItem("listaMedicos", JSON.stringify(medicos));
+  localStorage.setItem(listaDeEsperaMedicos0, JSON.stringify(medicos));
 
   const cierreModalMedico = document.getElementById("modalMedico");
   setTimeout(() => bootstrap.Modal.getInstance(cierreModalMedico).hide(), 0);
@@ -176,3 +187,6 @@ function loguear() {
     alert("Datos Incorrectos");
   }
 }
+const listaDeEsperaMedicos0 = "listaDeEsperaMedicos";
+
+const listaDeEsperaPacientes0 = "listaDeEsperaPacientes";
