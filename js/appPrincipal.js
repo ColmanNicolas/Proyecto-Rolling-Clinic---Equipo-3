@@ -96,9 +96,47 @@ const manejarFormPaciente = (event) => {
     document.getElementById("formPaciente").reset();
   }
 };
+const manejarFormMedico = (event) => {
+  event.preventDefault();
 
+  const medicos =obtenerContenidoArrayLS(listaDeEsperaMedicos0);
+  const nombreMedico = document.getElementById("nombreMedico").value.trim();
+  const apellidoMedico = document.getElementById("apellidoMedico").value.trim();
+  const dniMedico = document.getElementById("dniMedico").value.trim();
+  const matricula = document.getElementById("matricula").value.trim();
+  const especialidad = document.getElementById("especialidad").value;
+  const centroMedico = document.getElementById("centroMedico").value;
+  const emailMedico = document.getElementById("emailMedico").value.trim();
+  const contrasenaMedico = document.getElementById("contrasenaMedico").value;
+  
+  const medico = {
+    nombreMedico,
+    apellidoMedico,
+    dniMedico,
+    matricula,
+    especialidad,
+    centroMedico,
+    emailMedico,
+    contrasenaMedico,
+  };
+  
+  if(validarMedico(medico)){
+    medicos.push(medico);
+
+    localStorage.setItem(listaDeEsperaMedicos0, JSON.stringify(medicos));
+  
+    const cierreModalMedico = document.getElementById("modalMedico");
+    bootstrap.Modal.getInstance(cierreModalMedico).hide();
+  
+    const reseteoModalMedico = document.getElementById("modalMedico");
+    reseteoModalMedico.addEventListener("hidden.bs.modal", function (event) {
+      formMedico.reset();
+    });
+  }
+};
 const validarPaciente = (paciente) => {
   if (!validarNombres(paciente.nombrePaciente) || !validarNombres(paciente.apellidoPaciente)) {
+    alert("El nombre o apellido ingresado no es valido");
     return false;
   }
 
@@ -124,71 +162,36 @@ const validarPaciente = (paciente) => {
 
   return true;
 };
-
-let medicos = [];
-const manejarFormMedico = (event) => {
-  event.preventDefault();
-  const nombreMedico = document.getElementById("nombreMedico").value;
-  if (nombreMedico.length < 3) {
-    alert("El nombre debe contener al menos tres caracteres");
-    return false;
-  }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombreMedico)) {
-    alert("El nombre solo puede contener letras");
-    return false;
-  }
-  const apellidoMedico = document.getElementById("apellidoMedico").value;
-  if (apellidoMedico.length < 3) {
-    alert("El apellido debe contener al menos tres caracteres");
-    return false;
-  }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(apellidoMedico)) {
-    alert("El apellido solo puede contener letras");
-    return false;
-  }
-  const dniMedico = document.getElementById("dniMedico").value;
-  if (dniMedico.length < 7) {
-    alert("El DNI debe contener al menos siete digitos");
-    return false;
-  }
-  const matricula = document.getElementById("matricula").value;
-  const turnos = [];
-  const especialidad = document.getElementById("especialidad").value;
-  const centroMedico = document.getElementById("centroMedico").value;
-  const emailMedico = document.getElementById("emailMedico").value;
-  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(emailMedico)) {
-    alert("El email no es valido");
-    return false;
-  }
-  const contrasenaMedico = document.getElementById("contrasenaMedico").value;
-  if (contrasenaMedico.length < 6) {
-    alert("La contraseña debe contener al menos seis digitos");
+const validarMedico = (medico) =>{
+  if (!validarNombres(medico.nombreMedico) || !validarNombres(medico.apellidoMedico)) {
+    alert("El nombre o apellido ingresado no es valido");
+    
     return false;
   }
 
-  const medico = {
-    nombreMedico,
-    apellidoMedico,
-    dniMedico,
-    matricula,
-    especialidad,
-    centroMedico,
-    emailMedico,
-    contrasenaMedico,
-  };
+  if (!validarNumeros(medico.dniMedico, 6, 8)) {
+    alert("El DNI ingresado no es válido");
+    return false;
+  }
 
-  medicos.push(medico);
+  if (!validarNumeros(medico.matricula, 1, 7)) {
+    alert("La matricula ingresada no es válida");
+    return false;
+  }
 
-  localStorage.setItem(listaDeEsperaMedicos0, JSON.stringify(medicos));
+  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(medico.emailMedico)) {
+    alert("El email no es válido");
+    return false;
+  }
 
-  const cierreModalMedico = document.getElementById("modalMedico");
-  setTimeout(() => bootstrap.Modal.getInstance(cierreModalMedico).hide(), 0);
+  if (medico.contrasenaMedico.length < 6) {
+    alert("La contraseña debe contener al menos seis dígitos");
+    return false;
+  }
 
-  const reseteoModalMedico = document.getElementById("modalMedico");
-  reseteoModalMedico.addEventListener("hidden.bs.modal", function (event) {
-    formMedico.reset();
-  });
+  return true;
 };
+
 
 function loguear() {
   let user = document.getElementById("Usuario").value;
@@ -196,10 +199,12 @@ function loguear() {
 
   if (user == "Leo" && pass == "1234") {
     localStorage.setItem("codigoInicioSesion", 0);
+    //cambiar por correo del paciente
     localStorage.setItem("UsuarioLogeado","correoPaciente");
     window.location = "logeado.html";
   } else if (user == "Medico" && pass == "123456") {
     localStorage.setItem("codigoInicioSesion", 1);
+    //cambiar por correo del medico
     localStorage.setItem("UsuarioLogeado","correoMedico");
     window.location = "logeado.html";
   } else if (user == "admin" && pass == "admin") {
@@ -210,5 +215,5 @@ function loguear() {
   }
 }
 const listaDeEsperaMedicos0 = "listaDeEsperaMedicos";
-console.log(obtenerUnaCadenaLS("UsuarioLogeado"));
+
 const listaDeEsperaPacientes0 = "listaDeEsperaPacientes";
