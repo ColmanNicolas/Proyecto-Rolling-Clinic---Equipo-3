@@ -1,71 +1,3 @@
-//------------  FUNCIONES UTILITARIAS ---------------
-const obtenerContenidoArrayLS = (listaLS) => {
-  //funcion para arreglos
-  let devuelvoArray = [];
-  const arrayLocalStorage = localStorage.getItem(listaLS);
-  if (arrayLocalStorage) {
-    devuelvoArray = JSON.parse(arrayLocalStorage);
-  }
-  return devuelvoArray;
-};
-const obtenerUnElementoLS = (listaLS) => {
-  //funcion para unico elemento
-  let elemento = null;
-  const elementoLocalStorage = localStorage.getItem(listaLS);
-  if (elementoLocalStorage) {
-    elemento = JSON.parse(elementoLocalStorage);
-  }
-  return elemento;
-};
-const obtenerUnaCadenaLS = (listaLS) => {
-  //funcion para una cadena
-  let elemento = undefined;
-  const elementoLocalStorage = localStorage.getItem(listaLS);
-  if (elementoLocalStorage) {
-    return elementoLocalStorage;
-  }else{
-    return elemento;
-  }
-};
-
-const actualizarContenidoArrayLS = (arreglo, listaLS) => {
-  localStorage.setItem(listaLS, JSON.stringify(arreglo));
-};
-
-function encodeString(text) {
-  return btoa(text);
-}
-
-function decodeString(encodedText) {
-  return atob(encodedText);
-}
-
-function toggleOffcanvas() {
-  var offcanvasElement = document.getElementById("offcanvasScrolling");
-  offcanvasElement.classList.toggle("show");
-}
-
-const validarNombres = (nombre) => {
-  if (nombre.length < 3 || !/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombre)) {
-    alert("El nombre o apellido ingresado no es válido");
-    return false;
-  } else {
-    return true;
-  }
-};
-
-const validarNumeros = (numero, cifraMinima, cifraMaxima) => {
-  return numero.length >= cifraMinima && numero.length <= cifraMaxima;
-};
-
-const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
-  //funcion para limpiar el formulario y seleccionar el primer imput
-  document.getElementById(idElemento).reset();
-  const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
-  primerCampo.focus();
-};
-//---------------------------------------
-
 const manejarFormPaciente = (event) => {
   event.preventDefault();
 
@@ -87,8 +19,7 @@ const manejarFormPaciente = (event) => {
   };
 
   if (validarPaciente(paciente)) {
-    pacientes.push(paciente);
-    actualizarContenidoArrayLS(pacientes, listaDeEsperaPacientes0);
+    agregarUsuario(paciente,listaDeEsperaPacientes0);
 
     const cierreModalPaciente = document.getElementById("modalPaciente");
     bootstrap.Modal.getInstance(cierreModalPaciente).hide();
@@ -121,9 +52,7 @@ const manejarFormMedico = (event) => {
   };
   
   if(validarMedico(medico)){
-    medicos.push(medico);
-
-    localStorage.setItem(listaDeEsperaMedicos0, JSON.stringify(medicos));
+    agregarUsuario(medico,listaDeEsperaMedicos0);
   
     const cierreModalMedico = document.getElementById("modalMedico");
     bootstrap.Modal.getInstance(cierreModalMedico).hide();
@@ -191,7 +120,6 @@ const validarMedico = (medico) =>{
 
   return true;
 };
-
 
 function loguear() {
   let user = document.getElementById("Usuario").value;
