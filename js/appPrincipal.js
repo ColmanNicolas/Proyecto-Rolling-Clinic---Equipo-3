@@ -17,19 +17,36 @@ const obtenerUnElementoLS = (listaLS) => {
   }
   return elemento;
 };
+
 const actualizarContenidoArrayLS = (arreglo, listaLS) => {
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
 };
+
 function encodeString(text) {
   return btoa(text);
 }
+
 function decodeString(encodedText) {
   return atob(encodedText);
 }
+
 function toggleOffcanvas() {
   var offcanvasElement = document.getElementById("offcanvasScrolling");
   offcanvasElement.classList.toggle("show");
 }
+
+const validarNombres = (nombre) => {
+  if (nombre.length < 3 || !/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombre)) {
+    alert("El nombre o apellido ingresado no es válido");
+    return false;
+  } else {
+    return true;
+  }
+};
+
+const validarNumeros = (numero, cifraMinima, cifraMaxima) => {
+  return numero.length >= cifraMinima && numero.length <= cifraMaxima;
+};
 
 const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
   //funcion para limpiar el formulario y seleccionar el primer imput
@@ -38,49 +55,17 @@ const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
   primerCampo.focus();
 };
 //---------------------------------------
-let pacientes = [];
+
 const manejarFormPaciente = (event) => {
   event.preventDefault();
-  const nombrePaciente = document.getElementById("nombrePaciente").value;
-  if (nombrePaciente.length < 3) {
-    alert("El nombre debe contener al menos tres caracteres");
-    return false;
-  }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombrePaciente)) {
-    alert("El nombre solo puede contener letras");
-    return false;
-  }
 
-  const apellidoPaciente = document.getElementById("apellidoPaciente").value;
-  if (apellidoPaciente.length < 3) {
-    alert("El apellido debe contener al menos tres caracteres");
-    return false;
-  }
-  if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(apellidoPaciente)) {
-    alert("El apellido solo puede contener letras");
-    return false;
-  }
-  const dniPaciente = document.getElementById("dniPaciente").value;
-  if (dniPaciente.length < 7) {
-    alert("El DNI debe contener al menos siete digitos");
-    return false;
-  }
-  const edadPaciente = document.getElementById("edadPaciente").value;
-  if (edadPaciente.length > 3) {
-    alert("La edad no puede contener más de tres digitos");
-    return false;
-  }
-  const emailPaciente = document.getElementById("emailPaciente").value;
-  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(emailPaciente)) {
-    alert("El email no es valido");
-    return false;
-  }
-
+  const pacientes = obtenerContenidoArrayLS(listaDeEsperaPacientes0);
+  const nombrePaciente = document.getElementById("nombrePaciente").value.trim();
+  const apellidoPaciente = document.getElementById("apellidoPaciente").value.trim();
+  const dniPaciente = document.getElementById("dniPaciente").value.trim();
+  const edadPaciente = document.getElementById("edadPaciente").value.trim();
+  const emailPaciente = document.getElementById("emailPaciente").value.trim();
   const contrasenaPaciente = document.getElementById("contrasenaPaciente").value;
-  if (contrasenaPaciente.length < 6) {
-    alert("La contraseña debe contener al menos seis digitos");
-    return false;
-  }
 
   const paciente = {
     nombrePaciente,
@@ -91,17 +76,43 @@ const manejarFormPaciente = (event) => {
     contrasenaPaciente,
   };
 
-  pacientes.push(paciente);
+  if (validarPaciente(paciente)) {
+    pacientes.push(paciente);
+    actualizarContenidoArrayLS(pacientes, listaDeEsperaPacientes0);
 
-  localStorage.setItem(listaDeEsperaPacientes0, JSON.stringify(pacientes));
+    const cierreModalPaciente = document.getElementById("modalPaciente");
+    bootstrap.Modal.getInstance(cierreModalPaciente).hide();
 
-  const cierreModalPaciente = document.getElementById("modalPaciente");
-  setTimeout(() => bootstrap.Modal.getInstance(cierreModalPaciente).hide(), 0);
+    document.getElementById("formPaciente").reset();
+  }
+};
 
-  const reseteoModalPaciente = document.getElementById("modalPaciente");
-  reseteoModalPaciente.addEventListener("hidden.bs.modal", function (event) {
-    formPaciente.reset();
-  });
+const validarPaciente = (paciente) => {
+  if (!validarNombres(paciente.nombrePaciente) || !validarNombres(paciente.apellidoPaciente)) {
+    return false;
+  }
+
+  if (!validarNumeros(paciente.dniPaciente, 6, 8)) {
+    alert("El DNI ingresado no es válido");
+    return false;
+  }
+
+  if (!validarNumeros(paciente.edadPaciente, 1, 3)) {
+    alert("La edad ingresada no es válida");
+    return false;
+  }
+
+  if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(paciente.emailPaciente)) {
+    alert("El email no es válido");
+    return false;
+  }
+
+  if (paciente.contrasenaPaciente.length < 6) {
+    alert("La contraseña debe contener al menos seis dígitos");
+    return false;
+  }
+
+  return true;
 };
 
 let medicos = [];
