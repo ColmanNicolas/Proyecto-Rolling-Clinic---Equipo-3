@@ -17,6 +17,16 @@ const obtenerUnElementoLS = (listaLS) => {
   }
   return elemento;
 };
+const obtenerUnaCadenaLS = (listaLS) => {
+  //funcion para una cadena
+  let elemento = undefined;
+  const elementoLocalStorage = localStorage.getItem(listaLS);
+  if (elementoLocalStorage) {
+    return elementoLocalStorage;
+  }else{
+    return elemento;
+  }
+};
 
 const actualizarContenidoArrayLS = (arreglo, listaLS) => {
   localStorage.setItem(listaLS, JSON.stringify(arreglo));
@@ -186,9 +196,11 @@ function loguear() {
 
   if (user == "Leo" && pass == "1234") {
     localStorage.setItem("codigoInicioSesion", 0);
+    localStorage.setItem("UsuarioLogeado","correoPaciente");
     window.location = "logeado.html";
   } else if (user == "Medico" && pass == "123456") {
     localStorage.setItem("codigoInicioSesion", 1);
+    localStorage.setItem("UsuarioLogeado","correoMedico");
     window.location = "logeado.html";
   } else if (user == "admin" && pass == "admin") {
     localStorage.setItem("codigoInicioSesion", 2);
@@ -198,5 +210,5 @@ function loguear() {
   }
 }
 const listaDeEsperaMedicos0 = "listaDeEsperaMedicos";
-
+console.log(obtenerUnaCadenaLS("UsuarioLogeado"));
 const listaDeEsperaPacientes0 = "listaDeEsperaPacientes";
