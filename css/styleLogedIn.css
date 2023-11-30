@@ -1,64 +1,64 @@
-#sideBar{
-    color: whitesmoke;
-    width: 330px ;
-    background-color: rgba(255, 8, 8, 0.452);
-    height: 100vh;
-    position: fixed;
-
-
+#sideBar {
+  color: whitesmoke;
+  width: 330px;
+  background-color: rgba(255, 8, 8, 0.452);
+  height: 100vh;
+  position: fixed;
 }
-#contenedorSideBar{
-    width: 350px ;
-    background-color: rgb(43, 41, 41);
-    height: 100vh;
-
+#contenedorSideBar {
+  width: 350px;
+  background-color: rgb(43, 41, 41);
+  height: 100vh;
 }
 #contenedorSideBar li {
-    transition: background-color 0.5s ease; /* Agrega una transición de 0.5 segundos con función de temporización ease */
+  transition: background-color 0.5s ease; /* Agrega una transición de 0.5 segundos con función de temporización ease */
 }
-#contenedorSideBar li:hover{
-        background-color: rgb(75, 75, 75);
-        transition-duration: 0.7s;
+#contenedorSideBar li:hover {
+  background-color: rgb(75, 75, 75);
+  transition-duration: 0.7s;
 }
-#tamañoContenedorTablas{
-    margin-inline: 2%;
+#tamañoContenedorTablas {
+  margin-inline: 2%;
 }
-@media(min-width:1600px){
-    #tamañoContenedorTablas{
-        width: 1530px;
-        margin: auto;
-    }
-}
-
-
-#pantallaPrincipal{
-    width: 100%;
-    background-color: rgb(194, 235, 235);
-    height: 100vh;
+@media (min-width: 1600px) {
+  #tamañoContenedorTablas {
+    width: 1530px;
+    margin: auto;
+  }
 }
 
-@media(max-width:900px){
-    #sideBar{
-        width: 70px;
-    }
-    #contenedorSideBar{
-        width: 70px;
-    }
+#pantallaPrincipal {
+  width: 100%;
+  background-color: rgb(194, 235, 235);
+  height: 100vh;
+}
 
+@media (max-width: 900px) {
+  #sideBar {
+    width: 70px;
+  }
+  #contenedorSideBar {
+    width: 70px;
+  }
 }
-.colorAzul{
-    background-color: rgb(21, 22, 121) ;
-    color: aliceblue;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+.colorAzul {
+  background-color: rgb(21, 22, 121);
+  color: aliceblue;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
-.lineaDivisora{
-    width: 85% !important;
-    margin-inline: auto;
-    border: 1px solid rgba(27, 90, 133, 0.459);
-    margin-block: 20px;
+.lineaDivisora {
+  width: 85% !important;
+  margin-inline: auto;
+  border: 1px solid rgba(27, 90, 133, 0.459);
+  margin-block: 20px;
 }
-.botonesSideBar{
-    width: 250px !important;
-    text-decoration: none;
-    padding-left: 20px ;
+.botonesSideBar {
+  width: 250px !important;
+  text-decoration: none;
+  padding-left: 20px;
+}
+
+#detalleConsulta {
+  resize: none;
+  height: 150px;
 }

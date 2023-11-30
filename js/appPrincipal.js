@@ -154,7 +154,6 @@ const manejarFormMedico = (event) => {
     centroMedico,
     emailMedico,
     contrasenaMedico,
-    turnos,
   };
 
   medicos.push(medico);

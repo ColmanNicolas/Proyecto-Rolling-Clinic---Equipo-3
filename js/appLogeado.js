@@ -123,7 +123,7 @@ const mostrarCartillaProfesionales = () => {
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
       <button class="btn btn-sm btn-warning fw-bold" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
-        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno('${index}')" > Solicitar Consulta </button>
+        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.matricula}"> Solicitar Consulta </button>
       `;
     } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
@@ -377,6 +377,12 @@ const modalTurno = new bootstrap.Modal("#modalSolTurno", {
 });
 let turnos = [];
 
+const showModalSolTurno = (boton) => {
+  modalTurno.show();
+  const idDelBoton = boton.id;
+  idObtenido = idDelBoton;
+};
+
 const agregarSolTurno = (event) => {
   event.preventDefault();
   const detalleConsulta = document.getElementById("detalleConsulta").value;
@@ -387,6 +393,7 @@ const agregarSolTurno = (event) => {
     detalleConsulta,
     diaConsulta,
     horaConsulta,
+    idObtenido,
   };
 
   turnos.push(turno);
@@ -397,9 +404,14 @@ const agregarSolTurno = (event) => {
     formSolturno.reset();
   });
 
+  const modalTurnoFunc = document.getElementById("modalSolTurno");
+  modalTurnoFunc.addEventListener("hidden.bs.modal", (event) => {
+    console.log("holaaa");
+  });
+
   modalTurno.hide();
 };
 
-const showModalSolTurno = () => {
-  modalTurno.show();
-};
+let idObtenido;
+
+//
