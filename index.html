@@ -7,8 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <title>Clinic Rolling</title>
   </head>
-  <body style="background-color: #64ccc5">
-    <nav class="navbar" style="background-color: #053b50">
+  <body class="colorCeleste">
+    <nav class="navbar colorAzul" >
       <div class="container-fluid">
         <h3 class="text-light position-relative">Rolling Clinic</h3>
         <form class="d-flex">
@@ -64,14 +64,14 @@
       </div>
     </div> -->
     <!-- Modal -->
-    <div class="modal fade" id="modalPaciente" tabindex="-1" aria-labelledby="modalPaciente" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal fade " id="modalPaciente" tabindex="-1" aria-labelledby="modalPaciente" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Registro pacientes</h1>
+        <div class="modal-content rounded-top-4">
+          <div class="modal-header colorAzul rounded-top-4">
+            <h1 class="modal-title fs-4 rounded-top-5" id="exampleModalLabel">Registro pacientes</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body colorCeleste rounded-bottom-3 ">
             <form class="row g-3" onsubmit="manejarFormPaciente(event)" id="formPaciente">
               <div class="col-md-6">
                 <label for="nombrePaciente" class="form-label">Nombre</label>
@@ -96,6 +96,9 @@
               <div class="col-md-6">
                 <label for="contrasenaPaciente" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="contrasenaPaciente" value="" required />
+              </div>
+              <div class="col-12" >
+                <p class="fs-6 fw-bold">Una vez efectuado el registro, pasará a una lista de espera para ser aceptado en la plataforma virtual. Este proceso puede demorar aproximadamente 1 hora hábil. </p>
               </div>
               <div class="col-12">
                 <button class="btn btn-primary" type="submit" id="registroPaciente">Registrarse</button>
@@ -170,6 +173,9 @@
               <div class="col-md-6">
                 <label for="contrasenaMedico" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="contrasenaMedico" value="" required />
+              </div>
+              <div class="col-12" >
+                <p class="fs-6 fw-bold">Una vez efectuado el registro, pasará a una lista de espera para ser aceptado en la plataforma virtual. Este proceso puede demorar aproximadamente 48 horas hábiles. </p>
               </div>
               <div class="col-12">
                 <button class="btn btn-primary" type="submit" id="registroMedico">Registrarse</button>
