@@ -62,10 +62,10 @@ function mostrarPopover(input) {
         popover.hide();
     }, 1200);
 }
-const validarNumeros = (numero, cifraMinima, cifraMaxima) => {
-    return numero.length >= cifraMinima && numero.length <= cifraMaxima;
+const validarNumeros = (numero, min, max) => {
+    return numero >= min && numero <= max;
 }
-const cerrarModal = (modal,formulario) => {
+const cerrarModalResetearFormulario = (modal,formulario) => {
     document.getElementById(formulario).reset();
     const cierreModalPaciente = document.getElementById(modal);
     bootstrap.Modal.getInstance(cierreModalPaciente).hide();
@@ -77,25 +77,28 @@ const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
     primerCampo.focus();
 }
 
+const validarInputEnVivo = (input,condicion) => {
 
-const validarnombreEnVivo = (input) => {
-    const popover = new bootstrap.Popover(input);
-    let esValido = /^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value.trim());
-    if(!esValido){
-        popover.show();
+    const popover = new bootstrap.Popover(input);    
+    
+    switch(condicion){
+        case 0:         //para nombres
+        if(!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value.trim())){
+            popover.show();
+        }
+        break;
+        case 1:         //restriccion para numeros grandes
+        if (input.value<0 || input.value >99999999) {
+            popover.show();          
+        }
+        break;
+        case 2:        //restriccion para edad
+            if (input.value<0 || input.value >120) {
+                popover.show();          
+            }
+            break;
     }
 }
-
-setInterval(() => {
-    var popovers = document.querySelectorAll('.popover');
-
-    popovers.forEach(function (popover) {
-        popover.parentNode.removeChild(popover);
-    });
-}, 2000);
-
-
-
 const agregarUsuario = (usuario, lista) => {
     const listaDeElementos = obtenerContenidoArrayLS(lista);
     listaDeElementos.push(usuario);
@@ -135,3 +138,10 @@ const compararFechas = () => { //EN DESARROLLO
     }
     */
 }
+setInterval(() => {
+    const popovers = document.querySelectorAll('.popover');
+
+    popovers.forEach(function (popover) {
+        popover.parentNode.removeChild(popover);
+    });
+}, 2000);
