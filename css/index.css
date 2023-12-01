@@ -1,3 +1,4 @@
+
 .colorAzul{
     background-color: #053b50;
     color: aliceblue;
@@ -5,4 +6,10 @@
 }
 .colorCeleste{
     background-color: #64ccc5;
+}
+.lineaDivisora {
+    width: 85% !important;
+    margin-inline: auto;
+    border: 1px solid rgba(27, 90, 133, 0.459);
+    margin-block: 20px;
 }
