@@ -173,7 +173,7 @@ const mostrarCartillaProfesionales = () => {
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
       <button class="btn btn-sm btn-warning fw-bold" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
-        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.matricula}"> Solicitar Consulta </button>
+        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.dniMedico}"> Solicitar Consulta </button>
       `;
     } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
@@ -205,7 +205,48 @@ const mostrarNuestrosCentros = () => {};
 
 const mostrarHistorialPacientes = () => {};
 
-const mostrarTurnosAsignados = () => {};
+const mostrarTurnosAsignados = () => {
+  const contenedorTablasHead = document.getElementById("contendorTablasHead");
+  const contenedorTablasBody = document.getElementById("contendorTablasBody");
+  let listaTurnosSolicitados = obtenerContenidoArrayLS("listaTurnos");
+
+  contenedorTablasHead.innerHTML = "";
+  contenedorTablasBody.innerHTML = "";
+
+  contenedorTablasHead.innerHTML += `
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nombre Completo</th>
+    <th scope="col">Fecha</th>
+    <th scope="col">Hora</th>
+    <th class="text-center" scope="col">Consulta</th>
+  </tr>
+  `;
+  listaTurnosSolicitados.forEach((element, index) => {
+    let botonHTML = "";
+
+    /*   if (1 === obtenerUnElementoLS("codigoInicioSesion")) {
+      botonHTML = `
+      <button class="btn btn-sm btn-warning fw-bold" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.matricula}"> Solicitar Consulta </button>
+      `;
+    } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
+      botonHTML = `
+        <button class="btn btn-sm btn-danger fw-bold" onclick="borrarUsuario('${index}','${listaMedicos}')" type="button">Borrar </button>
+      `;
+    } */
+
+    contenedorTablasBody.innerHTML += `
+      <tr>
+        <th scope="row">${index + 1}</th>
+        <td>"Juan Perez"</td>
+        <td>${element.fechaConsulta}</td>
+        <td>${element.horaConsulta}</td>
+        <td>${element.detalleConsulta}</td>
+      </tr>
+    `;
+  });
+};
 // ------------------------------------------------Funciones para Administrador--------------------------------------------
 
 const mostrarUsuariosAdministrador = (lista) => {
@@ -375,24 +416,25 @@ const modalTurno = new bootstrap.Modal("#modalSolTurno", {
   keyboard: false,
 });
 let turnos = [];
+let dniAsignado;
 
 const showModalSolTurno = (boton) => {
   modalTurno.show();
   const idDelBoton = boton.id;
-  idObtenido = idDelBoton;
+  dniAsignado = idDelBoton;
 };
 
 const agregarSolTurno = (event) => {
   event.preventDefault();
   const detalleConsulta = document.getElementById("detalleConsulta").value;
-  const diaConsulta = document.getElementById("diaConsulta").value;
+  const fechaConsulta = document.getElementById("fechaConsulta").value;
   const horaConsulta = document.getElementById("horaConsulta").value;
 
   const turno = {
     detalleConsulta,
-    diaConsulta,
+    fechaConsulta,
     horaConsulta,
-    idObtenido,
+    dniAsignado,
   };
 
   turnos.push(turno);
@@ -402,15 +444,7 @@ const agregarSolTurno = (event) => {
   reseteoModalTurno.addEventListener("hidden.bs.modal", function (event) {
     formSolturno.reset();
   });
-
-  const modalTurnoFunc = document.getElementById("modalSolTurno");
-  modalTurnoFunc.addEventListener("hidden.bs.modal", (event) => {
-    console.log("holaaa");
-  });
-
   modalTurno.hide();
 };
-
-let idObtenido;
 
 //

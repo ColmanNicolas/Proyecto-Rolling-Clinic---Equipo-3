@@ -19,7 +19,7 @@ const manejarFormPaciente = (event) => {
   };
 
   if (validarPaciente(paciente)) {
-    agregarUsuario(paciente,listaDeEsperaPacientes0);
+    agregarUsuario(paciente, listaDeEsperaPacientes0);
 
     const cierreModalPaciente = document.getElementById("modalPaciente");
     bootstrap.Modal.getInstance(cierreModalPaciente).hide();
@@ -30,7 +30,7 @@ const manejarFormPaciente = (event) => {
 const manejarFormMedico = (event) => {
   event.preventDefault();
 
-  const medicos =obtenerContenidoArrayLS(listaDeEsperaMedicos0);
+  const medicos = obtenerContenidoArrayLS(listaDeEsperaMedicos0);
   const nombreMedico = document.getElementById("nombreMedico").value.trim();
   const apellidoMedico = document.getElementById("apellidoMedico").value.trim();
   const dniMedico = document.getElementById("dniMedico").value.trim();
@@ -39,7 +39,7 @@ const manejarFormMedico = (event) => {
   const centroMedico = document.getElementById("centroMedico").value;
   const emailMedico = document.getElementById("emailMedico").value.trim();
   const contrasenaMedico = document.getElementById("contrasenaMedico").value;
-  
+
   const medico = {
     nombreMedico,
     apellidoMedico,
@@ -50,13 +50,13 @@ const manejarFormMedico = (event) => {
     emailMedico,
     contrasenaMedico,
   };
-  
-  if(validarMedico(medico)){
-    agregarUsuario(medico,listaDeEsperaMedicos0);
-  
+
+  if (validarMedico(medico)) {
+    agregarUsuario(medico, listaDeEsperaMedicos0);
+
     const cierreModalMedico = document.getElementById("modalMedico");
     bootstrap.Modal.getInstance(cierreModalMedico).hide();
-  
+
     const reseteoModalMedico = document.getElementById("modalMedico");
     reseteoModalMedico.addEventListener("hidden.bs.modal", function (event) {
       formMedico.reset();
@@ -91,10 +91,10 @@ const validarPaciente = (paciente) => {
 
   return true;
 };
-const validarMedico = (medico) =>{
+const validarMedico = (medico) => {
   if (!validarNombres(medico.nombreMedico) || !validarNombres(medico.apellidoMedico)) {
     alert("El nombre o apellido ingresado no es valido");
-    
+
     return false;
   }
 
@@ -128,12 +128,12 @@ function loguear() {
   if (user == "Leo" && pass == "1234") {
     localStorage.setItem("codigoInicioSesion", 0);
     //cambiar por correo del paciente
-    localStorage.setItem("UsuarioLogeado","correoPaciente");
+    localStorage.setItem("UsuarioLogeado", "correoPaciente");
     window.location = "logeado.html";
   } else if (user == "Medico" && pass == "123456") {
     localStorage.setItem("codigoInicioSesion", 1);
     //cambiar por correo del medico
-    localStorage.setItem("UsuarioLogeado","correoMedico");
+    localStorage.setItem("UsuarioLogeado", "correoMedico");
     window.location = "logeado.html";
   } else if (user == "admin" && pass == "admin") {
     localStorage.setItem("codigoInicioSesion", 2);
