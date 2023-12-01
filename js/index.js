@@ -12,7 +12,7 @@ const manejarFormPaciente = (event) => {
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
 
   const toastMensaje = document.getElementById("toastMensaje");
-  
+
   const paciente = {
     nombrePaciente,
     apellidoPaciente,
@@ -23,14 +23,14 @@ const manejarFormPaciente = (event) => {
   };
 
   if (validarPaciente(paciente)) {
-    agregarUsuario(paciente,listaDeEsperaPacientes0);
+    agregarUsuario(paciente, listaDeEsperaPacientes0);
 
     modificarToastRegistro('exito');
-    toastMensaje.innerText="El registro se realizó con exito!"
+    toastMensaje.innerText = "El registro se realizó con exito!"
 
-    cerrarModalResetearFormulario("modalPaciente","formPaciente");
+    cerrarModalResetearFormulario("modalPaciente", "formPaciente");
   }
-    toastBootstrap.show();
+  toastBootstrap.show();
 };
 const manejarFormMedico = (event) => {
   event.preventDefault();
@@ -48,9 +48,9 @@ const manejarFormMedico = (event) => {
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
 
   const toastMensaje = document.getElementById("toastMensaje");
-  
 
-  
+
+
   const medico = {
     nombreMedico,
     apellidoMedico,
@@ -61,91 +61,77 @@ const manejarFormMedico = (event) => {
     emailMedico,
     contrasenaMedico,
   };
-  
-  if(validarMedico(medico)){
-    agregarUsuario(medico,listaDeEsperaMedicos0);
+
+  if (validarMedico(medico)) {
+    agregarUsuario(medico, listaDeEsperaMedicos0);
     modificarToastRegistro('exito');
-    toastMensaje.innerText="El registro se realizó con exito!"
-  
-    cerrarModalResetearFormulario("modalMedico","formMedico");
-    };
+    toastMensaje.innerText = "El registro se realizó con exito!"
+
+    cerrarModalResetearFormulario("modalMedico", "formMedico");
+  };
   toastBootstrap.show();
 };
 const validarPaciente = (paciente) => {
- 
+
   const toastMensaje = document.getElementById("toastMensaje");
 
   modificarToastRegistro('error');
 
   if (!validarNombres(paciente.nombrePaciente) || !validarNombres(paciente.apellidoPaciente)) {
-    toastMensaje.innerText="El nombre ingresado no es valido";
+    toastMensaje.innerText = "El nombre ingresado no es valido";
     return false;
   }
 
-  if (!validarNumeros(paciente.dniPaciente, 1*Math.pow(10,6), 1*Math.pow(10,8))) {
-    toastMensaje.innerText="El dni ingresado no es valido";
+  if (!validarNumeros(paciente.dniPaciente, 1 * Math.pow(10, 6), 1 * Math.pow(10, 8))) {
+    toastMensaje.innerText = "El dni ingresado no es valido";
     return false;
   }
 
   if (!validarNumeros(paciente.edadPaciente, 0, 120)) {
-    toastMensaje.innerText="La edad ingresada no es valida";
+    toastMensaje.innerText = "La edad ingresada no es valida";
     return false;
   }
 
   if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(paciente.emailPaciente)) {
-    toastMensaje.innerText="El correo ingresado no es valido";
+    toastMensaje.innerText = "El correo ingresado no es valido";
     return false;
   }
 
   if (paciente.contrasenaPaciente.length < 6) {
-    toastMensaje.innerText="La contraseña ingresada no es valida";
+    toastMensaje.innerText = "La contraseña ingresada no es valida";
     return false;
   }
 
   return true;
 };
-const modificarToastRegistro = (situacion) =>{
-  const toastTitulo = document.getElementById("toastTitulo");
-  const contenedorToastRegistro = document.getElementById("contenedorToastRegistro");
-switch(situacion){
-  case 'error':
-    toastTitulo.innerText="Error";
-    contenedorToastRegistro.classList = [];
-    contenedorToastRegistro.classList.add("toast-header","bg-danger");
-    break;
-    case 'exito':
-      toastTitulo.innerText="Felicidades";
-      contenedorToastRegistro.classList = [];
-      contenedorToastRegistro.classList.add("toast-header","bg-success");
-  }
-}
-const validarMedico = (medico) =>{
+
+const validarMedico = (medico) => {
   const toastMensaje = document.getElementById("toastMensaje");
 
-modificarToastRegistro('error');
+  modificarToastRegistro('error');
 
   if (!validarNombres(medico.nombreMedico) || !validarNombres(medico.apellidoMedico)) {
-    toastMensaje.innerText="El nombre ingresado no es valido";
+    toastMensaje.innerText = "El nombre ingresado no es valido";
     return false;
   }
 
-  if (!validarNumeros(medico.dniMedico, 1*Math.pow(10,6), 1*Math.pow(10,8))) {
-    toastMensaje.innerText="El dni ingresado no es valido";
+  if (!validarNumeros(medico.dniMedico, 1 * Math.pow(10, 6), 1 * Math.pow(10, 8))) {
+    toastMensaje.innerText = "El dni ingresado no es valido";
     return false;
   }
 
-  if (!validarNumeros(medico.matricula, 0, 1*Math.pow(10,6))) {
-    toastMensaje.innerText="La matricula ingresada no es valida";
+  if (!validarNumeros(medico.matricula, 0, 1 * Math.pow(10, 6))) {
+    toastMensaje.innerText = "La matricula ingresada no es valida";
     return false;
   }
 
   if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(medico.emailMedico)) {
-    toastMensaje.innerText="El correo ingresado no es valido";
+    toastMensaje.innerText = "El correo ingresado no es valido";
     return false;
   }
 
   if (medico.contrasenaMedico.length < 6) {
-    toastMensaje.innerText="La contraseña ingresada no es valida";
+    toastMensaje.innerText = "La contraseña ingresada no es valida";
     return false;
   }
 
@@ -159,12 +145,12 @@ function loguear() {
   if (user == "Leo" && pass == "1234") {
     localStorage.setItem("codigoInicioSesion", 0);
     //cambiar por correo del paciente
-    localStorage.setItem("UsuarioLogeado","correoPaciente");
+    localStorage.setItem("UsuarioLogeado", "correoPaciente");
     window.location = "logeado.html";
   } else if (user == "Medico" && pass == "123456") {
     localStorage.setItem("codigoInicioSesion", 1);
     //cambiar por correo del medico
-    localStorage.setItem("UsuarioLogeado","correoMedico");
+    localStorage.setItem("UsuarioLogeado", "correoMedico");
     window.location = "logeado.html";
   } else if (user == "admin" && pass == "admin") {
     localStorage.setItem("codigoInicioSesion", 2);

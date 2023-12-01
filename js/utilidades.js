@@ -65,7 +65,7 @@ function mostrarPopover(input) {
 const validarNumeros = (numero, min, max) => {
     return numero >= min && numero <= max;
 }
-const cerrarModalResetearFormulario = (modal,formulario) => {
+const cerrarModalResetearFormulario = (modal, formulario) => {
     document.getElementById(formulario).reset();
     const cierreModalPaciente = document.getElementById(modal);
     bootstrap.Modal.getInstance(cierreModalPaciente).hide();
@@ -76,25 +76,40 @@ const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
     const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
     primerCampo.focus();
 }
+const modificarToastRegistro = (situacion) => {
+    const toastTitulo = document.getElementById("toastTitulo");
+    const contenedorToastRegistro = document.getElementById("contenedorToastRegistro");
+    switch (situacion) {
+        case 'error':
+            toastTitulo.innerText = "Error";
+            contenedorToastRegistro.classList = [];
+            contenedorToastRegistro.classList.add("toast-header", "bg-danger");
+            break;
+        case 'exito':
+            toastTitulo.innerText = "Felicidades";
+            contenedorToastRegistro.classList = [];
+            contenedorToastRegistro.classList.add("toast-header", "bg-success");
+    }
+}
 
-const validarInputEnVivo = (input,condicion) => {
+const validarInputEnVivo = (input, condicion) => {
 
-    const popover = new bootstrap.Popover(input);    
-    
-    switch(condicion){
+    const popover = new bootstrap.Popover(input);
+
+    switch (condicion) {
         case 0:         //para nombres
-        if(!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value.trim())){
-            popover.show();
-        }
-        break;
+            if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value.trim())) {
+                popover.show();
+            }
+            break;
         case 1:         //restriccion para numeros grandes
-        if (input.value<0 || input.value >99999999) {
-            popover.show();          
-        }
-        break;
+            if (input.value < 0 || input.value > 99999999) {
+                popover.show();
+            }
+            break;
         case 2:        //restriccion para edad
-            if (input.value<0 || input.value >120) {
-                popover.show();          
+            if (input.value < 0 || input.value > 120) {
+                popover.show();
             }
             break;
     }
