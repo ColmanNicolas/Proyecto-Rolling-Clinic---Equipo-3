@@ -142,6 +142,8 @@ function loguear() {
     alert("Datos Incorrectos");
   }
 }
+compararFechas();
+
 const listaDeEsperaMedicos0 = "listaDeEsperaMedicos";
 
 const listaDeEsperaPacientes0 = "listaDeEsperaPacientes";
