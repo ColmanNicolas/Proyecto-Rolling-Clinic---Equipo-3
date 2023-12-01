@@ -55,7 +55,13 @@ const validarNombres = (nombre) => {
         return true;
     }
 }
-
+function mostrarPopover(input) {
+    const popover = new bootstrap.Popover(input);
+    popover.show();
+    setTimeout(() => {
+        popover.hide();
+    }, 1200);
+}
 const validarNumeros = (numero, cifraMinima, cifraMaxima) => {
     return numero.length >= cifraMinima && numero.length <= cifraMaxima;
 }
@@ -66,19 +72,18 @@ const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
     const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
     primerCampo.focus();
 }
-const validarnombreEnVivo = (input) =>{
+const validarnombreEnVivo = (input) => {
     console.log("estoy controlando");
-    const expresionRegular = /^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i;
-    const esValido = expresionRegular.test(input.value);
+    const esValido = /^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value);
 
     if (!esValido) {
- /*       const myPopover = bootstrap.Popover.getOrCreateInstance('#example');
-        myPopover.setContent({
-            '.popover-header': 'supertitulooo',
-            '.popover-body': 'another content'
-          });
-*/
-        alert("Erróneo. El nombre no cumple con el formato permitido.");
+        const popover = new bootstrap.Popover(input);
+        setTimeout(() => {
+            popover.show();
+        }, 1000);
+        setTimeout(() => {
+            popover.hide();
+        }, 1200);
     }
 }
 const agregarUsuario = (usuario, lista) => {
@@ -99,15 +104,15 @@ function limitarFecha(input) {
     // 6 es domingo, 5 es sábado
     if (diaSeleccionado === 5 || diaSeleccionado === 6) {
         alert("Seleccione un día hábil");
-        input.value = '';  
+        input.value = '';
     }
 }
-const compararFechas = () =>{ //EN DESARROLLO
+const compararFechas = () => { //EN DESARROLLO
     const fechaActual = new Date();
     const diaActual = fechaActual.getDate();
     const horaActual = fechaActual.getHours();
-  //  console.log(diaActual);
-  //  console.log(horaActual);
+    //  console.log(diaActual);
+    //  console.log(horaActual);
     /*
     if(fechaRecibida>diaActual){
         if(horaRecibida>horaActual){
