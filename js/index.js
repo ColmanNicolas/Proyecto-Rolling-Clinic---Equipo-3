@@ -1,13 +1,17 @@
 const manejarFormPaciente = (event) => {
   event.preventDefault();
 
-  const pacientes = obtenerContenidoArrayLS(listaDeEsperaPacientes0);
   const nombrePaciente = document.getElementById("nombrePaciente").value.trim();
   const apellidoPaciente = document.getElementById("apellidoPaciente").value.trim();
   const dniPaciente = document.getElementById("dniPaciente").value.trim();
   const edadPaciente = document.getElementById("edadPaciente").value.trim();
   const emailPaciente = document.getElementById("emailPaciente").value.trim();
   const contrasenaPaciente = document.getElementById("contrasenaPaciente").value;
+
+  const toastLiveExample = document.getElementById("liveToast");
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+
+  const toastMensaje = document.getElementById("toastMensaje");
 
   const paciente = {
     nombrePaciente,
@@ -21,16 +25,16 @@ const manejarFormPaciente = (event) => {
   if (validarPaciente(paciente)) {
     agregarUsuario(paciente, listaDeEsperaPacientes0);
 
-    const cierreModalPaciente = document.getElementById("modalPaciente");
-    bootstrap.Modal.getInstance(cierreModalPaciente).hide();
+    modificarToastRegistro("exito");
+    toastMensaje.innerText = "El registro se realizó con exito!";
 
-    document.getElementById("formPaciente").reset();
+    cerrarModalResetearFormulario("modalPaciente", "formPaciente");
   }
+  toastBootstrap.show();
 };
 const manejarFormMedico = (event) => {
   event.preventDefault();
 
-  const medicos = obtenerContenidoArrayLS(listaDeEsperaMedicos0);
   const nombreMedico = document.getElementById("nombreMedico").value.trim();
   const apellidoMedico = document.getElementById("apellidoMedico").value.trim();
   const dniMedico = document.getElementById("dniMedico").value.trim();
@@ -39,6 +43,11 @@ const manejarFormMedico = (event) => {
   const centroMedico = document.getElementById("centroMedico").value;
   const emailMedico = document.getElementById("emailMedico").value.trim();
   const contrasenaMedico = document.getElementById("contrasenaMedico").value;
+
+  const toastLiveExample = document.getElementById("liveToast");
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+
+  const toastMensaje = document.getElementById("toastMensaje");
 
   const medico = {
     nombreMedico,
@@ -53,68 +62,73 @@ const manejarFormMedico = (event) => {
 
   if (validarMedico(medico)) {
     agregarUsuario(medico, listaDeEsperaMedicos0);
+    modificarToastRegistro("exito");
+    toastMensaje.innerText = "El registro se realizó con exito!";
 
-    const cierreModalMedico = document.getElementById("modalMedico");
-    bootstrap.Modal.getInstance(cierreModalMedico).hide();
-
-    const reseteoModalMedico = document.getElementById("modalMedico");
-    reseteoModalMedico.addEventListener("hidden.bs.modal", function (event) {
-      formMedico.reset();
-    });
+    cerrarModalResetearFormulario("modalMedico", "formMedico");
   }
+  toastBootstrap.show();
 };
 const validarPaciente = (paciente) => {
+  const toastMensaje = document.getElementById("toastMensaje");
+
+  modificarToastRegistro("error");
+
   if (!validarNombres(paciente.nombrePaciente) || !validarNombres(paciente.apellidoPaciente)) {
-    alert("El nombre o apellido ingresado no es valido");
+    toastMensaje.innerText = "El nombre ingresado no es valido";
     return false;
   }
 
-  if (!validarNumeros(paciente.dniPaciente, 6, 8)) {
-    alert("El DNI ingresado no es válido");
+  if (!validarNumeros(paciente.dniPaciente, 1 * Math.pow(10, 6), 1 * Math.pow(10, 8))) {
+    toastMensaje.innerText = "El dni ingresado no es valido";
     return false;
   }
 
-  if (!validarNumeros(paciente.edadPaciente, 1, 3)) {
-    alert("La edad ingresada no es válida");
+  if (!validarNumeros(paciente.edadPaciente, 0, 120)) {
+    toastMensaje.innerText = "La edad ingresada no es valida";
     return false;
   }
 
   if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(paciente.emailPaciente)) {
-    alert("El email no es válido");
+    toastMensaje.innerText = "El correo ingresado no es valido";
     return false;
   }
 
   if (paciente.contrasenaPaciente.length < 6) {
-    alert("La contraseña debe contener al menos seis dígitos");
+    toastMensaje.innerText = "La contraseña ingresada no es valida";
     return false;
   }
 
   return true;
 };
+
 const validarMedico = (medico) => {
+  const toastMensaje = document.getElementById("toastMensaje");
+
+  modificarToastRegistro("error");
+
   if (!validarNombres(medico.nombreMedico) || !validarNombres(medico.apellidoMedico)) {
-    alert("El nombre o apellido ingresado no es valido");
-
+    toastMensaje.innerText = "El nombre ingresado no es valido";
     return false;
   }
 
-  if (!validarNumeros(medico.dniMedico, 6, 8)) {
-    alert("El DNI ingresado no es válido");
+  if (!validarNumeros(medico.dniMedico, 1 * Math.pow(10, 6), 1 * Math.pow(10, 8))) {
+    toastMensaje.innerText = "El dni ingresado no es valido";
     return false;
   }
 
-  if (!validarNumeros(medico.matricula, 1, 7)) {
-    alert("La matricula ingresada no es válida");
+  if (!validarNumeros(medico.matricula, 0, 1 * Math.pow(10, 6))) {
+    toastMensaje.innerText = "La matricula ingresada no es valida";
     return false;
   }
 
   if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(medico.emailMedico)) {
-    alert("El email no es válido");
+    toastMensaje.innerText = "El correo ingresado no es valido";
     return false;
   }
 
   if (medico.contrasenaMedico.length < 6) {
-    alert("La contraseña debe contener al menos seis dígitos");
+    toastMensaje.innerText = "La contraseña ingresada no es valida";
     return false;
   }
 

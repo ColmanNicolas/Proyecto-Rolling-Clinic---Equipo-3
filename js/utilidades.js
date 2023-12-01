@@ -62,28 +62,56 @@ function mostrarPopover(input) {
         popover.hide();
     }, 1200);
 }
-const validarNumeros = (numero, cifraMinima, cifraMaxima) => {
-    return numero.length >= cifraMinima && numero.length <= cifraMaxima;
+const validarNumeros = (numero, min, max) => {
+    return numero >= min && numero <= max;
 }
-
+const cerrarModalResetearFormulario = (modal, formulario) => {
+    document.getElementById(formulario).reset();
+    const cierreModalPaciente = document.getElementById(modal);
+    bootstrap.Modal.getInstance(cierreModalPaciente).hide();
+}
 const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
     //funcion para limpiar el formulario y seleccionar el primer imput
     document.getElementById(idElemento).reset();
     const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
     primerCampo.focus();
 }
-const validarnombreEnVivo = (input) => {
-    console.log("estoy controlando");
-    const esValido = /^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value);
+const modificarToastRegistro = (situacion) => {
+    const toastTitulo = document.getElementById("toastTitulo");
+    const contenedorToastRegistro = document.getElementById("contenedorToastRegistro");
+    switch (situacion) {
+        case 'error':
+            toastTitulo.innerText = "Error";
+            contenedorToastRegistro.classList = [];
+            contenedorToastRegistro.classList.add("toast-header", "bg-danger");
+            break;
+        case 'exito':
+            toastTitulo.innerText = "Felicidades";
+            contenedorToastRegistro.classList = [];
+            contenedorToastRegistro.classList.add("toast-header", "bg-success");
+    }
+}
 
-    if (!esValido) {
-        const popover = new bootstrap.Popover(input);
-        setTimeout(() => {
-            popover.show();
-        }, 1000);
-        setTimeout(() => {
-            popover.hide();
-        }, 1200);
+const validarInputEnVivo = (input, condicion) => {
+
+    const popover = new bootstrap.Popover(input);
+
+    switch (condicion) {
+        case 0:         //para nombres
+            if (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value.trim())) {
+                popover.show();
+            }
+            break;
+        case 1:         //restriccion para numeros grandes
+            if (input.value < 0 || input.value > 99999999) {
+                popover.show();
+            }
+            break;
+        case 2:        //restriccion para edad
+            if (input.value < 0 || input.value > 120) {
+                popover.show();
+            }
+            break;
     }
 }
 const agregarUsuario = (usuario, lista) => {
@@ -125,3 +153,10 @@ const compararFechas = () => { //EN DESARROLLO
     }
     */
 }
+setInterval(() => {
+    const popovers = document.querySelectorAll('.popover');
+
+    popovers.forEach(function (popover) {
+        popover.parentNode.removeChild(popover);
+    });
+}, 2000);
