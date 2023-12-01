@@ -65,27 +65,37 @@ function mostrarPopover(input) {
 const validarNumeros = (numero, cifraMinima, cifraMaxima) => {
     return numero.length >= cifraMinima && numero.length <= cifraMaxima;
 }
-
+const cerrarModal = (modal,formulario) => {
+    document.getElementById(formulario).reset();
+    const cierreModalPaciente = document.getElementById(modal);
+    bootstrap.Modal.getInstance(cierreModalPaciente).hide();
+}
 const limpiarYenfocarPrimerImput = (idElemento, valorImput) => {
     //funcion para limpiar el formulario y seleccionar el primer imput
     document.getElementById(idElemento).reset();
     const primerCampo = document.querySelector('input[type="' + valorImput + '"]');
     primerCampo.focus();
 }
-const validarnombreEnVivo = (input) => {
-    console.log("estoy controlando");
-    const esValido = /^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value);
 
-    if (!esValido) {
-        const popover = new bootstrap.Popover(input);
-        setTimeout(() => {
-            popover.show();
-        }, 1000);
-        setTimeout(() => {
-            popover.hide();
-        }, 1200);
+
+const validarnombreEnVivo = (input) => {
+    const popover = new bootstrap.Popover(input);
+    let esValido = /^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(input.value.trim());
+    if(!esValido){
+        popover.show();
     }
 }
+
+setInterval(() => {
+    var popovers = document.querySelectorAll('.popover');
+
+    popovers.forEach(function (popover) {
+        popover.parentNode.removeChild(popover);
+    });
+}, 2000);
+
+
+
 const agregarUsuario = (usuario, lista) => {
     const listaDeElementos = obtenerContenidoArrayLS(lista);
     listaDeElementos.push(usuario);

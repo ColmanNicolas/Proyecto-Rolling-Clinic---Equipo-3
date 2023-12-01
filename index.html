@@ -91,17 +91,24 @@
       <div class="modal-content rounded-top-4">
         <div class="modal-header colorAzul rounded-top-4">
           <h1 class="modal-title fs-4 rounded-top-5" id="exampleModalLabel">Registro pacientes</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" onclick="cerrarModal('modalPaciente','formPaciente')"
+            aria-label="Close"></button>
         </div>
         <div class="modal-body colorCeleste rounded-bottom-3 ">
           <form class="row g-3" onsubmit="manejarFormPaciente(event)" id="formPaciente">
             <div class="col-md-6">
               <label for="nombrePaciente" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombrePaciente" >
+              <input type="text" class="form-control" id="nombrePaciente" data-bs-toggle="popover"
+                data-bs-placement="right" data-bs-title="advertencia"
+                data-bs-content="nombre contiene caracteres invalidos" data-bs-trigger="focus"
+                oninput="validarnombreEnVivo(this)" required />
             </div>
             <div class="col-md-6">
               <label for="apellidoPaciente" class="form-label">Apellido</label>
-              <input type="text" class="form-control" id="apellidoPaciente" value="" required />
+              <input type="text" class="form-control" id="apellidoPaciente" value="" data-bs-toggle="popover"
+                data-bs-placement="right" data-bs-title="advertencia"
+                data-bs-content="apellido contiene caracteres invalidos" data-bs-trigger="focus"
+                oninput="validarnombreEnVivo(this)" required />
             </div>
             <div class="col-md-6">
               <label for="dniPaciente" class="form-label">DNI</label>
@@ -144,11 +151,17 @@
           <form class="row g-3" onsubmit="manejarFormMedico(event)" id="formMedico">
             <div class="col-md-6">
               <label for="nombreMedico" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombreMedico" value="" required />
+              <input type="text" class="form-control" id="nombreMedico" value="" data-bs-toggle="popover"
+                data-bs-placement="right" data-bs-title="advertencia"
+                data-bs-content="nombre contiene caracteres invalidos" data-bs-trigger="focus"
+                oninput="validarnombreEnVivo(this)" required />
             </div>
             <div class="col-md-6">
               <label for="apellidoMedico" class="form-label">Apellido</label>
-              <input type="text" class="form-control" id="apellidoMedico" value="" required />
+              <input type="text" class="form-control" id="apellidoMedico" value="" data-bs-toggle="popover"
+                data-bs-placement="right" data-bs-title="advertencia"
+                data-bs-content="apellido contiene caracteres invalidos" data-bs-trigger="focus"
+                oninput="validarnombreEnVivo(this)" required />
             </div>
             <div class="col-md-6">
               <label for="dniMedico" class="form-label">DNI</label>
