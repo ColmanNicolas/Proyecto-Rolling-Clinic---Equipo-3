@@ -10,15 +10,42 @@
   background-color: rgb(43, 41, 41);
   height: 100vh;
 }
-#contenedorSideBar li {
+#contenedorBotonesSideBar li {
   transition: background-color 0.5s ease; /* Agrega una transición de 0.5 segundos con función de temporización ease */
 }
-#contenedorSideBar li:hover {
+#contenedorBotonesSideBar li:hover {
+  cursor: pointer;
   background-color: rgb(75, 75, 75);
   transition-duration: 0.7s;
 }
 #tamañoContenedorTablas {
   margin-inline: 2%;
+}
+#offcanvasBottom{
+  position: fixed;
+
+}
+#contendorTablasHead{
+  max-height: 800px; /* Altura máxima antes de que aparezca la barra de desplazamiento */
+  overflow-y: auto; 
+}
+#contenedorInferiorBotonesSideBar{
+  margin-block: 5px !important;
+  display: flex !important;
+  justify-content: space-around;
+  padding: 0;
+}
+#contenedorInferiorBotonesSideBar li{
+  width: 50px;
+  height: 50px !important;
+  border-radius: 50px;
+  background-color: rgb(18, 43, 189);
+  text-decoration: none;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
 }
 @media (min-width: 1600px) {
   #tamañoContenedorTablas {
@@ -28,9 +55,9 @@
 }
 
 #pantallaPrincipal {
-  width: 100%;
+ 
   background-color: rgb(194, 235, 235);
-  height: 100vh;
+ 
 }
 
 @media (max-width: 900px) {
@@ -61,4 +88,11 @@
 #detalleConsulta {
   resize: none;
   height: 150px;
+}
+#offcanvasBottom{
+  height: 8vh;
+}
+#contenerdorScrolleableTablas{
+  height: 600px;
+  overflow: auto;
 }
