@@ -284,8 +284,8 @@ const mostrarCartillaProfesionales = () => {
 
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
-      <button class="btn btn-sm btn-warning fw-bold mb-1" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion <i class="bi bi-info-circle fw-bold"></i></button>
-        <button type="button" class="btn btn-sm fw-bold mb-1 btn-success" onclick="showModalSolTurno(this)" id="${element.matricula}">Turno <i class="bi bi-calendar-check"></i></button>
+      <button class="btn btn-sm btn-warning fw-bold mb-1" onmouseover="mostrarModalInfo()" onpointerleave="cerrarModalInfo()" type="button">Informacion <i class="bi bi-info-circle fw-bold"></i></button>
+        <button type="button" class="btn btn-sm fw-bold mb-1  btn-success" onclick="showModalSolTurno(this)" id="${element.matricula}">Turno <i class="bi bi-calendar-check"></i></button>
       `;
     } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
@@ -437,6 +437,12 @@ console.log("llego a esta funcion con:",lista);
     return usuario;
   }
 };
+const mostrarModalInfo = () =>{
+  modalInfoMedico.show();
+}
+const cerrarModalInfo = () =>{
+  modalInfoMedico.hide();
+}
 
 //-------------------------------------------- esto se ejecuta al cargar la pagina-------------------
 const listaMedicos = "listaMedicos";
@@ -447,6 +453,9 @@ const listaPacientesBaja = "listaPacientesBaja";
 const listaMedicosBaja = "listaMedicosBaja";
 
 const modalBaja = new bootstrap.Modal("#modalBaja", {
+  keyboard: false,
+});
+const modalInfoMedico = new bootstrap.Modal("#modalInfoMedico", {
   keyboard: false,
 });
 
