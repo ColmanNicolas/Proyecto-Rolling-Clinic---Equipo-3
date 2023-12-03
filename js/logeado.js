@@ -28,7 +28,7 @@ const desplegarBotonesSideBar = (codigo) => {
       case 1:
         SideBarBotones.innerHTML += `
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonHistorialPacientes" >REGISTRO DE PACIENTES</li>
-            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100"> id="botonTurnosMedico">TURNOS ASIGNADOS</li>
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosMedico">TURNOS ASIGNADOS</li>
           `;
         break;
       case 2:
@@ -437,20 +437,7 @@ const bajaUsuario = (event) => {
     cerrarModalResetearFormulario("modalBaja", "formularioBajaUsuario");
   }
 }
-const buscarUsuarioPorDocumento = (documento, lista) => {
-  let usuario = null;
-  const usuarios = obtenerContenidoArrayLS(lista);
-console.log("llego a esta funcion con:",lista);
-  if (lista === listaMedicos) {
-    usuario = usuarios.find(elemento => elemento.dniMedico === documento);
-    console.log("Devuelvo usuario: ", usuario);
-    return usuario;
-  } else if (lista === listaPacientes) {
-    usuario = usuarios.find(elemento => elemento.dniPaciente === documento);
-    console.log("Devuelvo usuario: ", usuario);
-    return usuario;
-  }
-};
+
 const mostrarModalInfo = () =>{
   modalInfoMedico.show();
 }

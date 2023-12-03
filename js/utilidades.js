@@ -125,6 +125,17 @@ const borrarUsuario = (index, lista) => {
     actualizarContenidoArrayLS(listaDeElementos, lista);
     mostrarUsuariosAdministrador(lista);
 };
+const buscarUsuarioPorDocumento = (documento, lista) => {
+    let usuario = null;
+    const usuarios = obtenerContenidoArrayLS(lista);
+    if (lista === listaMedicos) {
+        usuario = usuarios.find(elemento => elemento.dniMedico === documento);
+        return usuario;
+    } else if (lista === listaPacientes) {
+        usuario = usuarios.find(elemento => elemento.dniPaciente === documento);
+        return usuario;
+    }
+};
 function limitarFecha(input) {
     // Establecer fecha mínima basada en la fecha actual
     const fechaActual = new Date();
