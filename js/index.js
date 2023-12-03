@@ -96,11 +96,17 @@ const validarPaciente = (paciente) => {
     toastMensaje.innerText = "El correo ingresado no es valido";
     return false;
   }
-
-  if (paciente.contrasenaPaciente.length < 6) {
-    toastMensaje.innerText = "La contraseña ingresada no es valida";
+  if (paciente.contrasenaPaciente.length < 6 ) {
+    toastMensaje.innerText = "La contraseña ingresada debe tener minimo 6 caracteres";
     return false;
   }
+  if (!/^(?=.*[A-Z])(?=.*\d)/.test(paciente.contrasenaPaciente)) {
+    toastMensaje.innerText = "La contraseña debe contener mínimo 1 numero y un caracter en mayuscula";
+    return false;
+  }
+
+  !/^(?=.*[A-Z])(?=.*\d)/.test(paciente.contrasenaPaciente)
+  
 
   return true;
 };

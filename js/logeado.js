@@ -4,13 +4,15 @@ const desplegarBotonesSideBar = (codigo) => {
   let anchoVentana = window.innerWidth;
   
 
-  if (anchoVentana >= 900) {
+  if (anchoVentana >= 660) {
     const SideBarBotones = document.getElementById("contenedorBotonesSideBar");
     const contenedorBotonMenu = document.getElementById("contenedorBotonMenu");
 
     SideBarBotones.innerHTML = "";
     contenedorBotonMenu.innerHTML=`
-    <button class="btn btn-dark fw-bold p-2" onclick="mostrarOffcanvas()">MENU</button>
+    <button class="btn btn-dark ms-4 fw-semibold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+    MENU
+  </button>
     `;
 
     switch (codigo) {
@@ -38,7 +40,8 @@ const desplegarBotonesSideBar = (codigo) => {
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonMedicosEnBaja">MEDICOS DADOS DE BAJA</li>
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonPacientesEnBaja">PACIENTES DADOS DE BAJA</li>
             `;
-        break;
+            mostrarUsuariosAdministrador(listaMedicos);
+            break;
       default:
         console.log("codigo de boton sidebar erroneo");
         break;
@@ -77,6 +80,7 @@ const desplegarBotonesSideBar = (codigo) => {
           <li class="nav-item my-1 text-center text-white fw-semibold " id="botonMedicosEnBaja"><b><i class="bi bi-person-x"></i></b></li>
           <li class="nav-item my-1 text-center text-white fw-semibold " id="botonPacientesEnBaja"><b><i class="bi bi-person-fill-x"></i></b></li>
         `;
+        mostrarUsuariosAdministrador(listaMedicos);
         break;
       
       default:
@@ -135,6 +139,9 @@ const actualizarTabla = (lista, usuario) => {
   contenedorTablasBody.innerHTML = "";
 
   if (usuario === "medico") {
+
+    titulosTablas.innerText = (lista === listaDeEsperaMedicos) ? "Profesionales en Espera de Aprobación" : "Profesionales en Sistema";
+  
     listaDeUsuarios.forEach((element, index) => {
       const botonHTML = definirAcciones(lista, index);
       contenedorTablasBody.innerHTML += `
@@ -148,6 +155,10 @@ const actualizarTabla = (lista, usuario) => {
         `;
     });
   } else if (usuario === "paciente") {
+
+    titulosTablas.innerText = (lista === listaDeEsperaPacientes) ? "Pacientes en Espera de Aprobacion" : "Pacientes en Sistema";
+
+
     listaDeUsuarios.forEach((element, index) => {
       const botonHTML = definirAcciones(lista, index);
       contenedorTablasBody.innerHTML += `
@@ -162,6 +173,8 @@ const actualizarTabla = (lista, usuario) => {
     });
   } else if (usuario === "usuarioBaja") {
     if (lista === listaPacientesBaja) {
+    titulosTablas.innerText="Pacientes dados de Baja";
+
       listaDeUsuarios.forEach((element, index) => {
         contenedorTablasBody.innerHTML += `
           <tr>
@@ -174,6 +187,8 @@ const actualizarTabla = (lista, usuario) => {
           `;
       });
     } else if (lista === listaMedicosBaja) {
+    titulosTablas.innerText="Medicos dados de Baja";
+
       listaDeUsuarios.forEach((element, index) => {
         contenedorTablasBody.innerHTML += `
           <tr>
@@ -264,7 +279,6 @@ const mostrarCartillaProfesionales = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   let listaProfesionalesRegistrados = obtenerContenidoArrayLS("listaMedicos");
-  let titulosTablas = document.getElementById("titulosTablas");
 
   contenedorTablasHead.innerHTML = "";
   contenedorTablasBody.innerHTML = "";
@@ -452,6 +466,7 @@ const listaDeEsperaPacientes = "listaDeEsperaPacientes";
 const listaPacientesBaja = "listaPacientesBaja";
 const listaMedicosBaja = "listaMedicosBaja";
 
+
 const modalBaja = new bootstrap.Modal("#modalBaja", {
   keyboard: false,
 });
@@ -459,6 +474,7 @@ const modalInfoMedico = new bootstrap.Modal("#modalInfoMedico", {
   keyboard: false,
 });
 
+const titulosTablas = document.getElementById("titulosTablas");
 const codigoInicioSesion = obtenerUnElementoLS("codigoInicioSesion");
 desplegarBotonesSideBar(codigoInicioSesion);
 capturarBotonesSideBar(codigoInicioSesion);

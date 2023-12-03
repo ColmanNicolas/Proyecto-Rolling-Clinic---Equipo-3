@@ -49,7 +49,6 @@ function mostrarOffcanvas() {
 
 const validarNombres = (nombre) => {
     if (nombre.length < 3 || !/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombre)) {
-        alert("El nombre o apellido ingresado no es válido");
         return false;
     } else {
         return true;
