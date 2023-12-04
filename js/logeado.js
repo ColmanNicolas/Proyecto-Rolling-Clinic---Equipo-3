@@ -225,18 +225,10 @@ const mostrarTurnosAsignados = () => {
   listaTurnosSolicitados.forEach((element, index) => {
     let botonHTML = "";
 
-    /*   if (1 === obtenerUnElementoLS("codigoInicioSesion")) {
-      botonHTML = `
-      <button class="btn btn-sm btn-warning fw-bold" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
-        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.matricula}"> Solicitar Consulta </button>
-      `;
-    } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
-      botonHTML = `
-        <button class="btn btn-sm btn-danger fw-bold" onclick="borrarUsuario('${index}','${listaMedicos}')" type="button">Borrar </button>
-      `;
-    } */
+    console.log(element.dniAsignado);
 
-    contenedorTablasBody.innerHTML += `
+    if (element.dniAsignado == 11222333) {
+      contenedorTablasBody.innerHTML += `
       <tr>
         <th scope="row">${index + 1}</th>
         <td>"Juan Perez"</td>
@@ -245,6 +237,7 @@ const mostrarTurnosAsignados = () => {
         <td>${element.detalleConsulta}</td>
       </tr>
     `;
+    }
   });
 };
 // ------------------------------------------------Funciones para Administrador--------------------------------------------
@@ -304,103 +297,6 @@ const aprobarUsuario = (index, lista) => {
   }
 };
 
-/*
-const mostrarProfesionalesEspera = () => {
-  const contenedorTablasHead = document.getElementById("contendorTablasHead");
-  const contenedorTablasBody = document.getElementById("contendorTablasBody");
-  let listaProfesionalesNoAutorizados = obtenerContenidoArrayLS(listaDeEsperaMedicos);
-  contenedorTablasBody.innerHTML = '';
-  contenedorTablasHead.innerHTML = '';
-  contenedorTablasHead.innerHTML += `
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Nombre Completo</th>
-    <th scope="col">Centro Medico</th>
-    <th scope="col">Área Médica</th>
-    <th scope="col">Acciones</th>
-  </tr>
-  `;
-  listaProfesionalesNoAutorizados.forEach((element, index) => {
-
-    contenedorTablasBody.innerHTML += `
-  <tr>
-  <th scope="row">${index + 1}</th>
-  <td>${element.apellidoMedico + ", " + element.nombreMedico}</td>
-  <td>${element.especialidad}</td>
-  <td>${element.centroMedico}</td>
-  <td>  
-    <button class="btn btn-sm btn-success" onclick="aprobarUsuario('${index}','${"listaDeEsperaMedicos"}')" type="button">aprobar</button
-    ><button class="btn btn-sm btn-danger" onclick="borrarUsuario('${index}','${"listaDeEsperaMedicos"}')" type="button">Borrar</button></td>
-  </tr>
-  `;
-  });
-};
-const mostrarRegistroPacientesAdmin = () => {
-  const contenedorTablasHead = document.getElementById("contendorTablasHead");
-  const contenedorTablasBody = document.getElementById("contendorTablasBody");
-  let listaPacientes = obtenerContenidoArrayLS("listaPacientes");
-  contenedorTablasBody.innerHTML = '';
-  contenedorTablasHead.innerHTML = '';
-
-  contenedorTablasHead.innerHTML += `
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Nombre Completo</th>
-    <th scope="col">DNI</th>
-    <th scope="col">Correo Electronico</th>
-    <th scope="col">Acciones</th>
-  </tr>
-  `;
-  listaPacientes.forEach((element, index) => {
-    contenedorTablasBody.innerHTML += `
-  <tr>
-  <th scope="row">${index + 1}</th>
-  <td>${element.apellidoPaciente + ", " + element.nombrePaciente}</td>
-  <td>${element.dniPaciente}</td>
-  <td>${element.emailPaciente}</td>
-  <td>  
-  <button class="btn btn-sm btn-danger" onclick="borrarUsuario('${index}','${"listaDeEsperaPacientes"}')" type="button">Borrar</button></td>
-  </tr>
-  `;
-
-  });
-
-}
-const mostrarPacientesEspera = () => {
-  const contenedorTablasHead = document.getElementById("contendorTablasHead");
-  const contenedorTablasBody = document.getElementById("contendorTablasBody");
-  let listaDeEsperaPacientes = obtenerContenidoArrayLS("listaDeEsperaPacientes");
-  contenedorTablasBody.innerHTML = '';
-  contenedorTablasHead.innerHTML = '';
-
-  contenedorTablasHead.innerHTML += `
-  <tr>
-  <th scope="col">#</th>
-  <th scope="col">Nombre Completo</th>
-  <th scope="col">DNI</th>
-  <th scope="col">Correo Electronico</th>
-  <th scope="col">Acciones</th>
-</tr>
-`;
-listaDeEsperaPacientes.forEach((element, index) => {
-
-    contenedorTablasBody.innerHTML += `
-<tr>
-<th scope="row">${index + 1}</th>
-<td>${element.apellidoPaciente + ", " + element.nombrePaciente}</td>
-<td>${element.dniPaciente}</td>
-<td>${element.emailPaciente}</td>
-<td>
-<button class="btn btn-sm btn-success" onclick="aprobarUsuario('${index}','${"listaDeEsperaPacientes"}')" type="button">aprobar</button>  
-<button class="btn btn-sm btn-danger" onclick="borrarUsuario('${index}','${"listaDeEsperaPacientes"}')" type="button">Borrar</button></td>
-</tr>
-`;
-
-  });
-
-}
-*/
-
 //-------------------------------------------- esto se ejecuta al cargar la pagina-------------------
 const listaMedicos = "listaMedicos";
 const listaDeEsperaMedicos = "listaDeEsperaMedicos";
@@ -412,11 +308,15 @@ desplegarBotonesSideBar(codigoInicioSesion);
 capturarBotonesSideBar(codigoInicioSesion);
 
 // ------------------------------------------- funciones modal pedir turno
+
 const modalTurno = new bootstrap.Modal("#modalSolTurno", {
   keyboard: false,
 });
 let turnos = [];
 let dniAsignado;
+
+let dniSolicitante = localStorage.getItem(codigoInicioSesion);
+console.log(dniSolicitante);
 
 const showModalSolTurno = (boton) => {
   modalTurno.show();
@@ -428,6 +328,15 @@ const agregarSolTurno = (event) => {
   event.preventDefault();
   const detalleConsulta = document.getElementById("detalleConsulta").value;
   const fechaConsulta = document.getElementById("fechaConsulta").value;
+
+  var fechaSeleccionada = new Date(fechaConsulta);
+  var diaSemana = fechaSeleccionada.getDay();
+
+  if (diaSemana === 5 || diaSemana === 6) {
+    alert("Selecciona un día laborable (lunes a viernes).");
+    fechaConsulta.value = "";
+  }
+
   const horaConsulta = document.getElementById("horaConsulta").value;
 
   const turno = {

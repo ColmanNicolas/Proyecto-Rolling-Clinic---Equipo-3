@@ -141,13 +141,13 @@ function loguear() {
 
   if (user == "Leo" && pass == "1234") {
     localStorage.setItem("codigoInicioSesion", 0);
-    //cambiar por correo del paciente
-    localStorage.setItem("UsuarioLogeado", "correoPaciente");
+    //hardcodeo DNI del paciente
+    localStorage.setItem("usuarioLogeado", 44555666);
     window.location = "logeado.html";
   } else if (user == "Medico" && pass == "123456") {
     localStorage.setItem("codigoInicioSesion", 1);
-    //cambiar por correo del medico
-    localStorage.setItem("UsuarioLogeado", "correoMedico");
+    //hardcodeo DNI del medico
+    localStorage.setItem("usuarioLogeado", 11222333);
     window.location = "logeado.html";
   } else if (user == "admin" && pass == "admin") {
     localStorage.setItem("codigoInicioSesion", 2);
