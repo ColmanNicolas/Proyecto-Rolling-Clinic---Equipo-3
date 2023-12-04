@@ -9,45 +9,90 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
   </head>
 
-  <body>
-    <div class="" id="pantallaPrincipal">
-      <h1 class="text-center colorAzul py-3">ROLLING CLINIC</h1>
-      <div class="container-fluid bg-black flex-row d-flex p-0 mb-3">
-        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" data-bs-autohide="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-          <div class="offcanvas-header bg-dark">
-            <h2 class="offcanvas-title bg-primary py-2" id="offcanvasScrollingLabel">logo</h2>
-            <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="mostrarOffcanvas()"></button>
+  <body id="pantallaPrincipal">
+    <h1 class="text-center colorAzul py-3">ROLLING CLINIC</h1>
+    <nav class="container-fluid bg-black flex-row d-flex p-0 mb-3">
+      <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-autohide="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header bg-dark">
+          <h2 class="offcanvas-title ms-4" id="offcanvasScrollingLabel">
+            <img src="./img/logo-Rolling-Clinic.jpg" alt="" />
+          </h2>
+        </div>
+        <div class="w-100 bg-dark">
+          <div class="lineaDivisora"></div>
+        </div>
+        <div class="offcanvas-body bg-dark pt-0">
+          <ul id="contenedorBotonesSideBar" class="nav containerfluid flex-column mb-auto p-0">
+            <!-- Agrega aquí tus elementos de navegación -->
+          </ul>
+        </div>
+        <div class="dropdown bg-dark">
+          <div class="lineaDivisora"></div>
+          <div id="contenedorMiCuenta" class="d-flex justify-content-center g-2 align-items-center">
+            <img src="./img/DdW_dUFUQAAPLNV.jpeg" alt="" />
+            <button class="btn fs-4 fw-bold">MI CUENTA</button>
           </div>
-          <div class="offcanvas-body bg-dark">
-            <div class="lineaDivisora"></div>
-            <ul id="contenedorBotonesSideBar" class="nav containerfluid flex-column mb-auto p-0"></ul>
-            <div class="dropdown">
-              <div>
-                <div class="lineaDivisora"></div>
-                <div class="">
-                  <button class="btn btn-primary fs-3 fw-bold">MI CUENTA</button>
-                </div>
-                <div class="lineaDivisora"></div>
-              </div>
-            </div>
-          </div>
+          <div class="lineaDivisora"></div>
         </div>
       </div>
+    </nav>
 
-      <div class="" id="contenedorBotonesParaTabla">
-        <div class="">
-          <button class="btn btn-dark fw-bold p-2" onclick="mostrarOffcanvas()">MENU</button>
-        </div>
-      </div>
-      <h6 class="text-center bg-primary text-white fw-bold py-3 my-4">REGISTROS Y/O TITULOS RELATIVOS</h6>
-      <div class="" id="tamañoContenedorTablas">
+    <nav class="offcanvas offcanvas-bottom bg-dark" tabindex="-1" id="offcanvasBottom" data-bs-scroll="true" data-bs-backdrop="false">
+      <ul class="m-0" id="contenedorInferiorBotonesSideBar"></ul>
+    </nav>
+
+    <div class="" id="contenedorBotonesParaTabla">
+      <div id="contenedorBotonMenu"></div>
+    </div>
+    <h6 class="text-center py-2 mt-4 mb-2" id="titulosTablas"></h6>
+    <div class="" id="tamañoContenedorTablas">
+      <div id="contenerdorScrolleableTablas">
         <table class="table table-dark table-hover w-100" id="contendorTablas">
           <thead id="contendorTablasHead"></thead>
-          <tbody id="contendorTablasBody"></tbody>
+          <div id="">
+            <tbody id="contendorTablasBody"></tbody>
+          </div>
         </table>
       </div>
     </div>
 
+    <!-- Modal dar usuario de baja-->
+    <div class="modal fade" id="modalBaja" tabindex="-1" aria-labelledby="modalBajaLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-4" id="modalBajaLabel">Dar de Baja a un usuario</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="formularioBajaUsuario" onsubmit="bajaUsuario(event)"></form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal mas informacion medico-->
+    <div class="modal" id="modalInfoMedico" tabindex="-1" aria-labelledby="modalInfoMedicoLabel" aria-hidden="false">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-body-tertiary">
+          <div class="modal-header">
+            <h1 class="modal-title fs-4" id="modalInfoMedicoLabel">Informacion Completa</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="formularioInformacionMedico">
+            <div class="d-flex justify-content-between g-2">
+              <div class="ps-4 pt-3">
+                <p class="fs-5 fw-semibold">Dr: Suarez, Jhonathan</p>
+                <p class="fs-5 fw-semibold">Matricula N°: 435345</p>
+                <p class="fs-5 fw-semibold">Centro: Tucuman</p>
+                <p class="fs-5 fw-semibold">Especialidad: Cuidados intensivos</p>
+                <p class="fs-5 fw-semibold">Correo Electronico: Jhonathan_Suarez.99@hotmail.com</p>
+              </div>
+              <div class="pe-4 py-2">
+                <img src="./img/DdW_dUFUQAAPLNV.jpeg" alt="" width="300px" />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <!-- Modal solicitud de turno -->
     <div class="modal fade" id="modalSolTurno" tabindex="-1" aria-labelledby="modalSolTurno" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
@@ -63,8 +108,15 @@
                 <label for="detalleConsulta">Detallar el motivo de la consulta</label>
               </div>
               <div class="col-md-6">
-                <label for="fechaConsulta" class="form-label">Seleccionar día (lun a vie)</label>
-                <input type="date" class="form-control" id="fechaConsulta" value="" required />
+                <label for="diaConsulta" class="form-label">Seleccionar día</label>
+                <select class="form-select" id="diaConsulta" required>
+                  <option selected disabled value=""></option>
+                  <option>Lunes</option>
+                  <option>Martes</option>
+                  <option>Miercoles</option>
+                  <option>Juves</option>
+                  <option>Viernes</option>
+                </select>
               </div>
               <div class="col-md-6">
                 <label for="horaConsulta" class="form-label">Seleccionar hora</label>

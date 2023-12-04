@@ -1,61 +1,87 @@
 // ------------------------------------------------Funciones para mostrar Interfaz grafica--------------------------------------------
 
 const desplegarBotonesSideBar = (codigo) => {
-  const SideBarBotones = document.getElementById("contenedorBotonesSideBar");
   let anchoVentana = window.innerWidth;
-  SideBarBotones.innerHTML = "";
-  if (anchoVentana >= 900) {
+
+  if (anchoVentana >= 660) {
+    const SideBarBotones = document.getElementById("contenedorBotonesSideBar");
+    const contenedorBotonMenu = document.getElementById("contenedorBotonMenu");
+
+    SideBarBotones.innerHTML = "";
+    contenedorBotonMenu.innerHTML = `
+    <button class="btn btn-dark ms-4 fw-semibold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+    MENU
+  </button>
+    `;
+
     switch (codigo) {
       case 0:
         SideBarBotones.innerHTML += `
-        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonCartillaProfesionales">CARTILLA DE PROFESIONALES</a></li>
-        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonDocumentacion">DOCUMENTACION</a></li>
-        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonTurnosPaciente" >HISTORIAL DE TURNOS</a></li>
-        <li class="nav-item text-start py-2"><a class=" text-start botonesSideBar text-white fw-semibold " href="#" id="botonNuestrosCentros">NUESTROS CENTROS</a></li>    
+        <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonCartillaProfesionales">CARTILLA DE PROFESIONALES</li>
+        <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonDocumentacion">DOCUMENTACION</a></li>
+        <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosPaciente" >HISTORIAL DE TURNO</li>
+        <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonNuestrosCentros">NUESTROS CENTROS</li>    
         `;
+        mostrarCartillaProfesionales();
         break;
       case 1:
         SideBarBotones.innerHTML += `
-            <li class="nav-item text-start py-2"><a class="text-start text-white botonesSideBar fw-semibold" href="#" id="botonHistorialPacientes" >REGISTRO DE PACIENTES</a></li>
-            <li class="nav-item text-start py-2"><a class="text-start text-white botonesSideBar fw-semibold" href="#" id="botonTurnosMedico">TURNOS ASIGNADOS</a></li>
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonHistorialPacientes" >REGISTRO DE PACIENTES</li>
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosMedico">TURNOS ASIGNADOS</li>
           `;
         break;
       case 2:
         SideBarBotones.innerHTML += `
-            <li class="nav-item text-start py-2"><a class="text-start text-white  botonesSideBar fw-semibold" href="#" id="botonProfesionalesRegistrados">REGISTRO DE PROFESIONALES</a></li>
-            <li class="nav-item  text-start py-2"><a class="text-start text-white  botonesSideBar fw-semibold" href="#" id="botonProfesionalesEnEspera">PROFESIONALES EN ESPERA</a></li>
-            <li class="nav-item text-start py-2"><a class="text-start text-white botonesSideBar fw-semibold" href="#" id="botonPacientesRegistrados">REGISTRO DE PACIENTES</a></li>
-            <li class="nav-item text-start py-2"><a class="text-start text-white  botonesSideBar fw-semibold" href="#" id="botonPacientesEnEspera">PACIENTES EN ESPERA</a></li>
-          `;
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonProfesionalesRegistrados">REGISTRO DE PROFESIONALES</li>
+            <li class="nav-item  text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonProfesionalesEnEspera">PROFESIONALES EN ESPERA</li>
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonPacientesRegistrados">REGISTRO DE PACIENTES</li>
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonPacientesEnEspera">PACIENTES EN ESPERA</li>
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonMedicosEnBaja">MEDICOS DADOS DE BAJA</li>
+            <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonPacientesEnBaja">PACIENTES DADOS DE BAJA</li>
+            `;
+        mostrarUsuariosAdministrador(listaMedicos);
         break;
       default:
         console.log("codigo de boton sidebar erroneo");
         break;
     }
   } else {
+    const offCanvasInferior = new bootstrap.Offcanvas(document.getElementById("offcanvasBottom"));
+    const NavBarInferiorBotones = document.getElementById("contenedorInferiorBotonesSideBar");
+
+    offCanvasInferior.show();
+    NavBarInferiorBotones.innerHTML = "";
+
     switch (codigo) {
       case 0:
-        SideBarBotones.innerHTML += `
-          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonCartillaProfesionales"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonDocumentacion"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="# id="botonTurnosPaciente"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonNuestrosCentros"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        NavBarInferiorBotones.innerHTML += `
+          <li class="my-1 text-center text-white fw-semibold " id="botonCartillaProfesionales"><b><i class="bi bi-people"></i></b></li>
+          <li class=" my-1 text-center text-white fw-semibold " id="botonDocumentacion"><b><i class="bi bi-file-earmark-arrow-down"></i></b></li>
+          <li class=" my-1 text-center text-white fw-semibold " id="botonTurnosPaciente"><b><i class="bi bi-card-checklist"></i></b></li>
+          <li class=" my-1 text-center text-white fw-semibold " id="botonNuestrosCentros"><b><i class="bi bi-building-check"></i></b></li>
+          <li class=" my-1 text-center text-white fw-semibold " id="miCuenta"><b><i class="bi bi-person-fill-gear"></i></b></li>
         `;
+        mostrarCartillaProfesionales();
         break;
       case 1:
-        SideBarBotones.innerHTML += `
-        <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#" id="botonHistorialPacientes"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-        <li class="nav-item my-1"><a class="text-start text-white fw-semibold" href="#"  id="botonTurnosMedico"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        NavBarInferiorBotones.innerHTML += `
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonHistorialPacientes"></b><i class="bi bi-people"></i></b></li>
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonTurnosMedico"><b><i class="bi bi-card-checklist"></i></b></li>
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="miCuenta"><b><i class="bi bi-person-fill-gear"></i></b></li>
         `;
         break;
       case 2:
-        SideBarBotones.innerHTML += `
-          <li class="nav-item my-1"><a class="text-start  text-white fw-semibold" href="#" id="botonProfesionalesRegistrados"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#"  id="botonProfesionalesEnEspera"><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item  my-1"><a class="text-start  text-white fw-semibold" href="#" id="botonPacientesRegistrados" ><b><i class="bi bi-caret-right-square"></i></b></a></li>
-          <li class="nav-item  my-1"><a class="text-start text-white fw-semibold" href="#" id="botonPacientesEnEspera"><b><i class="bi bi-caret-right-square"></i></b></a></li>
+        NavBarInferiorBotones.innerHTML += `
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonProfesionalesRegistrados"><i class="bi bi-person-check"></i></b></li>
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonProfesionalesEnEspera"><i class="bi bi-person-add"></i></b></li>
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonPacientesRegistrados"><b><i class="bi bi-person-fill-check"></i></b></li>
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonPacientesEnEspera"><i class="bi bi-person-fill-add"></i></b></li>
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonMedicosEnBaja"><b><i class="bi bi-person-x"></i></b></li>
+          <li class="nav-item my-1 text-center text-white fw-semibold " id="botonPacientesEnBaja"><b><i class="bi bi-person-fill-x"></i></b></li>
         `;
+        mostrarUsuariosAdministrador(listaMedicos);
         break;
+
       default:
         console.log("codigo de boton sidebar erroneo");
         break;
@@ -70,6 +96,7 @@ const capturarBotonesSideBar = (codigo) => {
       const botonTurnosPaciente = document.getElementById("botonTurnosPaciente");
       const botonNuestrosCentros = document.getElementById("botonNuestrosCentros");
       botonCartillaProfesionales.addEventListener("click", mostrarCartillaProfesionales);
+
       botonDocumentacion.addEventListener("click", mostrarDocumentacion);
       botonTurnosPaciente.addEventListener("click", mostrarHistorialTurnos);
       botonNuestrosCentros.addEventListener("click", mostrarNuestrosCentros);
@@ -88,11 +115,15 @@ const capturarBotonesSideBar = (codigo) => {
       const botonProfesionalesEnEspera = document.getElementById("botonProfesionalesEnEspera");
       const botonPacientesEnEspera = document.getElementById("botonPacientesEnEspera");
       const botonPacientesRegistrados = document.getElementById("botonPacientesRegistrados");
+      const botonPacientesEnBaja = document.getElementById("botonPacientesEnBaja");
+      const botonMedicosEnBaja = document.getElementById("botonMedicosEnBaja");
 
       botonProfesionalesRegistrados.addEventListener("click", () => mostrarUsuariosAdministrador(listaMedicos));
       botonProfesionalesEnEspera.addEventListener("click", () => mostrarUsuariosAdministrador(listaDeEsperaMedicos));
       botonPacientesEnEspera.addEventListener("click", () => mostrarUsuariosAdministrador(listaDeEsperaPacientes));
       botonPacientesRegistrados.addEventListener("click", () => mostrarUsuariosAdministrador(listaPacientes));
+      botonPacientesEnBaja.addEventListener("click", () => mostrarUsuariosAdministrador(listaPacientesBaja));
+      botonMedicosEnBaja.addEventListener("click", () => mostrarUsuariosAdministrador(listaMedicosBaja));
       break;
 
     default:
@@ -104,7 +135,10 @@ const actualizarTabla = (lista, usuario) => {
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
   const listaDeUsuarios = obtenerContenidoArrayLS(lista);
   contenedorTablasBody.innerHTML = "";
+
   if (usuario === "medico") {
+    titulosTablas.innerText = lista === listaDeEsperaMedicos ? "Profesionales en Espera de Aprobación" : "Profesionales en Sistema";
+
     listaDeUsuarios.forEach((element, index) => {
       const botonHTML = definirAcciones(lista, index);
       contenedorTablasBody.innerHTML += `
@@ -118,6 +152,8 @@ const actualizarTabla = (lista, usuario) => {
         `;
     });
   } else if (usuario === "paciente") {
+    titulosTablas.innerText = lista === listaDeEsperaPacientes ? "Pacientes en Espera de Aprobacion" : "Pacientes en Sistema";
+
     listaDeUsuarios.forEach((element, index) => {
       const botonHTML = definirAcciones(lista, index);
       contenedorTablasBody.innerHTML += `
@@ -130,6 +166,36 @@ const actualizarTabla = (lista, usuario) => {
         </tr>
         `;
     });
+  } else if (usuario === "usuarioBaja") {
+    if (lista === listaPacientesBaja) {
+      titulosTablas.innerText = "Pacientes dados de Baja";
+
+      listaDeUsuarios.forEach((element, index) => {
+        contenedorTablasBody.innerHTML += `
+          <tr>
+            <th scope="row">${index + 1}</th>
+            <td>${element.apellidoPaciente + ", " + element.nombrePaciente}</td>
+            <td>${element.dniPaciente}</td>
+            <td>${element.emailPaciente}</td>
+            <td >${element.motivoBaja}</td>
+          </tr>
+          `;
+      });
+    } else if (lista === listaMedicosBaja) {
+      titulosTablas.innerText = "Medicos dados de Baja";
+
+      listaDeUsuarios.forEach((element, index) => {
+        contenedorTablasBody.innerHTML += `
+          <tr>
+            <th scope="row">${index + 1}</th>
+            <td>${element.apellidoMedico + ", " + element.nombreMedico}</td>
+            <td>${element.dniMedico}</td>
+            <td>${element.emailMedico}</td>
+            <td >${element.motivoBaja}</td>
+          </tr>
+          `;
+      });
+    }
   } else {
     alert("No se pudo realizar la operacion ");
   }
@@ -137,15 +203,68 @@ const actualizarTabla = (lista, usuario) => {
 const definirAcciones = (lista, index) => {
   if (lista === listaDeEsperaMedicos || lista === listaDeEsperaPacientes) {
     botonHTML = `
-    <button class="btn btn-sm btn-success" onclick="aprobarUsuario('${index}','${lista}')" type="button">aprobar</button>
-    <button class="btn btn-sm btn-danger" onclick="borrarUsuario('${index}','${lista}')" type="button">Borrar</button>
+    <button class="btn btn-sm fw-bold btn-success" onclick="aprobarUsuario('${index}','${lista}')" type="button">aprobar</button>
+    <button class="btn btn-sm fw-bold btn-danger" onclick="borrarUsuario('${index}','${lista}')" type="button">Borrar</button>
     `;
   } else if (lista === listaMedicos || lista === listaPacientes) {
     botonHTML = `
-    <button class="btn btn-sm btn-danger" onclick="borrarUsuario('${index}','${lista}')" type="button">Borrar</button>
+    <button class="btn btn-sm fw-bold btn-danger" onclick="mostrarModalBaja('${index}','${lista}')" type="button">Baja</button>
     `;
   }
   return botonHTML;
+};
+
+const mostrarModalBaja = (index, lista) => {
+  console.log("muestro modaaaal");
+  modalBaja.show();
+  pintarFormularioBaja(index, lista);
+};
+const pintarFormularioBaja = (index, lista) => {
+  const listaUsuarios = obtenerContenidoArrayLS(lista);
+  const formularioBaja = document.getElementById("formularioBajaUsuario");
+
+  formularioBaja.innerHTML = "";
+  if (lista === listaPacientes) {
+    formularioBaja.innerHTML += `
+    <div class="modal-body">
+  <h5>Informacion del usuario</h3>
+  <p id="datoTipoDeUsuario">Paciente :${listaUsuarios[index].apellidoPaciente} ${listaUsuarios[index].nombrePaciente} </p>
+  <p id="datoDeUsuarioDoc" >Documento: ${listaUsuarios[index].dniPaciente}</p>
+  <div>
+  <label for="inputMotivoBaja" class="form-label fw-bold">Motivo de Baja</label>
+  <input type="text" id="inputMotivoBaja" class="form-control" required />
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+    Close
+  </button>
+  <button type="submit" id="botonSubmitBaja" data-index="${index}" class="btn btn-primary" >
+    Guardar
+  </button>
+  </div>
+  </div>
+  `;
+  } else if (lista === listaMedicos) {
+    formularioBaja.innerHTML += `
+    <div class="modal-body">
+  <h6>Informacion del usuario</h6>
+  <p id="datoTipoDeUsuario" >Doctor: ${listaUsuarios[index].apellidoMedico} ${listaUsuarios[index].nombreMedico} </p>
+  <p id="datoDeUsuarioDoc">Documento: ${listaUsuarios[index].dniMedico}</p>
+  <div>
+  <label for="inputMotivoBaja" class="form-label fw-bold">Motivo de Baja</label>
+  <input type="text" id="inputMotivoBaja" class="form-control" required />
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+    Close
+  </button>
+  <button type="submit" id="botonSubmitBaja" data-index="${index}" class="btn btn-primary" >
+    Guardar
+  </button>
+  </div>
+  </div>
+  `;
+  }
 };
 
 // ------------------------------------------------Funciones para Paciente--------------------------------------------
@@ -157,6 +276,7 @@ const mostrarCartillaProfesionales = () => {
 
   contenedorTablasHead.innerHTML = "";
   contenedorTablasBody.innerHTML = "";
+  titulosTablas.innerText = "Listado de Profesionales";
 
   contenedorTablasHead.innerHTML += `
   <tr>
@@ -240,6 +360,7 @@ const mostrarTurnosAsignados = () => {
     }
   });
 };
+
 // ------------------------------------------------Funciones para Administrador--------------------------------------------
 
 const mostrarUsuariosAdministrador = (lista) => {
@@ -268,16 +389,22 @@ const mostrarUsuariosAdministrador = (lista) => {
     </tr>
     `;
     actualizarTabla(lista, "paciente");
+  } else if (lista === "listaPacientesBaja" || lista === "listaMedicosBaja") {
+    contenedorTablasHead.innerHTML += `
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre Completo</th>
+      <th scope="col">DNI</th>
+      <th scope="col">correo Electronico</th>
+      <th scope="col">Motivo de Baja</th>
+    </tr>
+    `;
+    actualizarTabla(lista, "usuarioBaja");
   } else {
     alert("La lista en sistema no existe");
   }
 };
-const borrarUsuario = (index, lista) => {
-  const listaDeElementos = obtenerContenidoArrayLS(lista);
-  listaDeElementos.splice(index, 1);
-  actualizarContenidoArrayLS(listaDeElementos, lista);
-  mostrarUsuariosAdministrador(lista);
-};
+
 const aprobarUsuario = (index, lista) => {
   const listaUsuarios = obtenerContenidoArrayLS(lista);
   const usuario = listaUsuarios[index];
@@ -296,13 +423,70 @@ const aprobarUsuario = (index, lista) => {
       break;
   }
 };
+const bajaUsuario = (event) => {
+  event.preventDefault();
+
+  const formulario = document.getElementById("formularioBajaUsuario");
+  const inputMotivoBaja = document.getElementById("inputMotivoBaja");
+  const recuperoDocumento = document.getElementById("datoDeUsuarioDoc");
+  const recuperoTipoDeUsuario = document.getElementById("datoTipoDeUsuario");
+  const posicionDosPuntos = recuperoTipoDeUsuario.innerText.indexOf(":");
+  const tipoDeUsuario = recuperoTipoDeUsuario.innerText.slice(0, posicionDosPuntos);
+  let lista = "";
+
+  if (tipoDeUsuario.includes("Doctor")) {
+    lista = listaMedicos;
+    console.log("lo hago medico");
+  } else if (tipoDeUsuario.includes("Paciente")) {
+    lista = listaPacientes;
+    console.log("lo hago ");
+  }
+
+  const documento = recuperoDocumento.innerText.substring(11);
+  // console.log("documento: '", documento, "'  TipoDeUsuario: '", tipoDeUsuario, "' listaa: '", lista);
+  const usuario = buscarUsuarioPorDocumento(documento, lista);
+  const botonSubmit = document.getElementById("botonSubmitBaja");
+  const index = botonSubmit.getAttribute("data-index");
+
+  if (usuario !== null && usuario !== undefined) {
+    usuario["motivoBaja"] = inputMotivoBaja.value.trim(); //añado nuevos atributos al usuario
+    usuario["fechaDeBaja"] = obtenerFechaFormateada();
+    usuario["horaDeBaja"] = obtenerHoraFormateada();
+
+    borrarUsuario(index, lista);
+    if (lista === listaPacientes) {
+      agregarUsuario(usuario, listaPacientesBaja);
+    } else if (lista === listaMedicos) {
+      agregarUsuario(usuario, listaMedicosBaja);
+    }
+    actualizarTabla(lista, "usuarioBaja");
+    cerrarModalResetearFormulario("modalBaja", "formularioBajaUsuario");
+  }
+};
+
+const mostrarModalInfo = () => {
+  modalInfoMedico.show();
+};
+const cerrarModalInfo = () => {
+  modalInfoMedico.hide();
+};
 
 //-------------------------------------------- esto se ejecuta al cargar la pagina-------------------
 const listaMedicos = "listaMedicos";
 const listaDeEsperaMedicos = "listaDeEsperaMedicos";
 const listaPacientes = "listaPacientes";
 const listaDeEsperaPacientes = "listaDeEsperaPacientes";
+const listaPacientesBaja = "listaPacientesBaja";
+const listaMedicosBaja = "listaMedicosBaja";
 
+const modalBaja = new bootstrap.Modal("#modalBaja", {
+  keyboard: false,
+});
+const modalInfoMedico = new bootstrap.Modal("#modalInfoMedico", {
+  keyboard: false,
+});
+
+const titulosTablas = document.getElementById("titulosTablas");
 const codigoInicioSesion = obtenerUnElementoLS("codigoInicioSesion");
 desplegarBotonesSideBar(codigoInicioSesion);
 capturarBotonesSideBar(codigoInicioSesion);

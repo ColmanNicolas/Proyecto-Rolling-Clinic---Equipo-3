@@ -10,15 +10,52 @@
   background-color: rgb(43, 41, 41);
   height: 100vh;
 }
-#contenedorSideBar li {
+#contenedorBotonesSideBar li {
   transition: background-color 0.5s ease; /* Agrega una transición de 0.5 segundos con función de temporización ease */
 }
-#contenedorSideBar li:hover {
+#contenedorBotonesSideBar li:hover {
+  cursor: pointer;
   background-color: rgb(75, 75, 75);
   transition-duration: 0.7s;
 }
 #tamañoContenedorTablas {
   margin-inline: 2%;
+}
+#offcanvasBottom{
+  position: fixed;
+
+}
+
+#contenedorInferiorBotonesSideBar{
+  margin-block: 5px !important;
+  display: flex !important;
+  justify-content: space-around;
+  padding: 0;
+}
+
+#contenedorInferiorBotonesSideBar li{
+  width: 50px;
+  height: 50px !important;
+  border-radius: 50px;
+  background-color: rgb(18, 43, 189);
+  text-decoration: none;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+#contenedorInferiorBotonesSideBar li {
+  transition: background-color 0.5s ease, box-shadow 0.5s ease, font-size 0.5s ease; /* Agrega una transición para cada propiedad con una duración de 0.5 segundos y función de temporización ease */
+}
+
+#contenedorInferiorBotonesSideBar li:hover {
+  background-color: rgb(28, 56, 212);
+  font-size: 1.7rem;
+  box-shadow: 0px 0px 5px 1px rgba(242, 242, 242, 0.78);
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(242, 242, 242, 0.78);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(242, 242, 242, 0.78);
+  transition-duration: 0.5s;
 }
 @media (min-width: 1600px) {
   #tamañoContenedorTablas {
@@ -28,12 +65,12 @@
 }
 
 #pantallaPrincipal {
-  width: 100%;
+ 
   background-color: rgb(194, 235, 235);
-  height: 100vh;
+ 
 }
 
-@media (max-width: 900px) {
+@media (max-width: 660px) {
   #sideBar {
     width: 70px;
   }
@@ -47,10 +84,11 @@
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .lineaDivisora {
-  width: 85% !important;
+  width: 90% !important;
   margin-inline: auto;
   border: 1px solid rgba(27, 90, 133, 0.459);
-  margin-block: 20px;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 .botonesSideBar {
   width: 250px !important;
@@ -61,4 +99,47 @@
 #detalleConsulta {
   resize: none;
   height: 150px;
+}
+#offcanvasScrolling{
+  width: 300px ;
+}
+#offcanvasBottom{
+  height: 8vh;
+}
+#contenerdorScrolleableTablas{
+  height: 450px;
+  overflow: auto;
+}
+@media(max-width:400px){
+  #contenerdorScrolleableTablas{
+    height:600px;
+    overflow: auto;
+  }
+}
+#titulosTablas{
+  background-color:rgba(3, 7, 66, 0.8);
+  font-family:sans-serif;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: aliceblue;
+}
+#contenedorMiCuenta img{
+  margin-right: 10px;
+  width: 60px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 100%; 
+  border: 2px solid black;
+  object-position: 0% 0%; 
+}
+#contenedorMiCuenta button{
+  background-color: rgb(21, 21, 136);
+  color: aliceblue;
+}
+#offcanvasScrollingLabel img{
+  width: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  
 }

@@ -49,7 +49,6 @@ function mostrarOffcanvas() {
 
 const validarNombres = (nombre) => {
     if (nombre.length < 3 || !/^([a-zA-ZñÑáéíóúÁÉÍÓÚ '])+$/i.test(nombre)) {
-        alert("El nombre o apellido ingresado no es válido");
         return false;
     } else {
         return true;
@@ -114,11 +113,29 @@ const validarInputEnVivo = (input, condicion) => {
             break;
     }
 }
+
 const agregarUsuario = (usuario, lista) => {
     const listaDeElementos = obtenerContenidoArrayLS(lista);
     listaDeElementos.push(usuario);
     actualizarContenidoArrayLS(listaDeElementos, lista);
 }
+const borrarUsuario = (index, lista) => {
+    const listaDeElementos = obtenerContenidoArrayLS(lista);
+    listaDeElementos.splice(index, 1);
+    actualizarContenidoArrayLS(listaDeElementos, lista);
+    mostrarUsuariosAdministrador(lista);
+};
+const buscarUsuarioPorDocumento = (documento, lista) => {
+    let usuario = null;
+    const usuarios = obtenerContenidoArrayLS(lista);
+    if (lista === listaMedicos) {
+        usuario = usuarios.find(elemento => elemento.dniMedico === documento);
+        return usuario;
+    } else if (lista === listaPacientes) {
+        usuario = usuarios.find(elemento => elemento.dniPaciente === documento);
+        return usuario;
+    }
+};
 function limitarFecha(input) {
     // Establecer fecha mínima basada en la fecha actual
     const fechaActual = new Date();
@@ -152,6 +169,23 @@ const compararFechas = () => { //EN DESARROLLO
         return false;
     }
     */
+}
+function obtenerFechaFormateada() {
+    const fechaActual = new Date();
+    let año = formatearNumeroHora(fechaActual.getFullYear());
+    let mes = formatearNumeroHora(fechaActual.getMonth() + 1); // Los meses comienzan desde 0, por lo que se suma 1
+    let dia = formatearNumeroHora(fechaActual.getDate());
+    return `${dia}/${mes}/${año}`;
+}
+function obtenerHoraFormateada() {
+    const fechaHora = new Date();
+    let horas = formatearNumeroHora(fechaHora.getHours());
+    let minutos = formatearNumeroHora(fechaHora.getMinutes());
+    let segundos = formatearNumeroHora(fechaHora.getSeconds());
+    return `${horas}:${minutos}:${segundos}`;
+}
+function formatearNumeroHora(numero) {
+    return numero < 10 ? '0' + numero : numero;
 }
 setInterval(() => {
     const popovers = document.querySelectorAll('.popover');

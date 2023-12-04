@@ -93,11 +93,16 @@ const validarPaciente = (paciente) => {
     toastMensaje.innerText = "El correo ingresado no es valido";
     return false;
   }
-
   if (paciente.contrasenaPaciente.length < 6) {
-    toastMensaje.innerText = "La contraseña ingresada no es valida";
+    toastMensaje.innerText = "La contraseña ingresada debe tener minimo 6 caracteres";
     return false;
   }
+  if (!/^(?=.*[A-Z])(?=.*\d)/.test(paciente.contrasenaPaciente)) {
+    toastMensaje.innerText = "La contraseña debe contener mínimo 1 numero y un caracter en mayuscula";
+    return false;
+  }
+
+  !/^(?=.*[A-Z])(?=.*\d)/.test(paciente.contrasenaPaciente);
 
   return true;
 };
@@ -136,28 +141,59 @@ const validarMedico = (medico) => {
 };
 
 function loguear() {
-  let user = document.getElementById("Usuario").value;
-  let pass = document.getElementById("Contraseña").value;
-
-  if (user == "Leo" && pass == "1234") {
-    localStorage.setItem("codigoInicioSesion", 0);
-    //hardcodeo DNI del paciente
-    localStorage.setItem("usuarioLogeado", 44555666);
-    window.location = "logeado.html";
-  } else if (user == "Medico" && pass == "123456") {
-    localStorage.setItem("codigoInicioSesion", 1);
-    //hardcodeo DNI del medico
-    localStorage.setItem("usuarioLogeado", 11222333);
-    window.location = "logeado.html";
-  } else if (user == "admin" && pass == "admin") {
+  const user = document.getElementById("documentoUsuario").value.trim();
+  const pass = document.getElementById("contraseñaUsuario").value;
+  let obtenerDatos = [];
+  if (user !== "admin") {
+    obtenerDatos = controlLogeoUsuario(user);
+    if (obtenerDatos !== undefined && obtenerDatos !== null) {
+      if (obtenerDatos[0] === "paciente") {
+        if (user === obtenerDatos[1].dniPaciente && pass === obtenerDatos[1].contrasenaPaciente) {
+          localStorage.setItem("codigoInicioSesion", 0);
+          // cambiar por correo del paciente
+          localStorage.setItem("UsuarioLogeado", user);
+          window.location = "logeado.html";
+        } else {
+          alert("Datos Incorrectos paciente");
+        }
+      } else if (obtenerDatos[0] === "medico") {
+        if (user === obtenerDatos[1].dniMedico && pass === obtenerDatos[1].contrasenaMedico) {
+          localStorage.setItem("codigoInicioSesion", 1);
+          // cambiar por correo del medico
+          localStorage.setItem("UsuarioLogeado", user);
+          window.location = "logeado.html";
+        } else {
+          alert("Datos Incorrectos medico");
+        }
+      }
+    }
+  } else if (user === "admin" && pass === "admin") {
     localStorage.setItem("codigoInicioSesion", 2);
     window.location = "logeado.html";
   } else {
     alert("Datos Incorrectos");
   }
 }
-compararFechas();
 
+const controlLogeoUsuario = (user) => {
+  let obtenerUsuario = buscarUsuarioPorDocumento(user, listaPacientes);
+  let devuelvoDatos = [];
+  if (obtenerUsuario !== null && obtenerUsuario !== undefined) {
+    devuelvoDatos.push("paciente");
+    devuelvoDatos.push(obtenerUsuario);
+    return devuelvoDatos;
+  }
+  // Debes usar buscarUsuarioPorDocumento con el parámetro correcto para médicos aquí
+  obtenerUsuario = buscarUsuarioPorDocumento(user, listaMedicos);
+  if (obtenerUsuario !== null && obtenerUsuario !== undefined) {
+    devuelvoDatos.push("medico");
+    devuelvoDatos.push(obtenerUsuario);
+    return devuelvoDatos;
+  }
+  return null;
+};
+const listaPacientes = "listaPacientes";
+const listaMedicos = "listaMedicos";
 const listaDeEsperaMedicos0 = "listaDeEsperaMedicos";
 
 const listaDeEsperaPacientes0 = "listaDeEsperaPacientes";
