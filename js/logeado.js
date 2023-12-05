@@ -266,7 +266,11 @@ const pintarFormularioBaja = (index, lista) => {
   `;
   }
 };
-
+const botonCerrarSesion = () =>{
+  localStorage.setItem("codigoInicioSesion", 999);
+  localStorage.setItem("UsuarioLogeado", "no logeado");
+  window.location = "index.html";
+}
 // ------------------------------------------------Funciones para Paciente--------------------------------------------
 
 const mostrarCartillaProfesionales = () => {
