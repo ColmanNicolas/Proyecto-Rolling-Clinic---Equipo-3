@@ -8,7 +8,7 @@ const manejarFormPaciente = (event) => {
   const emailPaciente = document.getElementById("emailPaciente").value.trim();
   const contrasenaPaciente = document.getElementById("contrasenaPaciente").value;
 
-  const toastLiveExample = document.getElementById('liveToast');
+  const toastLiveExample = document.getElementById("liveToast");
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
 
   const toastMensaje = document.getElementById("toastMensaje");
@@ -25,8 +25,8 @@ const manejarFormPaciente = (event) => {
   if (validarPaciente(paciente)) {
     agregarUsuario(paciente, listaDeEsperaPacientes0);
 
-    modificarToastRegistro('exito');
-    toastMensaje.innerText = "El registro se realizó con exito!"
+    modificarToastRegistro("exito");
+    toastMensaje.innerText = "El registro se realizó con exito!";
 
     cerrarModalResetearFormulario("modalPaciente", "formPaciente");
   }
@@ -44,12 +44,10 @@ const manejarFormMedico = (event) => {
   const emailMedico = document.getElementById("emailMedico").value.trim();
   const contrasenaMedico = document.getElementById("contrasenaMedico").value;
 
-  const toastLiveExample = document.getElementById('liveToast');
+  const toastLiveExample = document.getElementById("liveToast");
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
 
   const toastMensaje = document.getElementById("toastMensaje");
-
-
 
   const medico = {
     nombreMedico,
@@ -64,18 +62,17 @@ const manejarFormMedico = (event) => {
 
   if (validarMedico(medico)) {
     agregarUsuario(medico, listaDeEsperaMedicos0);
-    modificarToastRegistro('exito');
-    toastMensaje.innerText = "El registro se realizó con exito!"
+    modificarToastRegistro("exito");
+    toastMensaje.innerText = "El registro se realizó con exito!";
 
     cerrarModalResetearFormulario("modalMedico", "formMedico");
-  };
+  }
   toastBootstrap.show();
 };
 const validarPaciente = (paciente) => {
-
   const toastMensaje = document.getElementById("toastMensaje");
 
-  modificarToastRegistro('error');
+  modificarToastRegistro("error");
 
   if (!validarNombres(paciente.nombrePaciente) || !validarNombres(paciente.apellidoPaciente)) {
     toastMensaje.innerText = "El nombre ingresado no es valido";
@@ -105,8 +102,7 @@ const validarPaciente = (paciente) => {
     return false;
   }
 
-  !/^(?=.*[A-Z])(?=.*\d)/.test(paciente.contrasenaPaciente)
-
+  !/^(?=.*[A-Z])(?=.*\d)/.test(paciente.contrasenaPaciente);
 
   return true;
 };
@@ -114,7 +110,7 @@ const validarPaciente = (paciente) => {
 const validarMedico = (medico) => {
   const toastMensaje = document.getElementById("toastMensaje");
 
-  modificarToastRegistro('error');
+  modificarToastRegistro("error");
 
   if (!validarNombres(medico.nombreMedico) || !validarNombres(medico.apellidoMedico)) {
     toastMensaje.innerText = "El nombre ingresado no es valido";
@@ -150,8 +146,7 @@ function loguear() {
   let obtenerDatos = [];
   if (user !== "admin") {
     obtenerDatos = controlLogeoUsuario(user);
-    if(obtenerDatos !== undefined && obtenerDatos !== null){
-
+    if (obtenerDatos !== undefined && obtenerDatos !== null) {
       if (obtenerDatos[0] === "paciente") {
         if (user === obtenerDatos[1].dniPaciente && pass === obtenerDatos[1].contrasenaPaciente) {
           localStorage.setItem("codigoInicioSesion", 0);
@@ -172,23 +167,20 @@ function loguear() {
         }
       }
     }
-  }
-
-  else if (user === "admin" && pass === "admin") {
+  } else if (user === "admin" && pass === "admin") {
     localStorage.setItem("codigoInicioSesion", 2);
     window.location = "logeado.html";
-  }else {
+  } else {
     alert("Datos Incorrectos");
   }
-
 }
 
 const controlLogeoUsuario = (user) => {
   let obtenerUsuario = buscarUsuarioPorDocumento(user, listaPacientes);
   let devuelvoDatos = [];
   if (obtenerUsuario !== null && obtenerUsuario !== undefined) {
-   devuelvoDatos.push("paciente");
-   devuelvoDatos.push(obtenerUsuario);
+    devuelvoDatos.push("paciente");
+    devuelvoDatos.push(obtenerUsuario);
     return devuelvoDatos;
   }
   // Debes usar buscarUsuarioPorDocumento con el parámetro correcto para médicos aquí
@@ -199,7 +191,7 @@ const controlLogeoUsuario = (user) => {
     return devuelvoDatos;
   }
   return null;
-}
+};
 const listaPacientes = "listaPacientes";
 const listaMedicos = "listaMedicos";
 const listaDeEsperaMedicos0 = "listaDeEsperaMedicos";

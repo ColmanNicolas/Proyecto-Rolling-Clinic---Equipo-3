@@ -2,14 +2,13 @@
 
 const desplegarBotonesSideBar = (codigo) => {
   let anchoVentana = window.innerWidth;
-  
 
   if (anchoVentana >= 660) {
     const SideBarBotones = document.getElementById("contenedorBotonesSideBar");
     const contenedorBotonMenu = document.getElementById("contenedorBotonMenu");
 
     SideBarBotones.innerHTML = "";
-    contenedorBotonMenu.innerHTML=`
+    contenedorBotonMenu.innerHTML = `
     <button class="btn btn-dark ms-4 fw-semibold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
     MENU
   </button>
@@ -40,19 +39,19 @@ const desplegarBotonesSideBar = (codigo) => {
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonMedicosEnBaja">MEDICOS DADOS DE BAJA</li>
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonPacientesEnBaja">PACIENTES DADOS DE BAJA</li>
             `;
-            mostrarUsuariosAdministrador(listaMedicos);
-            break;
+        mostrarUsuariosAdministrador(listaMedicos);
+        break;
       default:
         console.log("codigo de boton sidebar erroneo");
         break;
     }
   } else {
-    const offCanvasInferior = new bootstrap.Offcanvas(document.getElementById('offcanvasBottom'));
+    const offCanvasInferior = new bootstrap.Offcanvas(document.getElementById("offcanvasBottom"));
     const NavBarInferiorBotones = document.getElementById("contenedorInferiorBotonesSideBar");
 
-    offCanvasInferior.show(); 
+    offCanvasInferior.show();
     NavBarInferiorBotones.innerHTML = "";
-    
+
     switch (codigo) {
       case 0:
         NavBarInferiorBotones.innerHTML += `
@@ -82,7 +81,7 @@ const desplegarBotonesSideBar = (codigo) => {
         `;
         mostrarUsuariosAdministrador(listaMedicos);
         break;
-      
+
       default:
         console.log("codigo de boton sidebar erroneo");
         break;
@@ -119,7 +118,6 @@ const capturarBotonesSideBar = (codigo) => {
       const botonPacientesEnBaja = document.getElementById("botonPacientesEnBaja");
       const botonMedicosEnBaja = document.getElementById("botonMedicosEnBaja");
 
-
       botonProfesionalesRegistrados.addEventListener("click", () => mostrarUsuariosAdministrador(listaMedicos));
       botonProfesionalesEnEspera.addEventListener("click", () => mostrarUsuariosAdministrador(listaDeEsperaMedicos));
       botonPacientesEnEspera.addEventListener("click", () => mostrarUsuariosAdministrador(listaDeEsperaPacientes));
@@ -139,9 +137,8 @@ const actualizarTabla = (lista, usuario) => {
   contenedorTablasBody.innerHTML = "";
 
   if (usuario === "medico") {
+    titulosTablas.innerText = lista === listaDeEsperaMedicos ? "Profesionales en Espera de Aprobación" : "Profesionales en Sistema";
 
-    titulosTablas.innerText = (lista === listaDeEsperaMedicos) ? "Profesionales en Espera de Aprobación" : "Profesionales en Sistema";
-  
     listaDeUsuarios.forEach((element, index) => {
       const botonHTML = definirAcciones(lista, index);
       contenedorTablasBody.innerHTML += `
@@ -155,9 +152,7 @@ const actualizarTabla = (lista, usuario) => {
         `;
     });
   } else if (usuario === "paciente") {
-
-    titulosTablas.innerText = (lista === listaDeEsperaPacientes) ? "Pacientes en Espera de Aprobacion" : "Pacientes en Sistema";
-
+    titulosTablas.innerText = lista === listaDeEsperaPacientes ? "Pacientes en Espera de Aprobacion" : "Pacientes en Sistema";
 
     listaDeUsuarios.forEach((element, index) => {
       const botonHTML = definirAcciones(lista, index);
@@ -173,7 +168,7 @@ const actualizarTabla = (lista, usuario) => {
     });
   } else if (usuario === "usuarioBaja") {
     if (lista === listaPacientesBaja) {
-    titulosTablas.innerText="Pacientes dados de Baja";
+      titulosTablas.innerText = "Pacientes dados de Baja";
 
       listaDeUsuarios.forEach((element, index) => {
         contenedorTablasBody.innerHTML += `
@@ -187,7 +182,7 @@ const actualizarTabla = (lista, usuario) => {
           `;
       });
     } else if (lista === listaMedicosBaja) {
-    titulosTablas.innerText="Medicos dados de Baja";
+      titulosTablas.innerText = "Medicos dados de Baja";
 
       listaDeUsuarios.forEach((element, index) => {
         contenedorTablasBody.innerHTML += `
@@ -201,8 +196,7 @@ const actualizarTabla = (lista, usuario) => {
           `;
       });
     }
-  }
-  else {
+  } else {
     alert("No se pudo realizar la operacion ");
   }
 };
@@ -224,7 +218,7 @@ const mostrarModalBaja = (index, lista) => {
   console.log("muestro modaaaal");
   modalBaja.show();
   pintarFormularioBaja(index, lista);
-}
+};
 const pintarFormularioBaja = (index, lista) => {
   const listaUsuarios = obtenerContenidoArrayLS(lista);
   const formularioBaja = document.getElementById("formularioBajaUsuario");
@@ -249,7 +243,7 @@ const pintarFormularioBaja = (index, lista) => {
   </button>
   </div>
   </div>
-  `
+  `;
   } else if (lista === listaMedicos) {
     formularioBaja.innerHTML += `
     <div class="modal-body">
@@ -269,10 +263,14 @@ const pintarFormularioBaja = (index, lista) => {
   </button>
   </div>
   </div>
-  `
+  `;
   }
+};
+const botonCerrarSesion = () =>{
+  localStorage.setItem("codigoInicioSesion", 999);
+  localStorage.setItem("UsuarioLogeado", "no logeado");
+  window.location = "index.html";
 }
-
 // ------------------------------------------------Funciones para Paciente--------------------------------------------
 
 const mostrarCartillaProfesionales = () => {
@@ -282,7 +280,7 @@ const mostrarCartillaProfesionales = () => {
 
   contenedorTablasHead.innerHTML = "";
   contenedorTablasBody.innerHTML = "";
-  titulosTablas.innerText="Listado de Profesionales";
+  titulosTablas.innerText = "Listado de Profesionales";
 
   contenedorTablasHead.innerHTML += `
   <tr>
@@ -298,8 +296,8 @@ const mostrarCartillaProfesionales = () => {
 
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
-      <button class="btn btn-sm btn-warning fw-bold mb-1" onmouseover="mostrarModalInfo()" onpointerleave="cerrarModalInfo()" type="button">Informacion <i class="bi bi-info-circle fw-bold"></i></button>
-        <button type="button" class="btn btn-sm fw-bold mb-1  btn-success" onclick="showModalSolTurno(this)" id="${element.matricula}">Turno <i class="bi bi-calendar-check"></i></button>
+      <button class="btn btn-sm btn-warning fw-bold" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.dniMedico}"> Solicitar Consulta </button>
       `;
     } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
@@ -319,20 +317,54 @@ const mostrarCartillaProfesionales = () => {
   });
 };
 
-const mostrarDocumentacion = () => { };
+const mostrarDocumentacion = () => {};
 
-const mostrarSolicitarTurno = () => { };
+const mostrarSolicitarTurno = () => {};
 
-const mostrarHistorialTurnos = () => { };
+const mostrarHistorialTurnos = () => {};
 
-const mostrarNuestrosCentros = () => { };
+const mostrarNuestrosCentros = () => {};
 
 // ------------------------------------------------Funciones para Medico--------------------------------------------
 
-const mostrarHistorialPacientes = () => { };
+const mostrarHistorialPacientes = () => {};
 
+const mostrarTurnosAsignados = () => {
+  const contenedorTablasHead = document.getElementById("contendorTablasHead");
+  const contenedorTablasBody = document.getElementById("contendorTablasBody");
+  let listaTurnosSolicitados = obtenerContenidoArrayLS("listaTurnos");
 
-const mostrarTurnosAsignados = () => { };
+  contenedorTablasHead.innerHTML = "";
+  contenedorTablasBody.innerHTML = "";
+
+  contenedorTablasHead.innerHTML += `
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nombre Completo</th>
+    <th scope="col">Fecha</th>
+    <th scope="col">Hora</th>
+    <th class="text-center" scope="col">Consulta</th>
+  </tr>
+  `;
+  listaTurnosSolicitados.forEach((element, index) => {
+    let botonHTML = "";
+
+    console.log(element.dniAsignado);
+
+    if (element.dniAsignado == 11222333) {
+      contenedorTablasBody.innerHTML += `
+      <tr>
+        <th scope="row">${index + 1}</th>
+        <td>"Juan Perez"</td>
+        <td>${element.fechaConsulta}</td>
+        <td>${element.horaConsulta}</td>
+        <td>${element.detalleConsulta}</td>
+      </tr>
+    `;
+    }
+  });
+};
+
 // ------------------------------------------------Funciones para Administrador--------------------------------------------
 
 const mostrarUsuariosAdministrador = (lista) => {
@@ -394,7 +426,6 @@ const aprobarUsuario = (index, lista) => {
       alert("No se realizo la accion correctamente");
       break;
   }
-
 };
 const bajaUsuario = (event) => {
   event.preventDefault();
@@ -403,7 +434,7 @@ const bajaUsuario = (event) => {
   const inputMotivoBaja = document.getElementById("inputMotivoBaja");
   const recuperoDocumento = document.getElementById("datoDeUsuarioDoc");
   const recuperoTipoDeUsuario = document.getElementById("datoTipoDeUsuario");
-  const posicionDosPuntos = recuperoTipoDeUsuario.innerText.indexOf(':');
+  const posicionDosPuntos = recuperoTipoDeUsuario.innerText.indexOf(":");
   const tipoDeUsuario = recuperoTipoDeUsuario.innerText.slice(0, posicionDosPuntos);
   let lista = "";
 
@@ -414,18 +445,17 @@ const bajaUsuario = (event) => {
     lista = listaPacientes;
     console.log("lo hago ");
   }
-  
+
   const documento = recuperoDocumento.innerText.substring(11);
- // console.log("documento: '", documento, "'  TipoDeUsuario: '", tipoDeUsuario, "' listaa: '", lista);
-  const usuario = buscarUsuarioPorDocumento(documento, lista)
+  // console.log("documento: '", documento, "'  TipoDeUsuario: '", tipoDeUsuario, "' listaa: '", lista);
+  const usuario = buscarUsuarioPorDocumento(documento, lista);
   const botonSubmit = document.getElementById("botonSubmitBaja");
   const index = botonSubmit.getAttribute("data-index");
 
-  if (usuario !== null && usuario!== undefined) {
-
-    usuario['motivoBaja'] = inputMotivoBaja.value.trim(); //añado nuevos atributos al usuario
-    usuario['fechaDeBaja'] = obtenerFechaFormateada();
-    usuario['horaDeBaja'] = obtenerHoraFormateada();
+  if (usuario !== null && usuario !== undefined) {
+    usuario["motivoBaja"] = inputMotivoBaja.value.trim(); //añado nuevos atributos al usuario
+    usuario["fechaDeBaja"] = obtenerFechaFormateada();
+    usuario["horaDeBaja"] = obtenerHoraFormateada();
 
     borrarUsuario(index, lista);
     if (lista === listaPacientes) {
@@ -433,17 +463,17 @@ const bajaUsuario = (event) => {
     } else if (lista === listaMedicos) {
       agregarUsuario(usuario, listaMedicosBaja);
     }
-    actualizarTabla(lista, "usuarioBaja")
+    actualizarTabla(lista, "usuarioBaja");
     cerrarModalResetearFormulario("modalBaja", "formularioBajaUsuario");
   }
-}
+};
 
-const mostrarModalInfo = () =>{
+const mostrarModalInfo = () => {
   modalInfoMedico.show();
-}
-const cerrarModalInfo = () =>{
+};
+const cerrarModalInfo = () => {
   modalInfoMedico.hide();
-}
+};
 
 //-------------------------------------------- esto se ejecuta al cargar la pagina-------------------
 const listaMedicos = "listaMedicos";
@@ -452,7 +482,6 @@ const listaPacientes = "listaPacientes";
 const listaDeEsperaPacientes = "listaDeEsperaPacientes";
 const listaPacientesBaja = "listaPacientesBaja";
 const listaMedicosBaja = "listaMedicosBaja";
-
 
 const modalBaja = new bootstrap.Modal("#modalBaja", {
   keyboard: false,
@@ -467,28 +496,42 @@ desplegarBotonesSideBar(codigoInicioSesion);
 capturarBotonesSideBar(codigoInicioSesion);
 
 // ------------------------------------------- funciones modal pedir turno
+
 const modalTurno = new bootstrap.Modal("#modalSolTurno", {
   keyboard: false,
 });
 let turnos = [];
+let dniAsignado;
+
+let dniSolicitante = localStorage.getItem(codigoInicioSesion);
+console.log(dniSolicitante);
 
 const showModalSolTurno = (boton) => {
   modalTurno.show();
   const idDelBoton = boton.id;
-  idObtenido = idDelBoton;
+  dniAsignado = idDelBoton;
 };
 
 const agregarSolTurno = (event) => {
   event.preventDefault();
   const detalleConsulta = document.getElementById("detalleConsulta").value;
-  const diaConsulta = document.getElementById("diaConsulta").value;
+  const fechaConsulta = document.getElementById("fechaConsulta").value;
+
+  var fechaSeleccionada = new Date(fechaConsulta);
+  var diaSemana = fechaSeleccionada.getDay();
+
+  if (diaSemana === 5 || diaSemana === 6) {
+    alert("Selecciona un día laborable (lunes a viernes).");
+    fechaConsulta.value = "";
+  }
+
   const horaConsulta = document.getElementById("horaConsulta").value;
 
   const turno = {
     detalleConsulta,
-    diaConsulta,
+    fechaConsulta,
     horaConsulta,
-    idObtenido,
+    dniAsignado,
   };
 
   turnos.push(turno);
@@ -498,15 +541,7 @@ const agregarSolTurno = (event) => {
   reseteoModalTurno.addEventListener("hidden.bs.modal", function (event) {
     formSolturno.reset();
   });
-
-  const modalTurnoFunc = document.getElementById("modalSolTurno");
-  modalTurnoFunc.addEventListener("hidden.bs.modal", (event) => {
-    console.log("holaaa");
-  });
-
   modalTurno.hide();
 };
-
-let idObtenido;
 
 //
