@@ -43,7 +43,10 @@ const manejarFormMedico = (event) => {
   const centroMedico = document.getElementById("centroMedico").value;
   const emailMedico = document.getElementById("emailMedico").value.trim();
   const contrasenaMedico = document.getElementById("contrasenaMedico").value;
+  const nombreArchivoImagen = "./img/fotoPredeterminada.png";
+  const fotoDePerfilURL = window.location.href + nombreArchivoImagen;
 
+// Crea la URL de la imagen concatenando el nombre del archivo con la ubicación actual
   const toastLiveExample = document.getElementById("liveToast");
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
 
@@ -58,6 +61,7 @@ const manejarFormMedico = (event) => {
     centroMedico,
     emailMedico,
     contrasenaMedico,
+    fotoDePerfilURL
   };
 
   if (validarMedico(medico)) {
@@ -102,8 +106,6 @@ const validarPaciente = (paciente) => {
     return false;
   }
 
-  !/^(?=.*[A-Z])(?=.*\d)/.test(paciente.contrasenaPaciente);
-
   return true;
 };
 
@@ -133,7 +135,11 @@ const validarMedico = (medico) => {
   }
 
   if (medico.contrasenaMedico.length < 6) {
-    toastMensaje.innerText = "La contraseña ingresada no es valida";
+    toastMensaje.innerText = "La contraseña ingresada debe tener minimo 6 caracteres";
+    return false;
+  }
+  if (!/^(?=.*[A-Z])(?=.*\d)/.test(medico.contrasenaMedico)) {
+    toastMensaje.innerText = "La contraseña debe contener mínimo 1 numero y un caracter en mayuscula";
     return false;
   }
 
@@ -141,6 +147,9 @@ const validarMedico = (medico) => {
 };
 
 function loguear() {
+  const toastLiveExample = document.getElementById("liveToast");
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+  modificarToastLogearse()
   const user = document.getElementById("documentoUsuario").value.trim();
   const pass = document.getElementById("contraseñaUsuario").value;
   let obtenerDatos = [];
@@ -154,7 +163,8 @@ function loguear() {
           localStorage.setItem("UsuarioLogeado", user);
           window.location = "logeado.html";
         } else {
-          alert("Datos Incorrectos paciente");
+          toastMensaje.innerText = "La contraseña es incorrecta";
+          toastBootstrap.show();
         }
       } else if (obtenerDatos[0] === "medico") {
         if (user === obtenerDatos[1].dniMedico && pass === obtenerDatos[1].contrasenaMedico) {
@@ -163,16 +173,21 @@ function loguear() {
           localStorage.setItem("UsuarioLogeado", user);
           window.location = "logeado.html";
         } else {
-          alert("Datos Incorrectos medico");
+          toastBootstrap.show();
+          toastMensaje.innerText = "La contraseña es incorrecta";
         }
       }
+    }else{
+        toastBootstrap.show();
+    toastMensaje.innerText = "Datos ingresados incorrectos";
     }
   } else if (user === "admin" && pass === "admin") {
     localStorage.setItem("codigoInicioSesion", 2);
     window.location = "logeado.html";
-  } else {
-    alert("Datos Incorrectos");
-  }
+  }else{
+    toastBootstrap.show();
+    toastMensaje.innerText = "Datos ingresados incorrectos";
+    }
 }
 
 const controlLogeoUsuario = (user) => {
@@ -195,5 +210,4 @@ const controlLogeoUsuario = (user) => {
 const listaPacientes = "listaPacientes";
 const listaMedicos = "listaMedicos";
 const listaDeEsperaMedicos0 = "listaDeEsperaMedicos";
-
 const listaDeEsperaPacientes0 = "listaDeEsperaPacientes";

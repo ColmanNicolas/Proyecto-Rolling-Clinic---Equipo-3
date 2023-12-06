@@ -82,15 +82,23 @@ const modificarToastRegistro = (situacion) => {
         case 'error':
             toastTitulo.innerText = "Error";
             contenedorToastRegistro.classList = [];
-            contenedorToastRegistro.classList.add("toast-header", "bg-danger");
+            contenedorToastRegistro.classList.add("toast-header", "toastError");
             break;
         case 'exito':
             toastTitulo.innerText = "Felicidades";
             contenedorToastRegistro.classList = [];
-            contenedorToastRegistro.classList.add("toast-header", "bg-success");
+            contenedorToastRegistro.classList.add("toast-header", "toastExito");
+            break;
     }
 }
+const modificarToastLogearse = (situacion) => {
+    const toastTitulo = document.getElementById("toastTitulo");
+    const contenedorToastRegistro = document.getElementById("contenedorToastRegistro");
 
+    toastTitulo.innerText = "Error";
+    contenedorToastRegistro.classList = [];
+    contenedorToastRegistro.classList.add("toast-header", "toastError");
+}
 const validarInputEnVivo = (input, condicion) => {
 
     const popover = new bootstrap.Popover(input);
@@ -126,16 +134,24 @@ const borrarUsuario = (index, lista) => {
     mostrarUsuariosAdministrador(lista);
 };
 const buscarUsuarioPorDocumento = (documento, lista) => {
+
     let usuario = null;
     const usuarios = obtenerContenidoArrayLS(lista);
+
     if (lista === listaMedicos) {
-        usuario = usuarios.find(elemento => elemento.dniMedico === documento);
-        return usuario;
+        // Buscar en la lista de médicos
+        usuario = usuarios.find(elemento => parseInt(elemento.dniMedico, 10) === parseInt(documento, 10));
     } else if (lista === listaPacientes) {
-        usuario = usuarios.find(elemento => elemento.dniPaciente === documento);
-        return usuario;
+
+        // Buscar en la lista de pacientes
+        usuario = usuarios.find(elemento => {
+            return parseInt(elemento.dniPaciente, 10) === parseInt(documento, 10);
+        });
     }
+
+    return usuario;
 };
+
 function limitarFecha(input) {
     // Establecer fecha mínima basada en la fecha actual
     const fechaActual = new Date();
