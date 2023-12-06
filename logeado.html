@@ -41,8 +41,11 @@
       <ul class="m-0" id="contenedorInferiorBotonesSideBar"></ul>
     </nav>
 
-    <div class="" id="contenedorBotonesParaTabla">
+    <div class="d-flex" id="contenedorBotonesParaTabla">
       <div id="contenedorBotonMenu"></div>
+      <div class="ms-auto me-4" id="">
+        <button class="btn btn-dark ms-4 fw-semibold" type="button" onclick="botonCerrarSesion()">Cerrar Sesion</button>
+      </div>
     </div>
     <h6 class="text-center py-2 mt-4 mb-2" id="titulosTablas"></h6>
     <div class="" id="tamañoContenedorTablas">
@@ -108,15 +111,8 @@
                 <label for="detalleConsulta">Detallar el motivo de la consulta</label>
               </div>
               <div class="col-md-6">
-                <label for="diaConsulta" class="form-label">Seleccionar día</label>
-                <select class="form-select" id="diaConsulta" required>
-                  <option selected disabled value=""></option>
-                  <option>Lunes</option>
-                  <option>Martes</option>
-                  <option>Miercoles</option>
-                  <option>Juves</option>
-                  <option>Viernes</option>
-                </select>
+                <label for="fechaConsulta" class="form-label">Seleccionar día (lun-vie)</label>
+                <input type="date" class="form-control" id="fechaConsulta" value="" required />
               </div>
               <div class="col-md-6">
                 <label for="horaConsulta" class="form-label">Seleccionar hora</label>
