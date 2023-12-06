@@ -186,6 +186,39 @@ const compararFechas = () => { //EN DESARROLLO
     }
     */
 }
+function ordenarPorApellidoYNombre(array, usuario) {
+    let apellido, nombre;
+
+    if (usuario === "paciente") {
+        apellido = "apellidoPaciente";
+        nombre = "nombrePaciente";
+    } else if (usuario === "medico") {
+        apellido = "apellidoMedico";
+        nombre = "nombreMedico";
+    }
+
+    return array.sort((a, b) => {
+        const apellidoA = a[apellido].toUpperCase();
+        const apellidoB = b[apellido].toUpperCase();
+        const nombreA = a[nombre].toUpperCase();
+        const nombreB = b[nombre].toUpperCase();
+
+        if (apellidoA < apellidoB) {
+            return -1;
+        } else if (apellidoA > apellidoB) {
+            return 1;
+        } else {
+
+            if (nombreA < nombreB) {
+                return -1;
+            } else if (nombreA > nombreB) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    });
+}
 function obtenerFechaFormateada() {
     const fechaActual = new Date();
     let año = formatearNumeroHora(fechaActual.getFullYear());

@@ -30,7 +30,11 @@ const desplegarBotonesSideBar = (codigo) => {
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosMedico">TURNOS ASIGNADOS</li>
           `;
         break;
-      case 2:
+      case 2: 
+       const contenedorMiCuenta = document.getElementById("contenedorMiCuenta");
+       while (contenedorMiCuenta.firstChild) {
+        contenedorMiCuenta.removeChild(contenedorMiCuenta.firstChild);
+      }
         SideBarBotones.innerHTML += `
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonProfesionalesRegistrados">REGISTRO DE PROFESIONALES</li>
             <li class="nav-item  text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonProfesionalesEnEspera">PROFESIONALES EN ESPERA</li>
@@ -133,10 +137,12 @@ const capturarBotonesSideBar = (codigo) => {
 };
 const actualizarTabla = (lista, usuario) => {
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
-  const listaDeUsuarios = obtenerContenidoArrayLS(lista);
+  let listaDeUsuarios = null;
   contenedorTablasBody.innerHTML = "";
-
+ 
   if (usuario === "medico") {
+    actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),usuario),lista);
+    listaDeUsuarios = obtenerContenidoArrayLS(lista);
     titulosTablas.innerText = lista === listaDeEsperaMedicos ? "Profesionales en Espera de Aprobación" : "Profesionales en Sistema";
 
     listaDeUsuarios.forEach((element, index) => {
@@ -152,6 +158,8 @@ const actualizarTabla = (lista, usuario) => {
         `;
     });
   } else if (usuario === "paciente") {
+    actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),usuario),lista);
+    listaDeUsuarios = obtenerContenidoArrayLS(lista);
     titulosTablas.innerText = lista === listaDeEsperaPacientes ? "Pacientes en Espera de Aprobacion" : "Pacientes en Sistema";
 
     listaDeUsuarios.forEach((element, index) => {
@@ -168,6 +176,8 @@ const actualizarTabla = (lista, usuario) => {
     });
   } else if (usuario === "usuarioBaja") {
     if (lista === listaPacientesBaja) {
+      actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),"paciente"),lista);
+      listaDeUsuarios = obtenerContenidoArrayLS(lista);
       titulosTablas.innerText = "Pacientes dados de Baja";
       console.log("llego aqui a ");
       listaDeUsuarios.forEach((element, index) => {
@@ -182,6 +192,8 @@ const actualizarTabla = (lista, usuario) => {
           `;
       });
     } else if (lista === listaMedicosBaja) {
+      actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),"medico"),lista);
+      listaDeUsuarios = obtenerContenidoArrayLS(lista);
       titulosTablas.innerText = "Medicos dados de Baja";
 
       listaDeUsuarios.forEach((element, index) => {
@@ -296,6 +308,7 @@ const quitarModalInfo = () => {
   modalInfoMedico.hide();
 }
 const definirImagenNavar = (dniUsuario, codigo) => {
+ 
   
   let usuario = undefined;
   const fotoPerfilNav = document.getElementById("fotoPerfilNavbar");
@@ -306,11 +319,14 @@ const definirImagenNavar = (dniUsuario, codigo) => {
   // Convierte dniUsuario a un número
   const dniNumero = parseInt(dniUsuario, 10);
 
-
-  if (codigo === '0') {
+console.log(codigo);
+  if (codigo === 0) {
+    
     usuario = buscarUsuarioPorDocumento(dniNumero, listaPacientes);
     fotoPerfilNav.src = usuario.fotoDePerfilURL;
-  } else if (codigo === '1') {
+  } else if (codigo === 1) {
+    
+
     usuario = buscarUsuarioPorDocumento(dniNumero, listaMedicos);
     fotoPerfilNav.src = usuario.fotoDePerfilURL;
   }
@@ -367,7 +383,6 @@ const mostrarCartillaProfesionales = () => {
 
 const mostrarDocumentacion = () => { };
 
-const mostrarSolicitarTurno = () => { };
 
 const mostrarHistorialTurnos = () => { };
 
@@ -405,7 +420,7 @@ const mostrarTurnosAsignados = () => {
         <td>${element.nombreSolicitante}</td>
         <td>${element.fechaConsulta}</td>
         <td>${element.horaConsulta}</td>
-        <td>${element.detalleConsulta}</td>
+        <td class="text-center ">${element.detalleConsulta}</td>
       </tr>
     `;
     }
@@ -575,15 +590,16 @@ if(codigoInicioSesion !== 2){
   
   definirImagenNavar(obtenerUnElementoLS("UsuarioLogeado"),codigoInicioSesion);
 }
-/* NO BORRAR PUEDE SERVIR LUEGO
+//---------------------------------- NO BORRAR PUEDE SERVIR LUEGO
+/*
 const agregarImagenesPred = obtenerContenidoArrayLS(listaPacientes);
 agregarImagenesPred.forEach(element => {
-element['fotoDePerfilURL'] = "./img/fotoPacientePredeterminada.png";
+element.fotoDePerfilURL = "./img/fotoPacientePredeterminada.png";
 });
 actualizarContenidoArrayLS(agregarImagenesPred,listaPacientes);
 const agregarImagenesPredMedico = obtenerContenidoArrayLS(listaMedicos);
 agregarImagenesPredMedico.forEach(element => {
-element['fotoDePerfilURL'] = "./img/fotoPredeterminada.png";
+  element.fotoDePerfilURL = "./img/fotoPredeterminada.png";
 });
 actualizarContenidoArrayLS(agregarImagenesPredMedico,listaMedicos);
 */
