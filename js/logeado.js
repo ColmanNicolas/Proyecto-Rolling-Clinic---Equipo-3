@@ -394,16 +394,15 @@ const mostrarTurnosAsignados = () => {
     <th class="text-center" scope="col">Consulta</th>
   </tr>
   `;
+
+  const dniActual = parseInt(localStorage.getItem("UsuarioLogeado"));
+
   listaTurnosSolicitados.forEach((element, index) => {
-    let botonHTML = "";
-
-    console.log(element.dniAsignado);
-
-    if (element.dniAsignado == 11222333) {
+    if (element.dniAsignado == dniActual) {
       contenedorTablasBody.innerHTML += `
       <tr>
         <th scope="row">${index + 1}</th>
-        <td>"Juan Perez"</td>
+        <td>${element.nombreSolicitante}</td>
         <td>${element.fechaConsulta}</td>
         <td>${element.horaConsulta}</td>
         <td>${element.detalleConsulta}</td>
@@ -596,9 +595,16 @@ const modalTurno = new bootstrap.Modal("#modalSolTurno", {
 });
 let turnos = [];
 let dniAsignado;
+let nombreSolicitante;
+let dniSolicitante = parseInt(localStorage.getItem("UsuarioLogeado"));
+let obtenerDatosPaciente = obtenerContenidoArrayLS("listaPacientes");
 
-let dniSolicitante = localStorage.getItem(codigoInicioSesion);
-console.log(dniSolicitante);
+obtenerDatosPaciente.forEach((element, index) => {
+  if (dniSolicitante == element.dniPaciente) {
+    nombreSolicitante = element.nombrePaciente + " " + element.apellidoPaciente;
+  }
+  return nombreSolicitante;
+});
 
 const showModalSolTurno = (boton) => {
   modalTurno.show();
@@ -626,6 +632,7 @@ const agregarSolTurno = (event) => {
     fechaConsulta,
     horaConsulta,
     dniAsignado,
+    nombreSolicitante,
   };
 
   turnos.push(turno);
