@@ -19,7 +19,7 @@ const desplegarBotonesSideBar = (codigo) => {
         SideBarBotones.innerHTML += `
         <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonCartillaProfesionales">CARTILLA DE PROFESIONALES</li>
         <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonDocumentacion">DOCUMENTACION</a></li>
-        <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosPaciente" >HISTORIAL DE TURNO</li>
+        <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosPaciente" >HISTORIAL DE TURNOS</li>
         <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonNuestrosCentros">NUESTROS CENTROS</li>    
         `;
         mostrarCartillaProfesionales();
@@ -169,7 +169,7 @@ const actualizarTabla = (lista, usuario) => {
   } else if (usuario === "usuarioBaja") {
     if (lista === listaPacientesBaja) {
       titulosTablas.innerText = "Pacientes dados de Baja";
-
+      console.log("llego aqui a ");
       listaDeUsuarios.forEach((element, index) => {
         contenedorTablasBody.innerHTML += `
           <tr>
@@ -266,11 +266,59 @@ const pintarFormularioBaja = (index, lista) => {
   `;
   }
 };
-const botonCerrarSesion = () =>{
+const botonCerrarSesion = () => {
   localStorage.setItem("codigoInicioSesion", 999);
   localStorage.setItem("UsuarioLogeado", "no logeado");
   window.location = "index.html";
 }
+const informacionCompletaMedico = (index) => {
+  const recuperoListaMedicos = obtenerContenidoArrayLS(listaMedicos);
+  const campoApellidoNombre = document.getElementById("infoApellidoNombreMedico");
+  const campoCorreo = document.getElementById("infoCorreoMedico");
+  const campoEspecialidad = document.getElementById("infoEspecialidadMedico");
+  const campoCentro = document.getElementById("infoCentroMedico");
+  const campoMatricula = document.getElementById("infoMatriculaMedico");
+  const fotoDePerfil = document.getElementById("fotoDePerfil");
+
+
+
+  const medicoSeleccionado = recuperoListaMedicos[index];
+
+  campoApellidoNombre.innerText = medicoSeleccionado.apellidoMedico + ", " + medicoSeleccionado.nombreMedico;
+  campoCorreo.innerText = medicoSeleccionado.emailMedico;
+  campoEspecialidad.innerText = medicoSeleccionado.especialidad;
+  campoCentro.innerText = medicoSeleccionado.centroMedico;
+  campoMatricula.innerText = medicoSeleccionado.matricula;
+  fotoDePerfil.src = medicoSeleccionado.fotoDePerfilURL;
+  modalInfoMedico.show();
+}
+const quitarModalInfo = () => {
+  modalInfoMedico.hide();
+}
+const definirImagenNavar = (dniUsuario, codigo) => {
+  
+  let usuario = undefined;
+  const fotoPerfilNav = document.getElementById("fotoPerfilNavbar");
+
+  // Asegúrate de que dniUsuario sea una cadena antes de llamar a trim()
+  dniUsuario = (dniUsuario && typeof dniUsuario === 'string') ? dniUsuario.trim() : dniUsuario;
+
+  // Convierte dniUsuario a un número
+  const dniNumero = parseInt(dniUsuario, 10);
+
+
+  if (codigo === '0') {
+    usuario = buscarUsuarioPorDocumento(dniNumero, listaPacientes);
+    fotoPerfilNav.src = usuario.fotoDePerfilURL;
+  } else if (codigo === '1') {
+    usuario = buscarUsuarioPorDocumento(dniNumero, listaMedicos);
+    fotoPerfilNav.src = usuario.fotoDePerfilURL;
+  }
+
+
+
+}
+
 // ------------------------------------------------Funciones para Paciente--------------------------------------------
 
 const mostrarCartillaProfesionales = () => {
@@ -296,7 +344,7 @@ const mostrarCartillaProfesionales = () => {
 
     if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
       botonHTML = `
-      <button class="btn btn-sm btn-warning fw-bold" onclick="InformacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
+      <button class="btn btn-sm btn-warning fw-bold" onclick="informacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
         <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.dniMedico}"> Solicitar Consulta </button>
       `;
     } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
@@ -317,17 +365,17 @@ const mostrarCartillaProfesionales = () => {
   });
 };
 
-const mostrarDocumentacion = () => {};
+const mostrarDocumentacion = () => { };
 
-const mostrarSolicitarTurno = () => {};
+const mostrarSolicitarTurno = () => { };
 
-const mostrarHistorialTurnos = () => {};
+const mostrarHistorialTurnos = () => { };
 
-const mostrarNuestrosCentros = () => {};
+const mostrarNuestrosCentros = () => { };
 
 // ------------------------------------------------Funciones para Medico--------------------------------------------
 
-const mostrarHistorialPacientes = () => {};
+const mostrarHistorialPacientes = () => { };
 
 const mostrarTurnosAsignados = () => {
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
@@ -460,21 +508,51 @@ const bajaUsuario = (event) => {
     borrarUsuario(index, lista);
     if (lista === listaPacientes) {
       agregarUsuario(usuario, listaPacientesBaja);
+      actualizarTabla(lista, "paciente");
     } else if (lista === listaMedicos) {
       agregarUsuario(usuario, listaMedicosBaja);
+      actualizarTabla(lista, "medico");
     }
-    actualizarTabla(lista, "usuarioBaja");
+
     cerrarModalResetearFormulario("modalBaja", "formularioBajaUsuario");
   }
 };
+const definirBotonesFiltros = (lista) =>{
+  const contenedorBotonesFiltros = document.getElementById("botonesFiltros");
+  contenedorBotonesFiltros.innerHTML="";
+  contenedorBotonesFiltros=`  
+  <div class="d-flex  mb-3">
+  <button class="btn btn-secondary mx-1"  type="button" onclick="ordenarPorNombre(${lista})">ordenar por nombre</button>
+  <div class="dropdown ">
+    <button class="btn btn-secondary dropdown-toggle mx-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Filtrar por
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" onclick="filtrarListaPor(${lista}, tucuman)">Centro Tucuman</a></li>
+      <li><a class="dropdown-item" href="#" onclick="filtrarListaPor(${lista}, salta)">Centro Jujuy</a></li>
+      <li><a class="dropdown-item" href="#" onclick="filtrarListaPor(${lista}, jujuy)">Centro Salta</a></li>
+      <li><a class="dropdown-item" href="#" onclick="ModalEspecialidades(${lista})">Especialidades</a></li>
+      
+    </ul>
+  </div>
+</div>
+<div class="ms-auto d-flex align-items-center  mb-3">
+  <input type="text">
+  <button class=" btn ms-1 btn-secondary " type="button">buscador</button>
+</div>
+`;
+}
+/*
+const ordenarPorNombre =(listaDeUsuarios) =>{
+if (listaDeUsuarios.contains("Paciente")) {
+    recuperoListadoCompleto=obtenerContenidoArrayLS(listaDeUsuarios);
+    const listaAuxiliar = recuperoListadoCompleto.filter(objeto => objeto. === 'A');
+}
+}
+const filtrarListaPor =(listaDeUsuarios , centro) =>{}
+const ModalEspecialidades =(listaDeUsuarios) =>{}
 
-const mostrarModalInfo = () => {
-  modalInfoMedico.show();
-};
-const cerrarModalInfo = () => {
-  modalInfoMedico.hide();
-};
-
+}*/
 //-------------------------------------------- esto se ejecuta al cargar la pagina-------------------
 const listaMedicos = "listaMedicos";
 const listaDeEsperaMedicos = "listaDeEsperaMedicos";
@@ -494,6 +572,22 @@ const titulosTablas = document.getElementById("titulosTablas");
 const codigoInicioSesion = obtenerUnElementoLS("codigoInicioSesion");
 desplegarBotonesSideBar(codigoInicioSesion);
 capturarBotonesSideBar(codigoInicioSesion);
+if(codigoInicioSesion !== 2){
+  
+  definirImagenNavar(obtenerUnElementoLS("UsuarioLogeado"),codigoInicioSesion);
+}
+/* NO BORRAR PUEDE SERVIR LUEGO
+const agregarImagenesPred = obtenerContenidoArrayLS(listaPacientes);
+agregarImagenesPred.forEach(element => {
+element['fotoDePerfilURL'] = "./img/fotoPacientePredeterminada.png";
+});
+actualizarContenidoArrayLS(agregarImagenesPred,listaPacientes);
+const agregarImagenesPredMedico = obtenerContenidoArrayLS(listaMedicos);
+agregarImagenesPredMedico.forEach(element => {
+element['fotoDePerfilURL'] = "./img/fotoPredeterminada.png";
+});
+actualizarContenidoArrayLS(agregarImagenesPredMedico,listaMedicos);
+*/
 
 // ------------------------------------------- funciones modal pedir turno
 
@@ -544,4 +638,4 @@ const agregarSolTurno = (event) => {
   modalTurno.hide();
 };
 
-//
+
