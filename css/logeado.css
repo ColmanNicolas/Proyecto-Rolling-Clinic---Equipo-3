@@ -58,8 +58,15 @@
   -moz-box-shadow: 0px 0px 5px 1px rgba(242, 242, 242, 0.78);
   transition-duration: 0.5s;
 }
+#tamañoContenedorPrincipal{
+  margin-inline: 40%;
+}
 @media (min-width: 1600px) {
   #tamañoContenedorTablas {
+    width: 1530px;
+    margin: auto;
+  }
+  #tamañoContenedorPrincipal {
     width: 1530px;
     margin: auto;
   }
