@@ -4,6 +4,23 @@ function validarFormulario() {
   //te serviran las validaciones que estan en el js de utilidades que ya esta vinculado
 }
 
+function cambiarFoto(event) {
+  const fileInput = event.target;
+  const profileImage = document.getElementById('profile-img');
+
+  const file = fileInput.files[0];
+
+  if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+          profileImage.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
 function esNumeroEntero(valor) {
   return /^\d+$/.test(valor);
 }
@@ -47,6 +64,10 @@ const rellenarFormulario = () =>{
 
   campoNombre.value=recuperoUsuarioLocalStorage.nombrePaciente;
   campoApellido.value=recuperoUsuarioLocalStorage.apellidoPaciente;
+  campoDni.value=recuperoUsuarioLocalStorage.dniPaciente;
+  campoEdad.value=recuperoUsuarioLocalStorage.edadPaciente;
+  campoCorreo.value=recuperoUsuarioLocalStorage.emailPaciente;
+  campoContrasena.value=recuperoUsuarioLocalStorage.contrasenaPaciente;
   //igual para los demas...
 
   //esta fucnion solo rellena, no debe hacer nada mas
