@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <link rel="stylesheet" href="/css/micuenta.css">
+</head>
+<body>
+    <div class="card-lg">
+        <h2>Editar Perfil</h2>
+
+        <!-- Sección de Foto de Perfil -->
+        <div class="profile-picture">
+            <img id="profile-img" src="/img/DdW_dUFUQAAPLNV.jpeg" alt="Foto de Perfil">
+            <input type="file" id="profile-picture-input" accept="image/*" style="display: none;">
+            <label for="profile-picture-input">Cambiar Foto</label>
+        </div>
+
+        <form id="formulario-edicion" onsubmit="validarFormulario()">
+            <div class="form-group">
+                <label for="miCuentaNombre">Nombre:</label>
+                <input type="text" id="miCuentaNombre" name="nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="miCuentaApellido">Apellido:</label>
+                <input type="text" id="miCuentaApellido" name="apellido" required>
+            </div>
+
+            <div class="form-group">
+                <label for="miCuentaDni">DNI:</label>
+                <input type="text" id="miCuentaDni" name="dni" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="miCuentaCorreo">Correo:</label>
+                <input type="email" id="miCuentaCorreo" name="correo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="miCuentaEdad">Edad:</label>
+                <input type="text" id="miCuentaEdad" name="edad" pattern="\d+" title="La edad debe ser un número entero." required>
+            </div>
+
+            <div class="form-group">
+                <label for="miCuentaContrasena"></label>Contraseña:</label>
+                <input type="password" id="miCuentaContrasena" name="contrasena" class="password-input" required>
+                <button type="button" class="show-password" onclick="mostrarContrasena()">Mostrar</button>
+            </div>
+
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>
+
+<script src="/js/utilidades.js"></script>
+    <script src="/js/edicionmicuenta.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+</html>
