@@ -7,7 +7,7 @@
 }
 #contenedorSideBar {
   width: 350px;
-  background-color: rgb(43, 41, 41);
+  background-color: #053B50;
   height: 100vh;
 }
 #contenedorBotonesSideBar li {
@@ -20,6 +20,7 @@
 }
 #tamañoContenedorTablas {
   margin-inline: 2%;
+  background-color: #64CCC5;
 }
 #offcanvasBottom{
   position: fixed;
@@ -66,7 +67,7 @@
 
 #pantallaPrincipal {
  
-  background-color: rgb(194, 235, 235);
+  background-color:  #EEEEEE;
  
 }
 
@@ -79,14 +80,14 @@
   }
 }
 .colorAzul {
-  background-color: rgb(21, 22, 121);
+  background-color:  #64CCC5;
   color: aliceblue;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 .lineaDivisora {
   width: 90% !important;
   margin-inline: auto;
-  border: 1px solid rgba(27, 90, 133, 0.459);
+  border: 1px solid #EEEEEE;
   margin-top: 10px;
   margin-bottom: 15px;
 }
@@ -117,7 +118,7 @@
   }
 }
 #titulosTablas{
-  background-color:rgba(3, 7, 66, 0.8);
+  background-color:#176B87;
   font-family:sans-serif;
   font-weight: bold;
   font-size: 1.4rem;
@@ -143,3 +144,7 @@
   border-radius: 10px;
   
 }
+.colorOscuro{
+  background-color: #053B50;
+}
+
