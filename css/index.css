@@ -45,4 +45,8 @@
     height: auto; /* Mantiene la proporción original de la imagen */
     object-fit: cover; /* Ajusta la imagen manteniendo su relación de aspecto y cubriendo el contenedor */
   }
+
+  .colorOscuro{
+    background-color: #053B50;
+  }
   
