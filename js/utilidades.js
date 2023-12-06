@@ -138,10 +138,10 @@ const buscarUsuarioPorDocumento = (documento, lista) => {
     let usuario = null;
     const usuarios = obtenerContenidoArrayLS(lista);
 
-    if (lista === listaMedicos) {
+    if (lista === listaMedicosU) {
         // Buscar en la lista de médicos
         usuario = usuarios.find(elemento => parseInt(elemento.dniMedico, 10) === parseInt(documento, 10));
-    } else if (lista === listaPacientes) {
+    } else if (lista === listaPacientesU) {
 
         // Buscar en la lista de pacientes
         usuario = usuarios.find(elemento => {
@@ -243,3 +243,9 @@ setInterval(() => {
         popover.parentNode.removeChild(popover);
     });
 }, 2000);
+const listaMedicosU = "listaMedicos";
+const listaDeEsperaMedicosU = "listaDeEsperaMedicos";
+const listaPacientesU = "listaPacientes";
+const listaDeEsperaPacientesU = "listaDeEsperaPacientes";
+const listaPacientesBajaU = "listaPacientesBaja";
+const listaMedicosBajau = "listaMedicosBaja";

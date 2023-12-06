@@ -590,7 +590,7 @@ if(codigoInicioSesion !== 2){
   
   definirImagenNavar(obtenerUnElementoLS("UsuarioLogeado"),codigoInicioSesion);
 }
-//---------------------------------- NO BORRAR PUEDE SERVIR LUEGO
+//---------------------------------- NO BORRAR, PUEDE SERVIR LUEGO
 /*
 const agregarImagenesPred = obtenerContenidoArrayLS(listaPacientes);
 agregarImagenesPred.forEach(element => {
