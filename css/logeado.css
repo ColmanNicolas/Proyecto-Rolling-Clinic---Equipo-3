@@ -87,7 +87,7 @@
   }
 }
 .colorAzul {
-  background-color:  #459c96;
+  background-color: #64CCC5;
   color: aliceblue;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
@@ -159,4 +159,7 @@
   background-color:  #a6d6d3;
   font-weight: 600;
   cursor: pointer;
+}
+.inputTamaño{
+  width: 270px !important;
 }

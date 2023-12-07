@@ -53,19 +53,19 @@
                 <h5 class="card-title">Nota</h5>
                 <br>
                 <p class="card-text">En Rolling Clinic, trabajamos para su comodidad.</p>
-                <p class="card-text">Por ser su primera vez, debe ingresar sus datos, segun corresponda
-                  (Paciente o Medico) para su ingreso a nuestro servicio.
-                  Una vez aceptado, debera ingresar con su DNI y contraseña que genere.</p>
+                <p class="card-text">Si es su primera vez, debe ingresar sus datos, segun corresponda
+                  (Paciente o Medico) para registrarse en nuestra plataforma.
+                  Una vez aceptado, podrá ingresar con su DNI y contraseña que genere.</p>
                 <p class="card-text">Le damos las gracias por elegirnos !</p>
                 <br>
               </div>
               <div class="card-footer text-body-secondary colorAzul">
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-6 text-center">
                     <button type="button" class="btn btn-outline-info mt-2" data-bs-toggle="modal"
                       data-bs-target="#modalPaciente">Paciente</button>
                   </div>
-                  <div class="col-6">
+                  <div class="col-6 text-center">
                     <button type="button" class="btn btn-outline-info mt-2" data-bs-toggle="modal"
                       data-bs-target="#modalMedico">Médico</button>
                   </div>
@@ -129,43 +129,44 @@
         <div class="modal-body colorCeleste rounded-bottom-3 ">
           <form class="row g-3" onsubmit="manejarFormPaciente(event)" id="formPaciente">
             <div class="col-md-6">
-              <label for="nombrePaciente" class="form-label">Nombre</label>
+              <label for="nombrePaciente" class="form-label fw-semibold">Nombre</label>
               <input type="text" class="form-control" id="nombrePaciente" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia"
                 data-bs-content="nombre contiene caracteres invalidos" data-bs-trigger="focus"
                 oninput="validarInputEnVivo(this,0)" required />
             </div>
             <div class="col-md-6">
-              <label for="apellidoPaciente" class="form-label">Apellido</label>
+              <label for="apellidoPaciente" class="form-label fw-semibold">Apellido</label>
               <input type="text" class="form-control" id="apellidoPaciente" value="" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia"
                 data-bs-content="apellido contiene caracteres invalidos" data-bs-trigger="focus"
                 oninput="validarInputEnVivo(this,0)" required />
             </div>
             <div class="col-md-6">
-              <label for="dniPaciente" class="form-label">DNI</label>
+              <label for="dniPaciente" class="form-label fw-semibold">DNI</label>
               <input type="number" class="form-control" id="dniPaciente" value="" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia" data-bs-content="El dato ingresado no es valido"
                 data-bs-trigger="focus" oninput="validarInputEnVivo(this,1)" required />
             </div>
             <div class="col-md-6">
-              <label for="edadPaciente" class="form-label">Edad</label>
+              <label for="edadPaciente" class="form-label fw-semibold">Edad</label>
               <input type="number" class="form-control" id="edadPaciente" value="" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia"
-                data-bs-content="Muy gracioso.... no podes tener esa edad crack" data-bs-trigger="focus"
+                data-bs-content="Edad invalida" data-bs-trigger="focus"
                 oninput="validarInputEnVivo(this,2)" required />
             </div>
             <div class="col-md-12">
-              <label for="emailPaciente" class="form-label">Correo Electrónico</label>
+              <label for="emailPaciente" class="form-label fw-semibold">Correo Electrónico</label>
               <input type="email" class="form-control" id="emailPaciente" value="" required />
             </div>
             <div class="col-md-6">
-              <label for="contrasenaPaciente" class="form-label">Contraseña</label>
+              <label for="contrasenaPaciente" class="form-label fw-semibold">Contraseña</label>
               <input type="password" class="form-control" id="contrasenaPaciente" value="" required />
+              <div id="emailHelp" class="form-text">Debe contener minimo una mayuscula y un numero</div>
             </div>
             <div class="colorAzul rounded-1 mt-3">
               <p class="fs-6 fw-bold ">Una vez completado el registro, pasará a una lista de espera para ser aceptado en
-                la plataforma. Este proceso puede demorar hasta 2 días hábiles.</p>
+                la plataforma. Este proceso puede demorar como mucho 24 horas</p>
             </div>
 
             <div class="col-12">
@@ -189,33 +190,33 @@
         <div class="modal-body colorCeleste rounded-bottom-3">
           <form class="row g-3" onsubmit="manejarFormMedico(event)" id="formMedico">
             <div class="col-md-6">
-              <label for="nombreMedico" class="form-label">Nombre</label>
+              <label for="nombreMedico" class="form-label fw-semibold">Nombre</label>
               <input type="text" class="form-control" id="nombreMedico" value="" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia"
                 data-bs-content="nombre contiene caracteres invalidos" data-bs-trigger="focus"
                 oninput="validarInputEnVivo(this,0)" required />
             </div>
             <div class="col-md-6">
-              <label for="apellidoMedico" class="form-label">Apellido</label>
+              <label for="apellidoMedico" class="form-label  fw-semibold">Apellido</label>
               <input type="text" class="form-control" id="apellidoMedico" value="" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia"
                 data-bs-content="apellido contiene caracteres invalidos" data-bs-trigger="focus"
                 oninput="validarInputEnVivo(this,0)" required />
             </div>
             <div class="col-md-6">
-              <label for="dniMedico" class="form-label">DNI</label>
+              <label for="dniMedico" class="form-label  fw-semibold">DNI</label>
               <input type="number" class="form-control" id="dniMedico" value="" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia" data-bs-content="El dato ingresado no es valido"
                 data-bs-trigger="focus" oninput="validarInputEnVivo(this,1)" required />
             </div>
             <div class="col-md-6">
-              <label for="matricula" class="form-label">Matrícula profesional</label>
+              <label for="matricula" class="form-label  fw-semibold">Matrícula profesional</label>
               <input type="number" class="form-control" id="matricula" value="" data-bs-toggle="popover"
                 data-bs-placement="right" data-bs-title="advertencia" data-bs-content="La edad ingresada no es valida"
                 data-bs-trigger="focus" oninput="validarInputEnVivo(this,1)" required />
             </div>
             <div class="col-md-6">
-              <label for="especialidad" class="form-label">Especialidad</label>
+              <label for="especialidad" class="form-label  fw-semibold">Especialidad</label>
               <select class="form-select" id="especialidad" required>
                 <option selected disabled value=""></option>
                 <option>Angiología</option>
@@ -236,7 +237,7 @@
               </select>
             </div>
             <div class="col-md-6">
-              <label for="centroMedico" class="form-label">Centro médico</label>
+              <label for="centroMedico" class="form-label  fw-semibold">Centro médico</label>
               <select class="form-select" id="centroMedico" required>
                 <option selected disabled value=""></option>
                 <option>Tucumán</option>
@@ -245,19 +246,20 @@
               </select>
             </div>
             <div class="col-md-12">
-              <label for="emailMedico" class="form-label">Correo Electrónico</label>
+              <label for="emailMedico" class="form-label  fw-semibold">Correo Electrónico</label>
               <input type="email" class="form-control" id="emailMedico" value="" required />
             </div>
             <div class="col-md-6">
-              <label for="contrasenaMedico" class="form-label">Contraseña</label>
+              <label for="contrasenaMedico" class="form-label  fw-semibold">Contraseña</label>
               <input type="password" class="form-control" id="contrasenaMedico" value="" required />
+              <div id="emailHelp" class="form-text">Debe contener minimo una mayuscula y un numero</div>
             </div>
             <div class="colorAzul rounded-1 mt-3">
               <p class="fs-6 fw-bold"> Una vez completado el registro, pasará a una lista de espera para ser aceptado en
                 la plataforma. Este proceso puede demorar hasta 2 días hábiles. </p>
             </div>
-            <div class="col-12">
-              <button class="btn btn-outline-info" type="submit" id="registroMedico">Registrarse</button>
+            <div class="col-12 text-end">
+              <button class=" btn btn-outline-info  fw-bold" type="submit" id="registroMedico">Registrarse</button>
             </div>
           </form>
         </div>

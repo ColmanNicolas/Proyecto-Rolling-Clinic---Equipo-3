@@ -73,10 +73,10 @@
           <button id="botonRecargar" class="btn btn-secondary" type="button"><i class="bi bi-arrow-clockwise fw-bold"></i></button>
         </div>
       </div>
-      <div class="ms-auto d-flex align-items-center  mb-3">
-        <input id="inputBuscador" type="text">
-        <button id="botonBuscador" class=" btn ms-1 btn-secondary " type="button" onclick="buscadorEntreListas()" >buscador</button>
-      </div>
+      <form class="ms-auto d-flex align-items-center contenedorBuscadorTamaño  mb-3" onsubmit="buscadorEntreListas(event)">
+        <input id="inputBuscador" class="form-control inputTamaño" placeholder="busqueda por apellido o nombre" type="text">
+        <button id="botonBuscador" class=" btn ms-1 btn-secondary " type="submit"  >buscador</button>
+      </form>
     </div>
     <div id="contenerdorScrolleableTablas">
       <table class="table table-dark table-hover w-100" id="contendorTablas">
@@ -92,13 +92,13 @@
   <div class="modal fade" id="modalBaja" tabindex="-1" aria-labelledby="modalBajaLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-4" id="modalBajaLabel">
-            Dar de Baja a un usuario
+        <div class="modal-header colorAzul">
+          <h1 class="modal-title fs-4 " id="modalBajaLabel">
+            Dar de baja un usuario
           </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form id="formularioBajaUsuario" onsubmit="bajaUsuario(event)"></form>
+        <form class="bg-transparent" id="formularioBajaUsuario" onsubmit="bajaUsuario(event)"></form>
       </div>
     </div>
   </div>

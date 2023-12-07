@@ -22,7 +22,7 @@ const desplegarBotonesSideBar = (codigo) => {
         <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosPaciente" >HISTORIAL DE TURNOS</li>
         <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonNuestrosCentros">NUESTROS CENTROS</li>    
         `;
-        mostrarCartillaProfesionales();
+        mostrarCartillaProfesionales("listaMedicos");
         break;
       case 1:
         SideBarBotones.innerHTML += `
@@ -65,7 +65,7 @@ const desplegarBotonesSideBar = (codigo) => {
           <li class=" my-1 text-center text-white fw-semibold " id="botonNuestrosCentros"><b><i class="bi bi-building-check"></i></b></li>
           <li class=" my-1 text-center text-white fw-semibold " id="miCuenta"><b><i class="bi bi-person-fill-gear"></i></b></li>
         `;
-        mostrarCartillaProfesionales();
+        mostrarCartillaProfesionales(listaMedicos);
         break;
       case 1:
         NavBarInferiorBotones.innerHTML += `
@@ -99,7 +99,8 @@ const capturarBotonesSideBar = (codigo) => {
       const botonDocumentacion = document.getElementById("botonDocumentacion");
       const botonTurnosPaciente = document.getElementById("botonTurnosPaciente");
       const botonNuestrosCentros = document.getElementById("botonNuestrosCentros");
-      botonCartillaProfesionales.addEventListener("click", mostrarCartillaProfesionales);
+      botonCartillaProfesionales.addEventListener("click", () => {mostrarCartillaProfesionales("listaMedicos");});
+
 
       botonDocumentacion.addEventListener("click", mostrarDocumentacion);
       botonTurnosPaciente.addEventListener("click", mostrarHistorialTurnos);
@@ -136,20 +137,25 @@ const capturarBotonesSideBar = (codigo) => {
   }
 };
 const asignarBotonRecargarLista = (lista) => {
-
   const botonRecargar = document.getElementById("botonRecargar");
-  botonRecargar.onclick = function () {
-    mostrarUsuariosAdministrador(lista);
-  };
+  if (codigoInicioSesion === 2) {
+    botonRecargar.onclick = function () {
+      mostrarUsuariosAdministrador(lista);
+    };
+  } else if (codigoInicioSesion === 0) {
+    botonRecargar.onclick = function () {
+      mostrarCartillaProfesionales(lista);
+    };
+  }
 };
 const mostrarFiltrosDesplegables = (lista) => {
-  console.log(lista);
-  desplegableFiltros.innerHTML = "";
-  if (lista === listaMedicos || lista === listaDeEsperaMedicos  ) {
-    
-    const desplegableFiltros = document.getElementById("desplegableFiltros");
 
-    
+  const desplegableFiltros = document.getElementById("desplegableFiltros");
+
+  desplegableFiltros.innerHTML = "";
+  if (lista === listaMedicos || lista === listaDeEsperaMedicos) {
+
+
     desplegableFiltros.innerHTML = `
     <li class="dropdown-item" onclick="filtrarLista(${lista},'centro','Tucumán')">Centro Tucuman</li>
     <li class="dropdown-item" onclick="filtrarLista(${lista},'centro','Jujuy')">Centro Jujuy</li>
@@ -159,7 +165,7 @@ const mostrarFiltrosDesplegables = (lista) => {
   }
 }
 const mostrarEspecialidades = (lista) => {
-  
+
   const botonSubmitFiltro = document.getElementById("botonSubmitFiltro");
   modalFiltrarPorEspecialidad.show();
   botonSubmitFiltro.dataset.guardoLista = lista;
@@ -168,29 +174,30 @@ const mostrarEspecialidades = (lista) => {
 }
 const setearListaEnBuscador = (lista) => {
   const botonBuscador = document.getElementById("botonBuscador");
-  console.log("seteo la lista: ",lista);
-  botonBuscador.dataset.listaCorrespondiente=lista;
+  console.log("seteo la lista: ", lista);
+  botonBuscador.dataset.listaCorrespondiente = lista;
 }
-const buscadorEntreListas = () => {
+const buscadorEntreListas = (event) => {
+  event.preventDefault();
   const botonBuscador = document.getElementById("botonBuscador");
   const inputBuscador = document.getElementById("inputBuscador");
 
   const lista = botonBuscador.dataset.listaCorrespondiente;
   const valorBuscador = inputBuscador.value.trim();
 
-  filtrarLista(lista,"nombreOapellido",valorBuscador);
+  filtrarLista(lista, "nombreOapellido", valorBuscador);
 
 }
 const manejarFiltradoEspecialidad = (event) => {
   event.preventDefault();
-  
+
   const filtroEspecialidad = document.getElementById("filtroEspecialidad");
   const valorSeleccionado = filtroEspecialidad.value;
 
   const botonSubmitFiltro = document.getElementById("botonSubmitFiltro");
   const lista = botonSubmitFiltro.dataset.guardoLista;
 
-  console.log("webooos",lista);
+  console.log("webooos", lista);
   filtrarLista(lista, "especialidad", valorSeleccionado);
   modalFiltrarPorEspecialidad.hide();
 }
@@ -227,32 +234,36 @@ const filtrarLista = (lista, tipoFiltrado, valor) => {
 
     listaAfiltrar = listaAfiltrar.filter(element => element.centroMedico.includes(valor));
 
-  } else if (tipoFiltrado === 'especialidad'){
+  } else if (tipoFiltrado === 'especialidad') {
 
     listaAfiltrar = listaAfiltrar.filter(element => element.especialidad.includes(valor));
 
-  } else if(tipoFiltrado === 'nombreOapellido'){
+  } else if (tipoFiltrado === 'nombreOapellido') {
 
     if (lista === listaMedicos || lista === listaDeEsperaMedicos || lista === listaMedicosBaja) {
-      listaAfiltrar = listaAfiltrar.filter(elemento => 
+      listaAfiltrar = listaAfiltrar.filter(elemento =>
         elemento.nombreMedico.includes(valor) || elemento.apellidoMedico.includes(valor)
       );
     } else if (lista === listaPacientes || lista === listaDeEsperaPacientes || lista === listaPacientesBaja) {
-      listaAfiltrar = listaAfiltrar.filter(elemento => 
+      listaAfiltrar = listaAfiltrar.filter(elemento =>
         elemento.nombrePaciente.includes(valor) || elemento.apellidoPaciente.includes(valor)
       );
     }
-    
+
   }
 
-    actualizarContenidoArrayLS(listaAfiltrar, listaAuxiliarFiltrado);
+  actualizarContenidoArrayLS(listaAfiltrar, listaAuxiliarFiltrado);
+  if (codigoInicioSesion === 2) {
 
-  if (lista === listaPacientes || lista === listaDeEsperaPacientes) {
-    actualizarTabla(listaAuxiliarFiltrado, "paciente");
-  } else if (lista === listaMedicos || lista === listaDeEsperaMedicos) {
-    actualizarTabla(listaAuxiliarFiltrado, "medico");
-  } else {
-    actualizarTabla(listaAuxiliarFiltrado, "usuarioBaja");
+    if (lista === listaPacientes || lista === listaDeEsperaPacientes) {
+      actualizarTabla(listaAuxiliarFiltrado, "paciente");
+    } else if (lista === listaMedicos || lista === listaDeEsperaMedicos) {
+      actualizarTabla(listaAuxiliarFiltrado, "medico");
+    } else {
+      actualizarTabla(listaAuxiliarFiltrado, "usuarioBaja");
+    }
+  } else if (codigoInicioSesion === 0) {
+    mostrarCartillaProfesionales(listaAuxiliarFiltrado);
   }
 }
 
@@ -265,7 +276,7 @@ const actualizarTabla = (lista, usuario) => {
   actualizarTitulosTablas(lista);
 
   if (usuario === "medico") {
-  
+
     actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista), usuario), lista);
     listaDeUsuarios = obtenerContenidoArrayLS(lista);
 
@@ -339,12 +350,29 @@ const actualizarTabla = (lista, usuario) => {
   }
 };
 const definirAcciones = (lista, index) => {
-  if (lista === listaDeEsperaMedicos || lista === listaDeEsperaPacientes) {
+
+  let tieneNombrePaciente = false;
+  let tieneApellidoMedico = false;
+
+  if (lista === listaAuxiliarFiltrado) {
+    
+    let miLista = obtenerContenidoArrayLS(lista);
+    tieneNombrePaciente = miLista.every(obj => 'nombrePaciente' in obj);
+    // console.log("¿Todos tienen la propiedad 'nombrePaciente'?", tieneNombrePaciente);
+    
+    tieneApellidoMedico = miLista.every(obj => obj.hasOwnProperty('apellidoMedico'));
+    // console.log("¿Todos tienen la propiedad 'apellidoMedico'?", tieneApellidoMedico);
+    
+  }
+
+  if (lista === listaDeEsperaMedicos || lista === listaDeEsperaPacientes || tieneNombrePaciente===true) {
+    console.log("entro aqui cuando es baja");
     botonHTML = `
     <button class="btn btn-sm fw-bold btn-success" onclick="aprobarUsuario('${index}','${lista}')" type="button">aprobar</button>
     <button class="btn btn-sm fw-bold btn-danger" onclick="borrarUsuario('${index}','${lista}')" type="button">Borrar</button>
     `;
-  } else if (lista === listaMedicos || lista === listaPacientes) {
+  } else if (lista === listaMedicos || lista === listaPacientes || tieneApellidoMedico === true) {
+    console.log("entro a redefinir baja",lista);
     botonHTML = `
     <button class="btn btn-sm fw-bold btn-danger" onclick="mostrarModalBaja('${index}','${lista}')" type="button">Baja</button>
     `;
@@ -353,24 +381,44 @@ const definirAcciones = (lista, index) => {
 };
 
 const mostrarModalBaja = (index, lista) => {
-  console.log("muestro modaaaal");
+  
+  let miLista = obtenerContenidoArrayLS(lista);
+  if(lista === listaAuxiliarFiltrado){
+
+    const tieneNombrePaciente = miLista.every(obj => 'nombrePaciente' in obj);
+    console.log("¿Todos tienen la propiedad 'nombrePaciente'?", tieneNombrePaciente);
+    
+    const tieneApellidoMedico = miLista.every(obj => obj.hasOwnProperty('apellidoMedico'));
+    console.log("¿Todos tienen la propiedad 'apellidoMedico'?", tieneApellidoMedico);
+    
+    if(tieneNombrePaciente){
+      
+      pintarFormularioBaja(index, listaAuxiliarFiltrado, "paciente");
+    }else if(tieneApellidoMedico){
+      pintarFormularioBaja(index, listaAuxiliarFiltrado, "medico");
+      
+    }
+  }else{
+    pintarFormularioBaja(index, lista, "");
+  }
+    
   modalBaja.show();
-  pintarFormularioBaja(index, lista);
 };
-const pintarFormularioBaja = (index, lista) => {
+const pintarFormularioBaja = (index, lista,usuario) => {
   const listaUsuarios = obtenerContenidoArrayLS(lista);
+  console.log("recibo",listaUsuarios);
   const formularioBaja = document.getElementById("formularioBajaUsuario");
 
   formularioBaja.innerHTML = "";
-  if (lista === listaPacientes) {
+  if (lista === listaPacientes || usuario === "paciente" ) {
     formularioBaja.innerHTML += `
     <div class="modal-body">
   <h5>Informacion del usuario</h3>
-  <p id="datoTipoDeUsuario">Paciente :${listaUsuarios[index].apellidoPaciente} ${listaUsuarios[index].nombrePaciente} </p>
+  <p id="datoTipoDeUsuario">Paciente: ${listaUsuarios[index].apellidoPaciente} ${listaUsuarios[index].nombrePaciente} </p>
   <p id="datoDeUsuarioDoc" >Documento: ${listaUsuarios[index].dniPaciente}</p>
   <div>
   <label for="inputMotivoBaja" class="form-label fw-bold">Motivo de Baja</label>
-  <input type="text" id="inputMotivoBaja" class="form-control" required />
+  <input type="text" id="inputMotivoBaja" placeholder="Ingrese el motivo de baja" class="form-control" required />
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -382,15 +430,18 @@ const pintarFormularioBaja = (index, lista) => {
   </div>
   </div>
   `;
-  } else if (lista === listaMedicos) {
+  } else if (lista === listaMedicos || usuario === "medico") {
+    console.log(listaUsuarios);
     formularioBaja.innerHTML += `
     <div class="modal-body">
   <h6>Informacion del usuario</h6>
   <p id="datoTipoDeUsuario" >Doctor: ${listaUsuarios[index].apellidoMedico} ${listaUsuarios[index].nombreMedico} </p>
   <p id="datoDeUsuarioDoc">Documento: ${listaUsuarios[index].dniMedico}</p>
+  <p id="datoDeUsuarioEsp">Area: ${listaUsuarios[index].especialidad}</p>
+
   <div>
   <label for="inputMotivoBaja" class="form-label fw-bold">Motivo de Baja</label>
-  <input type="text" id="inputMotivoBaja" class="form-control" required />
+  <input type="text" id="inputMotivoBaja" placeholder="Ingrese el motivo de baja" class="form-control" required />
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -409,8 +460,8 @@ const botonCerrarSesion = () => {
   localStorage.setItem("UsuarioLogeado", "no logeado");
   window.location = "index.html";
 }
-const informacionCompletaMedico = (index) => {
-  const recuperoListaMedicos = obtenerContenidoArrayLS(listaMedicos);
+const informacionCompletaMedico = (index,lista) => {
+  const recuperoListaMedicos = obtenerContenidoArrayLS(lista);
   const campoApellidoNombre = document.getElementById("infoApellidoNombreMedico");
   const campoCorreo = document.getElementById("infoCorreoMedico");
   const campoEspecialidad = document.getElementById("infoEspecialidadMedico");
@@ -461,10 +512,15 @@ const definirImagenNavar = (dniUsuario, codigo) => {
 
 // ------------------------------------------------Funciones para Paciente--------------------------------------------
 
-const mostrarCartillaProfesionales = () => {
+const mostrarCartillaProfesionales = (lista) => {
+
+  mostrarFiltrosDesplegables(listaMedicos);
+  asignarBotonRecargarLista(listaMedicos);
+  setearListaEnBuscador(listaMedicos);
+
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
-  let listaProfesionalesRegistrados = obtenerContenidoArrayLS("listaMedicos");
+  let listaProfesionalesRegistrados = obtenerContenidoArrayLS(lista);
 
   contenedorTablasHead.innerHTML = "";
   contenedorTablasBody.innerHTML = "";
@@ -480,26 +536,16 @@ const mostrarCartillaProfesionales = () => {
   </tr>
   `;
   listaProfesionalesRegistrados.forEach((element, index) => {
-    let botonHTML = "";
-
-    if (0 === obtenerUnElementoLS("codigoInicioSesion")) {
-      botonHTML = `
-      <button class="btn btn-sm btn-warning fw-bold" onclick="informacionCompletaMedico('${index}')" type="button">Informacion Completa</button>
-        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.dniMedico}"> Solicitar Consulta </button>
-      `;
-    } else if (2 === obtenerUnElementoLS("codigoInicioSesion")) {
-      botonHTML = `
-        <button class="btn btn-sm btn-danger fw-bold" onclick="borrarUsuario('${index}','${listaMedicos}')" type="button">Borrar </button>
-      `;
-    }
-
+   
     contenedorTablasBody.innerHTML += `
       <tr>
         <th scope="row">${index + 1}</th>
         <td>${element.apellidoMedico + ", " + element.nombreMedico}</td>
         <td>${element.centroMedico}</td>
         <td>${element.especialidad}</td>
-        <td class="text-center">${botonHTML}</td>
+        <td class="text-center"> 
+        <button class="btn btn-sm btn-warning fw-bold" onclick="informacionCompletaMedico('${index}',${lista})" type="button">Informacion Completa</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="showModalSolTurno(this)" id="${element.dniMedico}"> Solicitar Consulta </button></td>
       </tr>
     `;
   });
