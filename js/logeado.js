@@ -9,7 +9,7 @@ const desplegarBotonesSideBar = (codigo) => {
 
     SideBarBotones.innerHTML = "";
     contenedorBotonMenu.innerHTML = `
-    <button class="btn btn-dark ms-4 fw-semibold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+    <button class="btn btn-outline-info ms-4 fw-semibold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
     MENU
   </button>
     `;
@@ -99,7 +99,7 @@ const capturarBotonesSideBar = (codigo) => {
       const botonDocumentacion = document.getElementById("botonDocumentacion");
       const botonTurnosPaciente = document.getElementById("botonTurnosPaciente");
       const botonNuestrosCentros = document.getElementById("botonNuestrosCentros");
-      botonCartillaProfesionales.addEventListener("click", () => {mostrarCartillaProfesionales("listaMedicos");});
+      botonCartillaProfesionales.addEventListener("click", () => { mostrarCartillaProfesionales("listaMedicos"); });
 
 
       botonDocumentacion.addEventListener("click", mostrarDocumentacion);
@@ -355,24 +355,24 @@ const definirAcciones = (lista, index) => {
   let tieneApellidoMedico = false;
 
   if (lista === listaAuxiliarFiltrado) {
-    
+
     let miLista = obtenerContenidoArrayLS(lista);
     tieneNombrePaciente = miLista.every(obj => 'nombrePaciente' in obj);
     // console.log("¿Todos tienen la propiedad 'nombrePaciente'?", tieneNombrePaciente);
-    
+
     tieneApellidoMedico = miLista.every(obj => obj.hasOwnProperty('apellidoMedico'));
     // console.log("¿Todos tienen la propiedad 'apellidoMedico'?", tieneApellidoMedico);
-    
+
   }
 
-  if (lista === listaDeEsperaMedicos || lista === listaDeEsperaPacientes || tieneNombrePaciente===true) {
+  if (lista === listaDeEsperaMedicos || lista === listaDeEsperaPacientes || tieneNombrePaciente === true) {
     console.log("entro aqui cuando es baja");
     botonHTML = `
     <button class="btn btn-sm fw-bold btn-success" onclick="aprobarUsuario('${index}','${lista}')" type="button">aprobar</button>
     <button class="btn btn-sm fw-bold btn-danger" onclick="borrarUsuario('${index}','${lista}')" type="button">Borrar</button>
     `;
   } else if (lista === listaMedicos || lista === listaPacientes || tieneApellidoMedico === true) {
-    console.log("entro a redefinir baja",lista);
+    console.log("entro a redefinir baja", lista);
     botonHTML = `
     <button class="btn btn-sm fw-bold btn-danger" onclick="mostrarModalBaja('${index}','${lista}')" type="button">Baja</button>
     `;
@@ -381,36 +381,36 @@ const definirAcciones = (lista, index) => {
 };
 
 const mostrarModalBaja = (index, lista) => {
-  
+
   let miLista = obtenerContenidoArrayLS(lista);
-  if(lista === listaAuxiliarFiltrado){
+  if (lista === listaAuxiliarFiltrado) {
 
     const tieneNombrePaciente = miLista.every(obj => 'nombrePaciente' in obj);
     console.log("¿Todos tienen la propiedad 'nombrePaciente'?", tieneNombrePaciente);
-    
+
     const tieneApellidoMedico = miLista.every(obj => obj.hasOwnProperty('apellidoMedico'));
     console.log("¿Todos tienen la propiedad 'apellidoMedico'?", tieneApellidoMedico);
-    
-    if(tieneNombrePaciente){
-      
+
+    if (tieneNombrePaciente) {
+
       pintarFormularioBaja(index, listaAuxiliarFiltrado, "paciente");
-    }else if(tieneApellidoMedico){
+    } else if (tieneApellidoMedico) {
       pintarFormularioBaja(index, listaAuxiliarFiltrado, "medico");
-      
+
     }
-  }else{
+  } else {
     pintarFormularioBaja(index, lista, "");
   }
-    
+
   modalBaja.show();
 };
-const pintarFormularioBaja = (index, lista,usuario) => {
+const pintarFormularioBaja = (index, lista, usuario) => {
   const listaUsuarios = obtenerContenidoArrayLS(lista);
-  console.log("recibo",listaUsuarios);
+  console.log("recibo", listaUsuarios);
   const formularioBaja = document.getElementById("formularioBajaUsuario");
 
   formularioBaja.innerHTML = "";
-  if (lista === listaPacientes || usuario === "paciente" ) {
+  if (lista === listaPacientes || usuario === "paciente") {
     formularioBaja.innerHTML += `
     <div class="modal-body">
   <h5>Informacion del usuario</h3>
@@ -460,7 +460,7 @@ const botonCerrarSesion = () => {
   localStorage.setItem("UsuarioLogeado", "no logeado");
   window.location = "index.html";
 }
-const informacionCompletaMedico = (index,lista) => {
+const informacionCompletaMedico = (index, lista) => {
   const recuperoListaMedicos = obtenerContenidoArrayLS(lista);
   const campoApellidoNombre = document.getElementById("infoApellidoNombreMedico");
   const campoCorreo = document.getElementById("infoCorreoMedico");
@@ -536,7 +536,7 @@ const mostrarCartillaProfesionales = (lista) => {
   </tr>
   `;
   listaProfesionalesRegistrados.forEach((element, index) => {
-   
+
     contenedorTablasBody.innerHTML += `
       <tr>
         <th scope="row">${index + 1}</th>
@@ -554,7 +554,57 @@ const mostrarCartillaProfesionales = (lista) => {
 const mostrarDocumentacion = () => { };
 
 
-const mostrarHistorialTurnos = () => { };
+const mostrarHistorialTurnos = () => {
+  const contenedorTablasHead = document.getElementById("contendorTablasHead");
+  const contenedorTablasBody = document.getElementById("contendorTablasBody");
+  let listaTurnosSolicitados = obtenerContenidoArrayLS("listaTurnos");
+  
+  const dniSolicitante = parseInt(localStorage.getItem("UsuarioLogeado"));
+  contenedorTablasHead.innerHTML = "";
+  contenedorTablasBody.innerHTML = "";
+  contenedorTablasHead.innerHTML += `
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Fecha y hora </th>
+    <th scope="col">Nombre del Medico</th>
+    <th scope="col">area Medica</th>
+    <th class="text-center" scope="col">Detalle de Consulta</th>
+  </tr>
+  `;
+
+  listaTurnosSolicitados.forEach((element, index) => {
+    let dniDelMedico = element.dniAsignado;
+    let obtenerMedico = obtenerContenidoArrayLS("listaMedicos");
+    let nombreDelMedico ;
+    let apellidoDelMedico;
+    let especilidadDelMedico;
+    obtenerMedico.forEach(element => {
+console.log(dniDelMedico," ",element.dniMedico);
+      if (parseInt(dniDelMedico) === parseInt(element.dniMedico)) {
+        let medico = buscarUsuarioPorDocumento(parseInt(dniDelMedico),"listaMedico");
+        
+         nombreDelMedico = element.nombreMedico;
+         apellidoDelMedico = element.apellidoMedico;
+         especilidadDelMedico = element.especialidad;
+      }
+    })
+   
+    if (element.dniSolicitante === dniSolicitante) {
+      console.log("entro aqui");
+      contenedorTablasBody.innerHTML += `
+      <tr>
+      <th scope="row">${index + 1}</th>
+      <td>${element.fechaConsulta} y ${element.horaConsulta}</td>
+      <td>${nombreDelMedico}, ${apellidoDelMedico}</td>
+      <td>${especilidadDelMedico}</td>
+      <td class="text-center ">${element.detalleConsulta}</td>
+    </tr>
+      
+      `;
+    }
+  })
+
+};
 
 const mostrarNuestrosCentros = () => { };
 
@@ -810,7 +860,7 @@ const agregarSolTurno = (event) => {
   event.preventDefault();
   const detalleConsulta = document.getElementById("detalleConsulta").value;
   const fechaConsulta = document.getElementById("fechaConsulta").value;
-
+  const listaTurnosArray = obtenerContenidoArrayLS("listaTurnos");
   var fechaSeleccionada = new Date(fechaConsulta);
   var diaSemana = fechaSeleccionada.getDay();
 
@@ -827,15 +877,16 @@ const agregarSolTurno = (event) => {
     horaConsulta,
     dniAsignado,
     nombreSolicitante,
+    dniSolicitante
   };
 
-  turnos.push(turno);
-  localStorage.setItem("listaTurnos", JSON.stringify(turnos));
+  listaTurnosArray.push(turno);
+  actualizarContenidoArrayLS(listaTurnosArray,"listaTurnos");
 
- /* const reseteoModalTurno = document.getElementById("modalSolTurno");
-  reseteoModalTurno.addEventListener("hidden.bs.modal", function (event) {
-    formSolturno.reset();
-  });*/
+  /* const reseteoModalTurno = document.getElementById("modalSolTurno");
+   reseteoModalTurno.addEventListener("hidden.bs.modal", function (event) {
+     formSolturno.reset();
+   });*/
   modalTurno.hide();
 };
 
