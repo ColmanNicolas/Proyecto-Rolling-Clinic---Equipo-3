@@ -1,6 +1,6 @@
-body {
+.body {
    
-    background-color: #f3f3f3; /* Fondo gris claro */
+    background-color: #EEEEEE; /* Fondo gris claro */
   
 }
 
@@ -118,4 +118,14 @@ button:hover {
     background-color: #64CCC5;
     color: aliceblue;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  }
+
+.letraboton {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.colorOscuro{
+    background-color: #053B50;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: aliceblue;
   }

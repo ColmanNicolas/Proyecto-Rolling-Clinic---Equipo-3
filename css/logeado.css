@@ -15,7 +15,6 @@
 }
 #contenedorBotonesSideBar li:hover {
   cursor: pointer;
-  background-color: rgb(75, 75, 75);
   transition-duration: 0.7s;
 }
 #tamañoContenedorTablas {
@@ -141,10 +140,7 @@
   border: 2px solid black;
   object-position: 0% 0%; 
 }
-#contenedorMiCuenta button{
-  background-color: rgb(21, 21, 136);
-  color: aliceblue;
-}
+
 #offcanvasScrollingLabel img{
   width: 100px;
   object-fit: cover;
@@ -153,6 +149,8 @@
 }
 .colorOscuro{
   background-color: #053B50;
+  color: aliceblue;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 #desplegableFiltros li:hover{
@@ -162,4 +160,8 @@
 }
 .inputTamaño{
   width: 270px !important;
+}
+
+.letraboton {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
