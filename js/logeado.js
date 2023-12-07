@@ -30,11 +30,11 @@ const desplegarBotonesSideBar = (codigo) => {
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonTurnosMedico">TURNOS ASIGNADOS</li>
           `;
         break;
-      case 2: 
-       const contenedorMiCuenta = document.getElementById("contenedorMiCuenta");
-       while (contenedorMiCuenta.firstChild) {
-        contenedorMiCuenta.removeChild(contenedorMiCuenta.firstChild);
-      }
+      case 2:
+        const contenedorMiCuenta = document.getElementById("contenedorMiCuenta");
+        while (contenedorMiCuenta.firstChild) {
+          contenedorMiCuenta.removeChild(contenedorMiCuenta.firstChild);
+        }
         SideBarBotones.innerHTML += `
             <li class="nav-item text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonProfesionalesRegistrados">REGISTRO DE PROFESIONALES</li>
             <li class="nav-item  text-start botonesSideBar text-white fw-semibold py-2 w-100" id="botonProfesionalesEnEspera">PROFESIONALES EN ESPERA</li>
@@ -135,15 +135,106 @@ const capturarBotonesSideBar = (codigo) => {
       break;
   }
 };
+const asignarBotonRecargarLista = (lista) => {
+
+  const botonRecargar = document.getElementById("botonRecargar");
+  botonRecargar.onclick = function () {
+    mostrarUsuariosAdministrador(lista);
+  };
+};
+const mostrarFiltrosDesplegables = (lista) => {
+  console.log(lista);
+  if (lista !== listaAuxiliarFiltrado && lista !== listaPacientes && lista !== listaDeEsperaPacientes && lista !== listaPacientesBaja  ) {
+    
+    const desplegableFiltros = document.getElementById("desplegableFiltros");
+
+    desplegableFiltros.innerHTML = "";
+    desplegableFiltros.innerHTML = `
+    <li class="dropdown-item" onclick="filtrarLista(${lista},'centro','Tucumán')">Centro Tucuman</li>
+    <li class="dropdown-item" onclick="filtrarLista(${lista},'centro','Jujuy')">Centro Jujuy</li>
+    <li class="dropdown-item" onclick="filtrarLista(${lista},'centro','Salta')">Centro Salta</li>
+    <li class="dropdown-item" onclick="mostrarEspecialidades(${lista})">Especialidad</li>
+    `;
+  }
+}
+const mostrarEspecialidades = (lista) => {
+  
+  const botonSubmitFiltro = document.getElementById("botonSubmitFiltro");
+  modalFiltrarPorEspecialidad.show();
+  botonSubmitFiltro.dataset.guardoLista = lista;
+
+
+}
+const manejarFiltradoEspecialidad = (event) => {
+  event.preventDefault();
+  
+  const filtroEspecialidad = document.getElementById("filtroEspecialidad");
+  const valorSeleccionado = filtroEspecialidad.value;
+
+  const botonSubmitFiltro = document.getElementById("botonSubmitFiltro");
+  const lista = botonSubmitFiltro.dataset.guardoLista;
+
+  console.log("webooos",lista);
+  filtrarLista(lista, "especialidad", valorSeleccionado);
+  modalFiltrarPorEspecialidad.hide();
+}
+const actualizarTitulosTablas = (lista) => {
+  const titulosTablas = document.getElementById("titulosTablas");
+  switch (lista) {
+    case listaMedicos:
+      titulosTablas.innerText = "Profesionales en Sistema";
+      break;
+    case listaDeEsperaMedicos:
+      titulosTablas.innerText = "Profesionales en Espera de Aprobación";
+      break;
+    case listaPacientes:
+      titulosTablas.innerText = "Pacientes en Sistema";
+      break;
+    case listaDeEsperaPacientes:
+      titulosTablas.innerText = "Pacientes en Espera de Aprobación";
+      break;
+    case listaMedicosBaja:
+      titulosTablas.innerText = "Profesionales Dados de Baja";
+      break;
+    case listaPacientesBaja:
+      titulosTablas.innerText = "Pacientes Dados de Baja";
+      break;
+    default:
+      break;
+  }
+}
+const filtrarLista = (lista, tipoFiltrado, valor) => {
+
+  let listaAfiltrar = obtenerContenidoArrayLS(lista);
+  if (tipoFiltrado === 'centro') {
+    listaAfiltrar = listaAfiltrar.filter(element => element.centroMedico.includes(valor));
+  } else if (tipoFiltrado === 'especialidad'){
+    listaAfiltrar = listaAfiltrar.filter(element => element.especialidad.includes(valor));
+  }
+
+    actualizarContenidoArrayLS(listaAfiltrar, listaAuxiliarFiltrado);
+
+  if (lista === listaPacientes || lista === listaDeEsperaPacientes) {
+    actualizarTabla(listaAuxiliarFiltrado, "paciente");
+  } else if (lista === listaMedicos || lista === listaDeEsperaMedicos) {
+    actualizarTabla(listaAuxiliarFiltrado, "medico");
+  } else {
+    actualizarTabla(listaAuxiliarFiltrado, "usuarioBaja");
+  }
+}
+
 const actualizarTabla = (lista, usuario) => {
   const contenedorTablasBody = document.getElementById("contendorTablasBody");
+
   let listaDeUsuarios = null;
   contenedorTablasBody.innerHTML = "";
- 
+  mostrarFiltrosDesplegables(lista);
+  actualizarTitulosTablas(lista);
+
   if (usuario === "medico") {
-    actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),usuario),lista);
+  
+    actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista), usuario), lista);
     listaDeUsuarios = obtenerContenidoArrayLS(lista);
-    titulosTablas.innerText = lista === listaDeEsperaMedicos ? "Profesionales en Espera de Aprobación" : "Profesionales en Sistema";
 
     listaDeUsuarios.forEach((element, index) => {
       const botonHTML = definirAcciones(lista, index);
@@ -158,7 +249,8 @@ const actualizarTabla = (lista, usuario) => {
         `;
     });
   } else if (usuario === "paciente") {
-    actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),usuario),lista);
+
+    actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista), usuario), lista);
     listaDeUsuarios = obtenerContenidoArrayLS(lista);
     titulosTablas.innerText = lista === listaDeEsperaPacientes ? "Pacientes en Espera de Aprobacion" : "Pacientes en Sistema";
 
@@ -175,11 +267,11 @@ const actualizarTabla = (lista, usuario) => {
         `;
     });
   } else if (usuario === "usuarioBaja") {
+
     if (lista === listaPacientesBaja) {
-      actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),"paciente"),lista);
+      actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista), "paciente"), lista);
       listaDeUsuarios = obtenerContenidoArrayLS(lista);
       titulosTablas.innerText = "Pacientes dados de Baja";
-      console.log("llego aqui a ");
       listaDeUsuarios.forEach((element, index) => {
         contenedorTablasBody.innerHTML += `
           <tr>
@@ -192,7 +284,8 @@ const actualizarTabla = (lista, usuario) => {
           `;
       });
     } else if (lista === listaMedicosBaja) {
-      actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista),"medico"),lista);
+
+      actualizarContenidoArrayLS(ordenarPorApellidoYNombre(obtenerContenidoArrayLS(lista), "medico"), lista);
       listaDeUsuarios = obtenerContenidoArrayLS(lista);
       titulosTablas.innerText = "Medicos dados de Baja";
 
@@ -292,8 +385,6 @@ const informacionCompletaMedico = (index) => {
   const campoMatricula = document.getElementById("infoMatriculaMedico");
   const fotoDePerfil = document.getElementById("fotoDePerfil");
 
-
-
   const medicoSeleccionado = recuperoListaMedicos[index];
 
   campoApellidoNombre.innerText = medicoSeleccionado.apellidoMedico + ", " + medicoSeleccionado.nombreMedico;
@@ -308,8 +399,8 @@ const quitarModalInfo = () => {
   modalInfoMedico.hide();
 }
 const definirImagenNavar = (dniUsuario, codigo) => {
- 
-  
+
+
   let usuario = undefined;
   const fotoPerfilNav = document.getElementById("fotoPerfilNavbar");
 
@@ -319,13 +410,13 @@ const definirImagenNavar = (dniUsuario, codigo) => {
   // Convierte dniUsuario a un número
   const dniNumero = parseInt(dniUsuario, 10);
 
-console.log(codigo);
+  console.log(codigo);
   if (codigo === 0) {
-    
+
     usuario = buscarUsuarioPorDocumento(dniNumero, listaPacientes);
     fotoPerfilNav.src = usuario.fotoDePerfilURL;
   } else if (codigo === 1) {
-    
+
 
     usuario = buscarUsuarioPorDocumento(dniNumero, listaMedicos);
     fotoPerfilNav.src = usuario.fotoDePerfilURL;
@@ -430,6 +521,7 @@ const mostrarTurnosAsignados = () => {
 // ------------------------------------------------Funciones para Administrador--------------------------------------------
 
 const mostrarUsuariosAdministrador = (lista) => {
+  asignarBotonRecargarLista(lista);
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   contenedorTablasHead.innerHTML = "";
   console.log(lista);
@@ -531,10 +623,10 @@ const bajaUsuario = (event) => {
     cerrarModalResetearFormulario("modalBaja", "formularioBajaUsuario");
   }
 };
-const definirBotonesFiltros = (lista) =>{
+const definirBotonesFiltros = (lista) => {
   const contenedorBotonesFiltros = document.getElementById("botonesFiltros");
-  contenedorBotonesFiltros.innerHTML="";
-  contenedorBotonesFiltros=`  
+  contenedorBotonesFiltros.innerHTML = "";
+  contenedorBotonesFiltros = `  
   <div class="d-flex  mb-3">
   <button class="btn btn-secondary mx-1"  type="button" onclick="ordenarPorNombre(${lista})">ordenar por nombre</button>
   <div class="dropdown ">
@@ -574,7 +666,11 @@ const listaPacientes = "listaPacientes";
 const listaDeEsperaPacientes = "listaDeEsperaPacientes";
 const listaPacientesBaja = "listaPacientesBaja";
 const listaMedicosBaja = "listaMedicosBaja";
+const listaAuxiliarFiltrado = "listaAuxiliarFiltrado"
 
+const modalFiltrarPorEspecialidad = new bootstrap.Modal("#modalFiltrarPorEspecialidad", {
+  keyboard: false,
+});
 const modalBaja = new bootstrap.Modal("#modalBaja", {
   keyboard: false,
 });
@@ -582,13 +678,13 @@ const modalInfoMedico = new bootstrap.Modal("#modalInfoMedico", {
   keyboard: false,
 });
 
-const titulosTablas = document.getElementById("titulosTablas");
+
 const codigoInicioSesion = obtenerUnElementoLS("codigoInicioSesion");
 desplegarBotonesSideBar(codigoInicioSesion);
 capturarBotonesSideBar(codigoInicioSesion);
-if(codigoInicioSesion !== 2){
-  
-  definirImagenNavar(obtenerUnElementoLS("UsuarioLogeado"),codigoInicioSesion);
+if (codigoInicioSesion !== 2) {
+
+  definirImagenNavar(obtenerUnElementoLS("UsuarioLogeado"), codigoInicioSesion);
 }
 //---------------------------------- NO BORRAR, PUEDE SERVIR LUEGO
 /*

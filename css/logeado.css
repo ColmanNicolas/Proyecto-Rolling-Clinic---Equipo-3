@@ -87,7 +87,7 @@
   }
 }
 .colorAzul {
-  background-color:  #64CCC5;
+  background-color:  #459c96;
   color: aliceblue;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
@@ -155,3 +155,8 @@
   background-color: #053B50;
 }
 
+#desplegableFiltros li:hover{
+  background-color:  #a6d6d3;
+  font-weight: 600;
+  cursor: pointer;
+}
