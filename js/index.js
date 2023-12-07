@@ -7,6 +7,8 @@ const manejarFormPaciente = (event) => {
   const edadPaciente = document.getElementById("edadPaciente").value.trim();
   const emailPaciente = document.getElementById("emailPaciente").value.trim();
   const contrasenaPaciente = document.getElementById("contrasenaPaciente").value;
+  const nombreArchivoImagen = "./img/fotoPacientePredeterminada.png";
+  const fotoDePerfilURL = nombreArchivoImagen;
 
   const toastLiveExample = document.getElementById("liveToast");
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
@@ -20,6 +22,7 @@ const manejarFormPaciente = (event) => {
     edadPaciente,
     emailPaciente,
     contrasenaPaciente,
+    fotoDePerfilURL
   };
 
   if (validarPaciente(paciente)) {
@@ -44,7 +47,7 @@ const manejarFormMedico = (event) => {
   const emailMedico = document.getElementById("emailMedico").value.trim();
   const contrasenaMedico = document.getElementById("contrasenaMedico").value;
   const nombreArchivoImagen = "./img/fotoPredeterminada.png";
-  const fotoDePerfilURL = window.location.href + nombreArchivoImagen;
+  const fotoDePerfilURL = nombreArchivoImagen;
 
 // Crea la URL de la imagen concatenando el nombre del archivo con la ubicación actual
   const toastLiveExample = document.getElementById("liveToast");

@@ -832,10 +832,10 @@ const agregarSolTurno = (event) => {
   turnos.push(turno);
   localStorage.setItem("listaTurnos", JSON.stringify(turnos));
 
-  const reseteoModalTurno = document.getElementById("modalSolTurno");
+ /* const reseteoModalTurno = document.getElementById("modalSolTurno");
   reseteoModalTurno.addEventListener("hidden.bs.modal", function (event) {
     formSolturno.reset();
-  });
+  });*/
   modalTurno.hide();
 };
 
