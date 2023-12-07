@@ -144,11 +144,12 @@ const asignarBotonRecargarLista = (lista) => {
 };
 const mostrarFiltrosDesplegables = (lista) => {
   console.log(lista);
-  if (lista !== listaAuxiliarFiltrado && lista !== listaPacientes && lista !== listaDeEsperaPacientes && lista !== listaPacientesBaja  ) {
+  desplegableFiltros.innerHTML = "";
+  if (lista === listaMedicos || lista === listaDeEsperaMedicos  ) {
     
     const desplegableFiltros = document.getElementById("desplegableFiltros");
 
-    desplegableFiltros.innerHTML = "";
+    
     desplegableFiltros.innerHTML = `
     <li class="dropdown-item" onclick="filtrarLista(${lista},'centro','Tucumán')">Centro Tucuman</li>
     <li class="dropdown-item" onclick="filtrarLista(${lista},'centro','Jujuy')">Centro Jujuy</li>
@@ -163,6 +164,21 @@ const mostrarEspecialidades = (lista) => {
   modalFiltrarPorEspecialidad.show();
   botonSubmitFiltro.dataset.guardoLista = lista;
 
+
+}
+const setearListaEnBuscador = (lista) => {
+  const botonBuscador = document.getElementById("botonBuscador");
+  console.log("seteo la lista: ",lista);
+  botonBuscador.dataset.listaCorrespondiente=lista;
+}
+const buscadorEntreListas = () => {
+  const botonBuscador = document.getElementById("botonBuscador");
+  const inputBuscador = document.getElementById("inputBuscador");
+
+  const lista = botonBuscador.dataset.listaCorrespondiente;
+  const valorBuscador = inputBuscador.value.trim();
+
+  filtrarLista(lista,"nombreOapellido",valorBuscador);
 
 }
 const manejarFiltradoEspecialidad = (event) => {
@@ -206,10 +222,27 @@ const actualizarTitulosTablas = (lista) => {
 const filtrarLista = (lista, tipoFiltrado, valor) => {
 
   let listaAfiltrar = obtenerContenidoArrayLS(lista);
+
   if (tipoFiltrado === 'centro') {
+
     listaAfiltrar = listaAfiltrar.filter(element => element.centroMedico.includes(valor));
+
   } else if (tipoFiltrado === 'especialidad'){
+
     listaAfiltrar = listaAfiltrar.filter(element => element.especialidad.includes(valor));
+
+  } else if(tipoFiltrado === 'nombreOapellido'){
+
+    if (lista === listaMedicos || lista === listaDeEsperaMedicos || lista === listaMedicosBaja) {
+      listaAfiltrar = listaAfiltrar.filter(elemento => 
+        elemento.nombreMedico.includes(valor) || elemento.apellidoMedico.includes(valor)
+      );
+    } else if (lista === listaPacientes || lista === listaDeEsperaPacientes || lista === listaPacientesBaja) {
+      listaAfiltrar = listaAfiltrar.filter(elemento => 
+        elemento.nombrePaciente.includes(valor) || elemento.apellidoPaciente.includes(valor)
+      );
+    }
+    
   }
 
     actualizarContenidoArrayLS(listaAfiltrar, listaAuxiliarFiltrado);
@@ -521,7 +554,10 @@ const mostrarTurnosAsignados = () => {
 // ------------------------------------------------Funciones para Administrador--------------------------------------------
 
 const mostrarUsuariosAdministrador = (lista) => {
+
   asignarBotonRecargarLista(lista);
+  setearListaEnBuscador(lista);
+
   const contenedorTablasHead = document.getElementById("contendorTablasHead");
   contenedorTablasHead.innerHTML = "";
   console.log(lista);
