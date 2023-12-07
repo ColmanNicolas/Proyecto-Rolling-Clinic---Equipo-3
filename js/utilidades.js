@@ -10,7 +10,7 @@ const obtenerContenidoArrayLS = (listaLS) => {
 }
 
 const obtenerUnElementoLS = (listaLS) => {
-    //funcion para unico elemento
+    //funcion para unico elemento dsadasd
     let elemento = null;
     const elementoLocalStorage = localStorage.getItem(listaLS);
     if (elementoLocalStorage) {
