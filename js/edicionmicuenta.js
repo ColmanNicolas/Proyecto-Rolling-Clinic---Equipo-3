@@ -3,7 +3,9 @@ function validarFormulario() {
   //trata de copiar la estructura de los formularios de registro asi no escribis todo de cero
   //te serviran las validaciones que estan en el js de utilidades que ya esta vinculado
 }
-
+const volverAListas = ()=>{
+  window.location = "logeado.html";
+}
 function cambiarFoto(event, lista) {
   const fileInput = event.target;
   const profileImage = document.getElementById('profile-img');
@@ -21,8 +23,6 @@ function cambiarFoto(event, lista) {
     }
     return true; // Mantener otros elementos en la lista
   });
-
-  console.log("Recupero lista sin el usuario actual:", recuperoListaTotal);
 
   const file = fileInput.files[0];
 
@@ -54,6 +54,8 @@ const botonCerrarSesion = () => {
   window.location = "index.html";
 }
 function mostrarContrasena() {
+  alert("funcion no disponible todavia");
+  /*
   var contrasenaInput = document.getElementById('miCuentaContrasena');
   var botonMostrar = document.querySelector('.show-password');
 
@@ -63,7 +65,7 @@ function mostrarContrasena() {
   } else {
     contrasenaInput.type = 'password';
     botonMostrar.textContent = 'Mostrar';
-  }
+  }*/
 }
 
 // Función para guardar cambios en el localStorage
@@ -133,7 +135,27 @@ const rellenarFormularioPaciente = () => {
 
   // Esta función solo rellena, no debe hacer nada más
 };
+const validarFormularioPaciente = (event)=>{
+  event.preventDefault();
+  const nombrePaciente = document.getElementById("miCuentaNombrePaciente").value.trim();
+  const apellidoPaciente = document.getElementById("miCuentaApellidoPaciente").value.trim();
+  const dniPaciente = document.getElementById("dniPaciente").value.trim();
+  const edadPaciente = document.getElementById("edadPaciente").value.trim();
+  const emailPaciente = document.getElementById("miCuentaCorreoPaciente").value.trim();
+  const contrasenaPaciente = document.getElementById("miCuentaContrasenaPaciente").value;
 
+  const paciente = {
+    nombrePaciente,
+    apellidoPaciente,
+    dniPaciente,
+    edadPaciente,
+    emailPaciente,
+    contrasenaPaciente,
+  };
+}
+const validarFormularioMedico = (event)=>{
+  event.preventDefault();
+}
 const pintarFormulario = (codigo) => {
   const contenedorFormulariosMiCuenta = document.getElementById("contenedorFormulariosMiCuenta");
   contenedorFormulariosMiCuenta.innerHTML = "";
@@ -150,15 +172,15 @@ const pintarFormulario = (codigo) => {
     <label for="profile-picture-input">Cambiar Foto</label>
 </div>
 
-<form id="formulario-edicion-paciente" onsubmit="validarFormularioPaciente()">
+<form id="formulario-edicion-paciente" onsubmit="validarFormularioPaciente(event)">
     <div class="form-group">
         <label for="miCuentaNombrePaciente">Nombre:</label>
-        <input type="text" id="miCuentaNombrePaciente" name="nombre" required>
+        <input type="text" id="miCuentaNombrePaciente" name="nombre" disabled>
     </div>
 
     <div class="form-group">
         <label for="miCuentaApellidoPaciente">Apellido:</label>
-        <input type="text" id="miCuentaApellidoPaciente" name="apellido" required>
+        <input type="text" id="miCuentaApellidoPaciente" name="apellido" disabled>
     </div>
 
     <div class="form-group">
@@ -168,21 +190,21 @@ const pintarFormulario = (codigo) => {
 
     <div class="form-group">
         <label for="miCuentaCorreoPaciente">Correo:</label>
-        <input type="email" id="miCuentaCorreoPaciente" name="correo" required>
+        <input type="email" id="miCuentaCorreoPaciente" name="correo" disabled>
     </div>
 
     <div class="form-group">
         <label for="miCuentaEdadPaciente">Edad:</label>
-        <input type="text" id="miCuentaEdadPaciente" name="edad" pattern="\d+" title="La edad debe ser un número entero." required>
+        <input type="text" id="miCuentaEdadPaciente" name="edad" pattern="\d+" title="La edad debe ser un número entero." disabled>
     </div>
 
     <div class="form-group">
         <label for="miCuentaContrasenaPaciente"></label>Cambiar Contraseña:</label>
-        <input type="password" id="miCuentaContrasenaPaciente" name="contrasena" class="password-input" required>
+        <input type="password" id="miCuentaContrasenaPaciente" name="contrasena" class="password-input" disabled>
         <button type="button" class="show-password" onclick="mostrarContrasena()">Mostrar</button>
     </div>
 
-    <button type="submit">Guardar Cambios</button>
+    <button type="submit" disabled>Guardar Cambios</button>
 </form>
 `;
 rellenarFormularioPaciente();
@@ -197,14 +219,14 @@ rellenarFormularioPaciente();
     <input type="file" id="profile-picture-input" accept="image/*" style="display: none;" onchange="cambiarFoto(event,'listaMedicos')">
     <label for="profile-picture-input">Cambiar Foto</label>
 </div>
-<form id="formulario-edicion-medico" onsubmit="validarFormularioMedico()">
+<form id="formulario-edicion-medico" onsubmit="validarFormularioMedico(event)">
     <div class="form-group">
         <label for="miCuentaNombreMedico">Nombre:</label>
-        <input type="text" id="miCuentaNombreMedico" name="nombre" required>
+        <input type="text" id="miCuentaNombreMedico" name="nombre" disabled>
     </div>
     <div class="form-group">
         <label for="miCuentaApellidoMedico">Apellido:</label>
-        <input type="text" id="miCuentaApellidoMedico" name="apellido" required>
+        <input type="text" id="miCuentaApellidoMedico" name="apellido" disabled>
     </div>
     
     <div class="form-group">
@@ -230,16 +252,16 @@ rellenarFormularioPaciente();
 
     <div class="form-group">
         <label for="miCuentaCorreoMedico">Correo:</label>
-        <input type="email" id="miCuentaCorreoMedico" name="correo" required>
+        <input type="email" id="miCuentaCorreoMedico" name="correo" disabled>
     </div>
 
     <div class="form-group">
         <label for="miCuentaContrasena"></label>Cambiar Constraseña:</label>
-        <input type="password" id="miCuentaContrasena" name="contrasena" class="password-input" required>
+        <input type="password" id="miCuentaContrasena" name="contrasena" class="password-input" disabled>
         <button type="button" class="show-password" onclick="mostrarContrasena()">Mostrar</button>
     </div>
 
-    <button type="submit">Guardar Cambios</button>
+    <button type="submit" disabled>Guardar Cambios</button>
 </form>
 `;
     rellenarFormularioMedico();
